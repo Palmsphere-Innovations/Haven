@@ -1,0 +1,2 @@
+import { SectionPage } from "@/components/shared/section-page";
+export default function TenantApplicationPage() { return <SectionPage role="Tenant portal" title="Application" description="Track your application and identity verification progress." metrics={[{ label: "Application", value: "Approved", detail: "Completed 12 Sep" }, { label: "References", value: "Verified", detail: "All checks passed" }]} />; }

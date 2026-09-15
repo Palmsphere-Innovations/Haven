@@ -1,0 +1,2 @@
+import { SectionPage } from "@/components/shared/section-page";
+export default function VendorDashboardPage() { return <SectionPage role="Vendor portal" title="Dashboard" description="Manage your assigned jobs, dispatches, and invoices." metrics={[{ label: "Assigned jobs", value: "8", detail: "3 due this week" }, { label: "Dispatched", value: "5", detail: "2 awaiting response" }, { label: "Active invoices", value: "4", detail: "£2,840 outstanding" }, { label: "Completion rate", value: "98%", detail: "+4% this quarter" }]} />; }
