@@ -15,9 +15,9 @@ export const HeroSection: React.FC = () => {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
         <Badge
           variant="outline"
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#132A20]/5 border-[#132A20]/10 text-[#132A20] text-xs font-semibold tracking-wider uppercase mb-7"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand/5 border-brand/10 text-brand text-xs font-semibold tracking-wider uppercase mb-7"
         >
-          {/* <span className="w-1.5 h-1.5 rounded-full bg-[#132A20]" /> */}
+          {/* <span className="w-1.5 h-1.5 rounded-full bg-brand" /> */}
           UK Property Management
         </Badge>
         </motion.div>
@@ -34,11 +34,11 @@ export const HeroSection: React.FC = () => {
 
         {/* CTAs */}
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.24 }} className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button size="md" className="w-full sm:w-auto px-7 py-3.5 bg-[#132A20] hover:bg-[#1c3429] text-white rounded-xl">
-            <Link href="/signup">Create Account</Link>
+          <Button size="md" className="w-full sm:w-auto px-7 py-3.5 bg-brand hover:bg-[#1c3429] text-white rounded-xl">
+            <Link href="/sign-up">Create Account</Link>
           </Button>
           <Button variant="outline" size="md" className="w-full sm:w-auto px-7 py-3.5 bg-white text-neutral-800 border-neutral-300 hover:bg-neutral-50 rounded-xl">
-            <Link href="#agency">Inquire as Agency</Link>
+            <Link href="#agency">Inquire as Agent</Link>
           </Button>
         </motion.div>
 

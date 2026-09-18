@@ -4,7 +4,7 @@ import React, { useState, useMemo } from "react";
 import { Search, Filter, CheckCircle2, AlertCircle, AlertTriangle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { complianceCertificates, type ComplianceItem } from "@/lib/data/mock-data";
+import { complianceCertificates, type ComplianceItem } from "@/lib/mock/compliance";
 
 interface ComplianceMatrixProps {
   onService: (property: string, service: string) => void;

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { MaintenanceHeader } from "@/components/landlord/maintenance/maintenance-header";
 import { MaintenanceStats } from "@/components/landlord/maintenance/maintenance-stats";
 import { MaintenanceTable, type MaintenanceTicket } from "@/components/landlord/maintenance/maintenance-table";
-import { maintenanceTickets } from "@/lib/data/mock-data";
+import { maintenanceTickets } from "@/lib/mock/mock-data";
 import { LogRequestModal } from "@/components/landlord/maintenance/modals/log-request-modal";
 import { AssignContractorDrawer } from "@/components/landlord/maintenance/modals/assign-contractor-drawer";
 

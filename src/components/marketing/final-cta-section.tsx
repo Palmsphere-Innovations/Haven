@@ -12,8 +12,8 @@ export const FinalCTASection: React.FC = () => {
         <p className="text-base sm:text-lg text-neutral-600 max-w-xl mx-auto mb-9 leading-relaxed">
           Join UK property professionals operating on the Haven standard. Account setup takes less than five minutes.
         </p>
-        <Button  size="md" className="px-8 py-4 bg-[#132A20] hover:bg-[#1B3A2C] text-white rounded-xl shadow-md">
-          <Link href="/signup">Initialize Free Account</Link>
+        <Button  size="md" className="px-8 py-4 bg-brand hover:bg-brand text-white rounded-xl shadow-md">
+          <Link href="/sign-up">Initialize Free Account</Link>
         </Button>
       </div>
     </section>

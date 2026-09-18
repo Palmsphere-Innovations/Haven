@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { PropertiesHeader } from "@/components/landlord/properties/properties-header";
 import { PropertiesToolbar } from "@/components/landlord/properties/properties-toolbar";
 import { PropertiesTable, type PropertyRecord } from "@/components/landlord/properties/properties-table";
-import { propertiesData as centralizedPropertiesData } from "@/lib/data/mock-data";
-import { legacyProperties} from "@/lib/data/mock-properties";
+import { propertiesData as centralizedPropertiesData } from "@/lib/mock/mock-data";
+import { legacyProperties} from "@/lib/mock/properties";
 
 
 void legacyProperties;

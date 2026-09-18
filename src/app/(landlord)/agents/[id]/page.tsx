@@ -5,7 +5,7 @@ import { AgentDetailHeader } from "@/components/landlord/agents/detail/agenst-de
 import { AgentAuthorityScope } from "@/components/landlord/agents/detail/agent-authority-scope";
 import { AgentAssignedProperties } from "@/components/landlord/agents/detail/agents-assigned-properties";
 import { AgentActivityTimeline } from "@/components/landlord/agents/detail/agents-activity-timeline";
-import { agentDataStore } from "@/lib/data/mock-data";
+import { agentDataStore } from "@/lib/mock/mock-data";
 
 // interface
 

@@ -6,27 +6,12 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export interface PropertyRecord {
-  id: string;
-  code: string;
-  title: string;
-  address: string;
-  type: string;
-  subType: string;
-  occupant: string;
-  tenancyInfo: string;
-  rent: string;
-  rentType: string;
-  ledgerStatus: "overdue_14" | "overdue_7" | "due_soon" | "paid_dd" | "paid_so" | "paid_bacs" | "vacant";
-  ledgerText: string;
-  complianceStatus: "warning" | "valid" | "action";
-  complianceText: string;
-  isVacant?: boolean;
-}
+import { type PropertyRecord } from '@/lib/mock/properties'
 
 interface PropertiesTableProps {
   properties: PropertyRecord[];
 }
+
 
 export const PropertiesTable: React.FC<PropertiesTableProps> = ({ properties }) => {
   const router = useRouter();

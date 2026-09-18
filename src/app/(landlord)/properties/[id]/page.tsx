@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getMockProperty } from "@/lib/data/mock-properties";
+import { getMockProperty } from "@/lib/mock/properties";
 import { PropertyDetailClient } from "./property-detail-client";
 
 export default async function PropertyDetailPage({ params }: { params: Promise<{ id: string }> }) {

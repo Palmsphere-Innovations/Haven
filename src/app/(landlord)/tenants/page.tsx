@@ -7,7 +7,7 @@ import { InviteTenantModal } from "@/components/landlord/tenants/modals/invite-t
 import { TenantsMetrics } from "@/components/landlord/tenants/tenants-metrics";
 import { TenantsTable } from "@/components/landlord/tenants/tenants-table";
 import { TenantsRegulatoryBanner } from "@/components/landlord/tenants/tenants-regulatory-banner";
-import { tenantsData } from "@/lib/data/mock-data";
+import { tenantsData } from "@/lib/mock/mock-data";
 
 export default function LandlordTenantsPage() {
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);

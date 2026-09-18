@@ -171,3 +171,67 @@ export const getMockProperty = (id: string) => {
   const normalizedId = id.trim().toUpperCase();
   return legacyProperties[normalizedId] ?? Object.values(legacyProperties).find((property, index) => String(index + 1) === normalizedId);
 };
+
+
+
+export interface PropertyRecord {
+  id: string;
+  code: string;
+  title: string;
+  address: string;
+  type: string;
+  subType: string;
+  occupant: string;
+  tenancyInfo: string;
+  rent: string;
+  rentType: string;
+  ledgerStatus: "overdue_14" | "overdue_7" | "due_soon" | "paid_dd" | "paid_so" | "paid_bacs" | "vacant";
+  ledgerText: string;
+  complianceStatus: "warning" | "valid" | "action";
+  complianceText: string;
+  isVacant?: boolean;
+}
+
+
+
+
+const createProperty = (
+  id: string,
+  code: string,
+  title: string,
+  address: string,
+  type: PropertyRecord["type"],
+  subType: string,
+  occupant: string,
+  rent: string,
+  complianceStatus: PropertyRecord["complianceStatus"],
+  complianceText: string,
+  isVacant = false
+): PropertyRecord => ({
+  id,
+  code,
+  title,
+  address,
+  type,
+  subType,
+  occupant,
+  tenancyInfo: isVacant ? "Available now" : "AST • Active",
+  rent,
+  rentType: isVacant ? "Target Rent" : "Monthly",
+  ledgerStatus: isVacant ? "vacant" : "paid_dd",
+  ledgerText: isVacant ? "— Vacant —" : "Paid (Direct Debit)",
+  complianceStatus,
+  complianceText,
+  isVacant,
+});
+
+export const propertiesData: PropertyRecord[] = [
+  createProperty("1", "CM-08", "8 Camden Mews", "Camden, London NW1 9UX", "Residential", "2 Bed Flat", "Elena Rostova", "£850.00", "warning", "Gas CP12 due in 5d"),
+  createProperty("2", "BC-27", "27 Blenheim Crescent", "Notting Hill, London W11 2EF", "Residential", "4 Bed Townhouse", "Marcus Vance", "£2,600.00", "valid", "Valid • 2027 (4/4)"),
+  createProperty("3", "SJ-03A", "Unit 3A, St. John's Court", "Clapham, London SW4 7JR", "Residential", "1 Bed Apartment", "Maya Lin & S. Patel", "£1,850.00", "valid", "Valid • 2026 (4/4)"),
+  createProperty("4", "KG-4B", "Flat 4B, 18 Kensington Gdns", "Kensington, London W2 4QH", "Residential", "3 Bed Penthouse", "Oliver & Clara Finch", "£2,450.00", "warning", "Boiler SLA Pending"),
+  createProperty("5", "RM-12", "12 Richmond Hill Mansions", "Richmond, Surrey TW10 6RF", "Residential", "2 Bed Apartment", "Dr. Aris Thorne", "£3,100.00", "valid", "Valid • 2026 (4/4)"),
+  createProperty("6", "EW-14", "14 Elmfield Way", "Maida Vale, London W9 3BB", "Residential", "Victorian Terrace", "Vacant • Refurbishment", "£2,900.00", "action", "EPC Rating E Expiring", true),
+  createProperty("7", "GV-07", "7 Grosvenor Vale", "Ruislip, London HA4 6QY", "Commercial", "Ground Floor Office", "Apex Logistics Ltd", "£3,400.00", "valid", "Valid • 2028 (5/5)"),
+];
+

@@ -10,7 +10,7 @@ interface StakeholderCardProps {
 }
 
 const StakeholderCard: React.FC<StakeholderCardProps> = ({ step, title, description, ctaText, ctaHref }) => (
-  <article className="flex flex-col justify-between p-8 rounded-2xl bg-[#FCF9F8] border border-neutral-200 hover:border-[#132A20]/30 hover:shadow-md transition-all duration-200">
+  <article className="flex flex-col justify-between p-8 rounded-2xl bg-brand-surface border border-neutral-200 hover:border-brand/30 hover:shadow-md transition-all duration-200">
     <div>
       <span className="inline-block text-xs font-semibold text-neutral-400 bg-white px-2.5 py-1 rounded-md border border-neutral-200 mb-6">
         {step}
@@ -19,7 +19,7 @@ const StakeholderCard: React.FC<StakeholderCardProps> = ({ step, title, descript
       <p className="text-neutral-600 text-sm leading-relaxed mb-8">{description}</p>
     </div>
     <div>
-      <Link className="inline-flex items-center text-sm font-semibold text-[#132A20] hover:text-[#1B3A2C] group" href={ctaHref}>
+      <Link className="inline-flex items-center text-sm font-semibold text-brand hover:text-brand-hover group" href={ctaHref}>
         {ctaText}
         <span className="ml-1.5 transition-transform group-hover:translate-x-1">→</span>
       </Link>
@@ -34,21 +34,21 @@ export const StakeholderSection: React.FC = () => {
       title: "I'm a Landlord",
       description: "Automate rent collection, process background checks, manage compliance documents, and dispatch verified maintenance professionals.",
       ctaText: "Get Started",
-      ctaHref: "/signup?role=landlord",
+      ctaHref: "/sign-up?role=landlord",
     },
     {
       step: "02",
       title: "I'm a Tenant",
       description: "Track your rent, submit maintenance requests, and stay in touch with your landlord or agent, all in one place.",
       ctaText: "Ask for access",
-      ctaHref: "/signup?role=tenant",
+      ctaHref: "/sign-in?role=tenant",
     },
     {
       step: "03",
       title: "I'm an Agent",
       description: "Oversee entire agency portfolios, coordinate landlord-tenant communication, manage compliance across properties.",
       ctaText: "Get Started",
-      ctaHref: "/signup?role=agent",
+      ctaHref: "/sign-up?role=agent",
     },
   ];
 

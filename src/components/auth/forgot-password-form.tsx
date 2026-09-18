@@ -77,7 +77,7 @@ export const ForgotPasswordForm: React.FC = () => {
                   placeholder="e.g. user@domain.co.uk"
                   {...register("email")}
                   aria-invalid={Boolean(errors.email)}
-                  className="w-full px-4 py-3.5 bg-white border border-[#D5D8D6] rounded-lg text-sm text-brand placeholder-[#8C938F] focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-colors"
+                  className="w-full px-4 py-5.5 bg-white border border-[#D5D8D6] rounded-lg text-sm text-brand placeholder-[#8C938F] focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-colors"
                 />
                 {errors.email && (
                   <p id="email-error" className="text-xs font-medium text-red-700" role="alert">
@@ -90,7 +90,7 @@ export const ForgotPasswordForm: React.FC = () => {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3.5 px-6 rounded-lg bg-brand hover:bg-[#0c1b14] active:scale-[0.99] text-white font-semibold text-sm tracking-wide shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full py-5.5 px-6 rounded-lg bg-brand hover:bg-[#0c1b14] active:scale-[0.99] text-white font-semibold text-sm tracking-wide shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Sending..." : "Send Reset Link"}
               </Button>

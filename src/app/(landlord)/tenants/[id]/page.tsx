@@ -25,7 +25,7 @@ import {
   Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { tenantDataStore } from "@/lib/data/mock-data";
+import { tenantDataStore } from "@/lib/mock/mock-data";
 
 /* Legacy detail shape retained for compatibility with the existing page markup. */
 const legacyTenantDataStore: Record<

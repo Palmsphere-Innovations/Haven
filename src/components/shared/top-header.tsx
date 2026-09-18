@@ -27,8 +27,7 @@ export const TopHeader: React.FC = () => {
             className="w-full h-10 pl-10 pr-15 bg-gray-50 hover:bg-gray-100/70 focus:bg-white border border-gray-200 rounded- text-xs text-[#111827] placeholder:text-gray-400 focus-visible:ring-1 focus-visible:ring-neutral-400"
           />
           <kbd className="absolute right-4.5 top-2.5 text-[10px] font-mono text-gray-400 border border-gray-200 bg-white rounded px-1.5 group-focus:hidden py-0.5 pointer-events-none sm:hidden ">
-            {/* ⌘ K */}
-            S
+            ⌘ K
           </kbd>
         </div>
       </div>
@@ -75,7 +74,7 @@ export const TopHeader: React.FC = () => {
             </span>
             <span className="text-[11px] text-[#6B7280]">Principal Landlord</span>
           </div>
-          <div className="w-9 h-9 rounded-full bg-[#132A20] text-white flex items-center justify-center font-bold text-xs border border-gray-200">
+          <div className="w-9 h-9 rounded-full bg-brand text-white flex items-center justify-center font-bold text-xs border border-gray-200">
             AV
           </div>
         </div>

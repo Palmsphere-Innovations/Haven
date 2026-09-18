@@ -11,7 +11,7 @@ import {
   CreditCard,
   ArrowUpRight,
 } from "lucide-react";
-import type { MockProperty } from "@/lib/data/mock-properties";
+import type { MockProperty } from "@/lib/mock/properties";
 
 export function DetailCard({
   title,
@@ -74,7 +74,7 @@ export function OverviewSection({ code, property }: { code?: string; property?: 
           </div>
           <div className="p-3.5 bg-[#F9F9F8] rounded-xl border border-[#ECEEED] flex items-center justify-between">
             <span className="text-xs text-stone-600 font-medium">Monthly Target Rent</span>
-            <span className="text-base font-bold text-[#132A20] font-mono">{property?.rent ?? "£1,850.00"}</span>
+            <span className="text-base font-bold text-brand font-mono">{property?.rent ?? "£1,850.00"}</span>
           </div>
         </div>
       </DetailCard>
@@ -82,7 +82,7 @@ export function OverviewSection({ code, property }: { code?: string; property?: 
       {/* Letting Agent */}
       <DetailCard title="Assigned Letting Agent" subtitle="Operational management contact">
         <div className="p-4 rounded-xl bg-[#F9F9F8] border border-[#ECEEED] flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-[#E8EFEA] flex items-center justify-center text-[#132A20] shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-[#E8EFEA] flex items-center justify-center text-brand shrink-0">
             <UserRound className="w-5 h-5" />
           </div>
           <div>
@@ -110,7 +110,7 @@ export function TenancySection({ property }: { property?: MockProperty }) {
           <div className="p-4 bg-[#F9F9F8] rounded-xl border border-[#ECEEED]">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-stone-900">{property?.tenant ?? "Maya Lin & S. Patel"}</span>
-              <span className="px-2 py-0.5 rounded-full bg-[#E8EFEA] text-[#132A20] text-[10px] font-semibold">
+              <span className="px-2 py-0.5 rounded-full bg-[#E8EFEA] text-brand text-[10px] font-semibold">
                 Active AST
               </span>
             </div>
@@ -184,7 +184,7 @@ export function ComplianceSection({ certificates }: { certificates?: MockPropert
             </div>
             <button
               type="button"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-700 hover:text-[#132A20] px-3 py-1.5 rounded-lg border border-[#ECEEED] hover:bg-stone-50 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-700 hover:text-brand px-3 py-1.5 rounded-lg border border-[#ECEEED] hover:bg-stone-50 transition-colors"
             >
               <Download className="w-3.5 h-3.5 text-stone-500" />
               Download

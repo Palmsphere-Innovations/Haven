@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { AgentMetrics } from "@/components/landlord/agents/agents-metrics";
 import { AgentsTable,} from "@/components/landlord/agents/agents-table";
 import { AgentComplianceBanner } from "@/components/landlord/agents/agents-compliance-banner";
-import { agentsData } from "@/lib/data/mock-data";
+import { agentsData } from "@/lib/mock/mock-data";
 
 
 export default function LandlordAgentsPage() {

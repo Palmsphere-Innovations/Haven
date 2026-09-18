@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { propertiesData, maintenanceTickets } from "@/lib/data/mock-data";
+import { propertiesData, maintenanceTickets } from "@/lib/mock/mock-data";
 import { ArrowUpRight, CheckCircle2, Wrench, ShieldCheck, Home } from "lucide-react";
 
 export const HeroDashboardMockup: React.FC = () => {
@@ -58,12 +58,12 @@ export const HeroDashboardMockup: React.FC = () => {
             </div>
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-white border border-neutral-200 text-neutral-700">
-                <Home className="w-3.5 h-3.5 text-[#132A20]" />
+                <Home className="w-3.5 h-3.5 text-brand" />
                 Active Tenancies: {activePropertiesCount}
               </span>
               <button
                 type="button"
-                className="text-xs font-semibold bg-[#132A20] text-white px-4 py-2 rounded-xl hover:bg-[#1B3A2C] transition-all shadow-xs"
+                className="text-xs font-semibold bg-brand text-white px-4 py-2 rounded-xl hover:bg-brand-hover transition-all shadow-xs"
               >
                 + New Tenancy
               </button>

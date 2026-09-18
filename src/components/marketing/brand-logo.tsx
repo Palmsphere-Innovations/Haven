@@ -1,9 +1,11 @@
 import React from 'react';
+import { string } from 'zod/v4';
 
 interface LogoProps {
   variant?: 'light' | 'dark';
   size?: 'sm' | 'md' | 'lg';
   showWordmark?: boolean;
+  className?: string;
 }
 
 const SIZE_MAP = {
@@ -16,6 +18,7 @@ export const BrandLogo: React.FC<LogoProps> = ({
   variant = 'dark',
   size = 'md',
   showWordmark = true,
+  className = '',
 }) => {
   const isDark = variant === 'dark';
   const dimensions = SIZE_MAP[size];

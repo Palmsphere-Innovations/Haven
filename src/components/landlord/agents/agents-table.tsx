@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { AgentRecord, agentsData } from "@/lib/data/mock-data";
+import { AgentRecord, agentsData } from "@/lib/mock/mock-data";
 import { useRouter } from "next/router";
 import  Link  from "next/link";
 

@@ -53,20 +53,20 @@ export const LandlordSidebar: React.FC<SidebarProps> = ({
   return (
     <aside
       className={`relative bg-white  flex flex-col justify-between overflow-hidden p-4 sm:p-6 shrink-0 transition-all duration-300 select-none h-screen max-h-screen ${
-        isCollapsed ? "w-20" : "w-64 lg:w-72"
+        isCollapsed ? "w-28" : "w-64 lg:w-72"
       }`}
     >
       {/* Desktop Collapse Toggle Button */}
       <button
         type="button"
         onClick={onToggleCollapse}
-        className="hidden md:flex absolute  top-7 -right-3 z-40 w-7 h-7 bg-white border border-gray-200 rounded-full items-center justify-center text-gray-600 hover:text-gray-900 shadow-sm transition-transform"
+        className="hidden md:flex absolute  top-5 -right- z-40 w-9 h-9 bg-white border border-gray-200 rounded-full items-center justify-center text-gray-600 hover:text-gray-900 shadow-sm transition-transform"
         title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
       >
         {isCollapsed ? (
-          <ChevronRight className="w-3.5 h-3.5" />
+          <ChevronRight className="w-4.5 h-4.5" />
         ) : (
-          <ChevronLeft className="w-3.5 h-3.5" />
+          <ChevronLeft className="w-4.5 h-4.5" />
         )}
       </button>
 
@@ -78,7 +78,7 @@ export const LandlordSidebar: React.FC<SidebarProps> = ({
             onClick={onMobileClose}
             className="flex items-center gap-2 overflow-hidden"
           >
-            <BrandLogo />
+            <BrandLogo className={isCollapsed ? 'hidden' : 'flex'} />
           </Link>
         </div>
 

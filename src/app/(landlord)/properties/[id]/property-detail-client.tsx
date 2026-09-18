@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Download, Pencil, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { OverviewSection, TenancySection, ComplianceSection, MaintenanceSection } from "@/components/landlord/properties/detail/property-detail-sections";
-import type { MockProperty } from "@/lib/data/mock-properties";
+import type { MockProperty } from "@/lib/mock/properties";
 
 export function PropertyDetailClient({ property }: { property: MockProperty }) {
   const [tab, setTab] = useState<"overview" | "tenancy" | "compliance" | "maintenance">("overview");

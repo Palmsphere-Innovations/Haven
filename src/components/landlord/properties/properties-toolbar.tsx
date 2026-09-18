@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import { Search, ArrowUpDown, List, LayoutGrid } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { propertiesData } from "@/lib/data/mock-data";
+import { propertiesData } from "@/lib/mock/mock-data";
 
 export type ViewMode = "table" | "grid";
 
