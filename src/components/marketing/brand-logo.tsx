@@ -1,34 +1,48 @@
-import React from "react";
+import React from 'react';
 
-interface BrandLogoProps {
-  className?: string;
+interface LogoProps {
+  variant?: 'light' | 'dark';
+  size?: 'sm' | 'md' | 'lg';
+  showWordmark?: boolean;
 }
 
-export const BrandLogo: React.FC<BrandLogoProps> = ({ className = "h-8 w-auto" }) => {
+const SIZE_MAP = {
+  sm: { mark: 20, text: 'text-lg' },
+  md: { mark: 28, text: 'text-xl' },
+  lg: { mark: 44, text: 'text-2xl' },
+};
+
+export const BrandLogo: React.FC<LogoProps> = ({
+  variant = 'dark',
+  size = 'md',
+  showWordmark = true,
+}) => {
+  const isDark = variant === 'dark';
+  const dimensions = SIZE_MAP[size];
+
   return (
-    <svg
-      className={`${className} fill-brand`}
-      viewBox="0 0 280 80"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M16 48V28.5L38 12L60 28.5V48H47V35C47 30.0294 42.9706 26 38 26C33.0294 26 29 30.0294 29 35V48H16Z"
-        fill="#132A20"
-      />
-      <circle cx="38" cy="20" r="3" fill="#132A20" />
-      <text
-        x="78"
-        y="44"
-        fill="#132A20"
-        fontFamily="Inter, sans-serif"
-        fontSize="34"
-        fontWeight="600"
-        letterSpacing="-0.8px"
+    <div className="flex items-center gap-3 select-none">
+      <svg
+        viewBox="0 0 64 64"
+        width={dimensions.mark}
+        height={dimensions.mark}
+        role="img"
+        aria-label="Haven mark"
+        className="shrink-0"
       >
-        Haven
-      </text>
-    </svg>
+        <path
+          d="M12 52V34L32 14L52 34V52H39V30A7 7 0 0 0 25 30V52H12Z"
+          fill={isDark ? '#132A20' : '#EDEBE6'}
+        />
+      </svg>
+      {showWordmark && (
+        <span
+          className={`font-semibold tracking-tight ${dimensions.text}`}
+          style={{ color: isDark ? '#132A20' : '#EDEBE6' }}
+        >
+          Haven
+        </span>
+      )}
+    </div>
   );
 };

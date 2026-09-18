@@ -61,20 +61,20 @@ export const RentLedgerCard: React.FC = () => {
       case "overdue_14":
       case "overdue_7":
         return (
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-[#FDE8E8] text-[#991B1B]">
+          <span className="inline-flex items-center px-2.5 py-1 rounded-md border border-[#991B1B] text-[11px] font-medium bg-[#FDE8E8] text-[#991B1B]">
             {status === "overdue_14" ? "Overdue (14 days)" : "Overdue (7 days)"}
           </span>
         );
       case "due_soon":
         return (
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-[#FEF7E6] text-[#8D6E18]">
+          <span className="inline-flex items-center px-2.5 py-1 rounded-md border border-[#8D6E18] text-[11px] font-medium bg-[#FEF7E6] text-[#8D6E18]">
             Due in 3 days
           </span>
         );
       case "paid_dd":
       case "paid_so":
         return (
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-[#EAF4ED] text-[#1B5E20]">
+          <span className="inline-flex items-center px-2.5 py-1 rounded-md border border-[#1B5E20] w-max text text-center text-[11px] font-medium bg-[#EAF4ED] text-[#1B5E20]">
             {status === "paid_dd" ? "Paid (Direct Debit)" : "Paid (Standing Order)"}
           </span>
         );
@@ -146,20 +146,38 @@ export const RentLedgerCard: React.FC = () => {
               <th className="py-3 pl-3 text-right">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-50">
+
+
+          <tbody className="divide-y overflow-scroll divide-gray-50">
             {records.map((rec, i) => (
               <tr key={i} className="hover:bg-gray-50/70 transition-colors">
                 <td className="py-3.5 pr-4 font-medium text-[#111827]">
-                  <div className="truncate max-w-[190px]">{rec.address}</div>
+                  <div className="truncate max-w-50">
+                    {rec.address}
+                  </div>
                 </td>
-                <td className="py-3.5 px-3 text-[#6B7280]">{rec.tenant}</td>
+                <td className="py-3.5 px-3 h w-max text-[#6B7280]">
+                  <div className="truncate max-w-30">
+                    {rec.tenant}
+                    </div>
+                  </td>
                 <td className="py-3.5 px-3 text-right font-medium text-[#111827]">
+                <div className="truncate max-w-30" >
                   {rec.rent}
+                  </div>
                 </td>
-                <td className="py-3.5 px-3 text-[#6B7280] font-mono text-[11px]">
+                <td className="py-3.5 px-3 w-5 text-[#6B7280] font-mono text-[11px]">
+                <div className="truncate max-w-30">
+                  
                   {rec.dueDate}
+                  </div>
+
                 </td>
-                <td className="py-3.5 px-3">{renderStatusTag(rec.status)}</td>
+                <td className="py-3.5 px-3">
+                  
+                  {renderStatusTag(rec.status)}
+
+                </td>
                 <td className="py-3.5 pl-3 text-right">
                   <Button
                     variant="secondary"

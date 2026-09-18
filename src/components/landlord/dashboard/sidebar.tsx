@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   Building2,
   Users,
+  User,
   HandCoins,
   FileCheck2,
   FileText,
@@ -39,7 +40,7 @@ const navItems = [
   { label: "Maintenance", href: "/maintenance", icon: Wrench },
   { label: "Cost Analysis", href: "/cost-analysis", icon: BarChart3 },
   { label: "Disputes", href: "/disputes", icon: Gavel },
-  { label: "Disputes", href: "/disputes", icon: Gavel },
+  // { label: "Settings", href: "/disputes", icon: Gavel },
 ];
 
 export const LandlordSidebar: React.FC<SidebarProps> = ({
@@ -51,7 +52,7 @@ export const LandlordSidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`relative bg-white border-r border-[#ECEEED] flex flex-col justify-between overflow-hidden p-4 sm:p-6 shrink-0 transition-all duration-300 select-none h-screen max-h-screen ${
+      className={`relative bg-white  flex flex-col justify-between overflow-hidden p-4 sm:p-6 shrink-0 transition-all duration-300 select-none h-screen max-h-screen ${
         isCollapsed ? "w-20" : "w-64 lg:w-72"
       }`}
     >
@@ -59,7 +60,7 @@ export const LandlordSidebar: React.FC<SidebarProps> = ({
       <button
         type="button"
         onClick={onToggleCollapse}
-        className="hidden lg:flex absolute -right-3 top-8 z-20 w-6 h-6 bg-white border border-gray-200 rounded-full items-center justify-center text-gray-600 hover:text-gray-900 shadow-sm transition-transform"
+        className="hidden md:flex absolute  top-7 -right-3 z-40 w-7 h-7 bg-white border border-gray-200 rounded-full items-center justify-center text-gray-600 hover:text-gray-900 shadow-sm transition-transform"
         title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
       >
         {isCollapsed ? (
@@ -77,7 +78,7 @@ export const LandlordSidebar: React.FC<SidebarProps> = ({
             onClick={onMobileClose}
             className="flex items-center gap-2 overflow-hidden"
           >
-            <BrandLogo className="h-8 w-auto shrink-0" />
+            <BrandLogo />
           </Link>
         </div>
 
@@ -135,9 +136,20 @@ export const LandlordSidebar: React.FC<SidebarProps> = ({
         </nav>
       </div>
 
-      {/* Footer / Sign Out */}
+      {/* Footer / Sign out / settings */}
       <div className="pt-6 border-t border-[#ECEEED] flex flex-col gap-1 mt-6">
 
+  <Link
+          href="/profile"
+          onClick={onMobileClose}
+          // title={isCollapsed ? "Sign out" : undefined}
+          className={`flex items-center gap-3 px-3.5 py-2 rounded-xl text-[#6B7280] hover:text-[#111827] hover:bg-gray-50 text-sm transition-colors ${
+            isCollapsed ? "justify-center px-0" : ""
+          }`}
+        >
+          <User className="w-5 h-5 shrink-0" />
+          {!isCollapsed && <span>Profile</span>}
+        </Link>
         
         <Link
           href="/sign-in"

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Building2, Key, Wrench, ArrowRight } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 
 export const StatCards: React.FC = () => {
   return (
@@ -55,9 +56,8 @@ export const StatCards: React.FC = () => {
           <span className="text-[11px] font-semibold uppercase tracking-wider text-[#A3B8AD]">
             Rent Overdue
           </span>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-500/20 border border-rose-400/30 text-rose-200 text-[10px] font-semibold tracking-wide">
-            <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
-            Arrears Alert
+          <span className=" gap-1.5 p-1 justify-center  flex items-center rounded-full bg-rose-500/20 border border-rose-400/70 animate-pulse text-rose-200 text-[10px] font-semibold tracking-wide">
+            <AlertCircle size={20} />
           </span>
         </div>
         <div className="my-4">
@@ -65,7 +65,7 @@ export const StatCards: React.FC = () => {
             £3,450.00
           </div>
           <div className="text-xs text-[#A3B8AD] mt-1">
-            2 tenancies with pending arrears
+            2 tenancies with pending rents
           </div>
         </div>
         <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">

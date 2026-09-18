@@ -19,6 +19,7 @@ export default function PropertiesPage() {
   const [type, setType] = useState("All Property Types");
   const [borough, setBorough] = useState("All Boroughs (London & Surrey)");
   const [sort, setSort] = useState("Sort: Address (A–Z)");
+  const [viewMode, setViewMode] = useState<"table" | "grid">("table");
   const [isAddOpen, setIsAddOpen] = useState(false);
   const filteredProperties = useMemo(() => {
     const query = search.toLowerCase().trim();
@@ -35,9 +36,62 @@ export default function PropertiesPage() {
   return (
     <div className="space-y-6">
       <PropertiesHeader onAddProperty={() => setIsAddOpen(true)} />
-      <PropertiesToolbar filterTab={filterTab} setFilterTab={setFilterTab} search={search} setSearch={setSearch} type={type} setType={setType} borough={borough} setBorough={setBorough} sort={sort} setSort={setSort} />
-      <PropertiesTable key={`${filterTab}-${search}-${type}-${borough}-${sort}`} properties={filteredProperties} />
-      {isAddOpen && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"><form onSubmit={(event) => { event.preventDefault(); setIsAddOpen(false); }} className="w-full max-w-md space-y-4 rounded-2xl bg-white p-6 shadow-2xl"><h2 className="text-lg font-semibold text-stone-900">Add Property</h2>{["Property address", "Property code", "Target rent"].map((label) => <label key={label} className="block text-xs font-medium text-stone-600">{label}<input required className="mt-1 h-10 w-full rounded-lg border border-stone-300 px-3 text-sm" /></label>)}<label className="block text-xs font-medium text-stone-600">Property type<select className="mt-1 h-10 w-full rounded-lg border border-stone-300 px-3 text-sm"><option>Residential</option><option>Commercial</option></select></label><div className="flex justify-end gap-2"><Button type="button" variant="outline" onClick={() => setIsAddOpen(false)}>Cancel</Button><Button type="submit" className="bg-[#132A20] text-white">Save Property</Button></div></form></div>}
+      <PropertiesToolbar 
+      filterTab={filterTab} 
+      setFilterTab={setFilterTab} 
+      search={search} 
+      setSearch={setSearch} 
+      type={type} 
+      setType={setType} 
+      borough={borough} 
+      setBorough={setBorough} 
+      sort={sort} 
+      setSort={setSort}
+      viewMode={viewMode}
+      setViewMode={setViewMode} />
+
+      <PropertiesTable 
+      key={`${filterTab}-${search}-${type}-${borough}-${sort}`} 
+      properties={filteredProperties} />
+
+      {isAddOpen && 
+      
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+        
+        <form 
+        onSubmit={(event) => { event.preventDefault(); setIsAddOpen(false); }} 
+        className="w-full max-w-md space-y-4 rounded-2xl bg-white p-6 shadow-2xl">
+          <h2 className="text-lg font-semibold text-stone-900">
+            Add Property
+            </h2>
+            {["Property address", "Property code", "Target rent"].map((label) =>
+               <label key={label} className="block text-xs font-medium text-stone-600">
+                {label}
+                <input required className="mt-1 h-10 w-full rounded-lg border border-stone-300 px-3 text-sm" />
+                </label>)}
+                <label className="block text-xs font-medium text-stone-600">
+                  Property type
+                  <select className="mt-1 h-10 w-full rounded-lg border border-stone-300 px-3 text-sm">
+                    <option>Residential</option>
+                    <option>Commercial</option>
+                    </select>
+                    </label>
+                    <div 
+                    className="flex justify-end gap-2">
+                      <Button 
+                      type="button" 
+                      variant="outline" 
+                      onClick={() => setIsAddOpen(false)}>
+                        Cancel
+                        </Button>
+                        <Button 
+                        type="submit" 
+                        className="bg-brand text-white">
+                          Save Property
+                          </Button>
+                          </div>
+                          </form>
+                          </div>}
 
       {/* Vault Footer Banner */}
       <div className="p-4 rounded-xl border border-[#e5e2dc] bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-stone-600">

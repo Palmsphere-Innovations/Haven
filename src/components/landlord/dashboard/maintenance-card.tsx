@@ -58,7 +58,7 @@ export const MaintenanceCard: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center gap-3 self-end sm:self-center">
-            <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-[#E8EFEA] text-[#132A20]">
+            <span className="px-2.5 py-1 w-max rounded-full text-[11px] font-medium bg-[#E8EFEA] text-brand">
               In Progress
             </span>
             <Button size="sm" variant="outline" className="h-7 text-xs border-gray-200">

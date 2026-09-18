@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import { DevRoleSwitcher } from "@/components/shared/dev-role-switcher";
+import { DevRoleSwitcher } from "@/components/shared/dev-role-switcher";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,7 +11,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Haven — UK Estates Portfolio Management",
-  description: "Unified UK Property Management Platform",
+  description: "Unified UK Property Management Platform,The secure platform for verified property sourcing, digital tenancy agreements, and safe rent management.",
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans bg-[#F0F2F1] text-neutral-900 min-h-screen antialiased">
         {children}
-        {/* <DevRoleSwitcher /> */}
+        <DevRoleSwitcher />
       </body>
     </html>
   );

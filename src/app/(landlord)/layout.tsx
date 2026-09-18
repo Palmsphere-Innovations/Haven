@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { LandlordSidebar } from "@/components/landlord/dashboard/sidebar";
 import { TopHeader } from "@/components/shared/top-header";
-import { Menu, X } from "lucide-react";
+import { Menu, ChevronLeft } from "lucide-react";
 
 export default function LandlordLayout({
   children,
@@ -14,9 +14,9 @@ export default function LandlordLayout({
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
-    <div className="bg-[#F0F2F1] text-[#111827] antialiased min-h-screen py-2 sm:py-6 px-2 sm:px-6 lg:px-8 flex justify-center items-start">
+    <div className="bg-[#F0F2F1] text-[#111827] antialiased min-h-screen flex justify-center items-start">
       {/* Canvas Wrapper */}
-      <div className="w-full max-w-[1600px] h-screen max-h-screen bg-white rounded-2xl sm:rounded-[32px] border border-black/5 shadow-2xl flex flex-col md:flex-row overflow-hidden relative">
+      <div className="w-full max-w-[1600px] h-screen max-h-screen bg-white sm:rounded-[32px] border border-black/5 shadow-2xl flex flex-col md:flex-row overflow-hidden relative">
         
         {/* DESKTOP SIDEBAR */}
         <div className="hidden md:block">
@@ -39,9 +39,9 @@ export default function LandlordLayout({
               <button
                 type="button"
                 onClick={() => setIsMobileOpen(false)}
-                className="aria-label-close absolute right-4 top-4 p-1 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="aria-label-close absolute right-4 top-4 z-100 p-1 border border-[#ECEEED] rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
               >
-                <X className="w-5 h-5" />
+                <ChevronLeft className="w-5 h-5" />
               </button>
               <LandlordSidebar
                 isCollapsed={false}

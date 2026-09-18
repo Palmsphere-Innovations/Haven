@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { AgentMetrics } from "@/components/landlord/agents/agents-metrics";
 import { AgentsTable,} from "@/components/landlord/agents/agents-table";
 import { AgentComplianceBanner } from "@/components/landlord/agents/agents-compliance-banner";
-import { agentsData, } from "@/lib/data/mock-data";
-
+import { agentsData } from "@/lib/data/mock-data";
 
 
 export default function LandlordAgentsPage() {
@@ -43,7 +42,7 @@ export default function LandlordAgentsPage() {
           </Button>
           <Button className="h-9 px-4 bg-brand hover:bg-[#1E3A2E] text-white rounded-xl text-xs font-semibold shadow-xs">
             <UserPlus className="w-4 h-4 mr-1.5" />
-            + Invite Agent
+             Invite Agent
           </Button>
         </div>
       </div>

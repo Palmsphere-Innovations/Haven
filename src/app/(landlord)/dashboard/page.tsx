@@ -34,6 +34,7 @@ export default function LandlordDashboardPage() {
             <Download className="w-3.5 h-3.5 text-[#6B7280] mr-1.5" />
             Export Statement
           </Button>
+          
           <Button className="h-9 bg-brand hover:bg-[#0b1b14] text-white rounded-full text-xs font-semibold shadow-sm">
             <Plus className="w-4 h-4 mr-1" />
             New Tenancy

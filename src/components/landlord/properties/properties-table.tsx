@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { MoreVertical } from "lucide-react";
+import { DivideIcon, MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -37,38 +37,40 @@ export const PropertiesTable: React.FC<PropertiesTableProps> = ({ properties }) 
   const endIndex = currentPage * pageSize;
   const paginatedProperties = properties.slice(startIndex, endIndex);
 
+
   const renderLedgerPill = (status: PropertyRecord["ledgerStatus"], text: string) => {
     switch (status) {
       case "overdue_14":
       case "overdue_7":
         return (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-[#fde8e8] text-[#991b1b]">
+          <div className="inline-flex items-center px-2 py-0.5 rounded-full w-max text-[11px] font-medium bg-[#fde8e8] text-[#991b1b]">
             {text}
-          </span>
+          </div>
         );
       case "due_soon":
         return (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-[#fef7e6] text-[#8d6e18]">
+          <div className="inline-flex items-center px-2 py-0.5 rounded-full w-max text-[11px] font-medium bg-[#fef7e6] text-[#8d6e18]">
             {text}
-          </span>
+          </div>
         );
       case "paid_dd":
       case "paid_so":
       case "paid_bacs":
         return (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-[#eaf4ed] text-[#1e5e2f]">
+          <div className="flex items-center px-2 py-0.5 rounded-full w-max text-[11px] font-medium bg-[#eaf4ed] text-[#1e5e2f]">
             {text}
-          </span>
+          </div>
         );
       case "vacant":
-        return <span className="text-stone-400 text-[11px]">{text}</span>;
+        return <div className="text-stone-400 text-[11px]">{text}
+        </div>;
     }
   };
 
   const renderCompliancePill = (status: PropertyRecord["complianceStatus"], text: string) => {
     if (status === "valid") {
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-[#eaf4ed] text-[#1e5e2f]">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 w-max rounded-full text-[11px] font-medium bg-[#eaf4ed] text-[#1e5e2f]">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
           {text}
         </span>
@@ -76,10 +78,10 @@ export const PropertiesTable: React.FC<PropertiesTableProps> = ({ properties }) 
     }
     if (status === "action") {
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-[#fde8e8] text-[#991b1b]">
+        <div className="inline-flex items-center gap-1 px-2 py-0.5 w-max rounded-full text-[11px] font-medium bg-[#fde8e8] text-[#991b1b]">
           <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
           {text}
-        </span>
+        </div>
       );
     }
     return (
@@ -95,8 +97,10 @@ export const PropertiesTable: React.FC<PropertiesTableProps> = ({ properties }) 
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-[#eeece6] bg-[#faf9f6] text-[10px] uppercase tracking-wider font-semibold text-stone-500">
-              <th className="py-3.5 pl-6 pr-4">Property &amp; Code</th>
+            <tr className="border-b border-[#eeece6] bg-[#faf9f6] text-[10px] uppercase tracking-wider font-semibold w-full text-stone-500">
+              <th className="py-3.5 pl-6 pr-4">
+                Property &amp; Code
+                </th>
               <th className="py-3.5 px-4">Type</th>
               <th className="py-3.5 px-4">Occupant / Tenancy</th>
               <th className="py-3.5 px-4">Rent (P.C.M)</th>
@@ -108,26 +112,35 @@ export const PropertiesTable: React.FC<PropertiesTableProps> = ({ properties }) 
           <tbody className="divide-y divide-[#f2f0ea] text-xs">
             {paginatedProperties.map((item) => (
               <tr key={item.id} className="hover:bg-[#faf9f5] transition-colors group">
-                <td className="py-4 pl-6 pr-4">
-                  <div className="flex items-start gap-3">
+                <td className="py-4 pl-6 w-96 pr-4">
+                  <div className="flex items-start  gap-3">
+
                     <div className="w-9 h-9 rounded-lg bg-[#f0eee9] border border-[#e3dfd6] flex items-center justify-center shrink-0 text-stone-600 font-serif font-bold text-xs">
                       {item.code.split("-")[0]}
                     </div>
-                    <div>
-                      <div className="font-semibold text-stone-900 group-hover:text-stone-950 flex items-center gap-1.5">
-                        <Link href={`/properties/${item.id}`} className="hover:underline">{item.title}</Link>
+
+                    <div className="w-max" >
+
+                      <div className="font-semibold text-stone-900  group-hover:text-stone-950 flex items-center gap-1.5">
+                        <Link 
+                        href={`/properties/${item.id}`} className="hover:underline">
+                          {item.title}
+                        </Link>
                         <span className="text-[10px] font-normal text-stone-400 bg-stone-100 px-1 py-0.2 rounded">
                           {item.code}
                         </span>
                       </div>
-                      <div className="text-[11px] text-stone-500 mt-0.5">{item.address}</div>
+                      <div className="text-[11px] text-stone-500 mt-0.5">
+                        {item.address}
+                      </div>
                     </div>
                   </div>
                 </td>
 
                 <td className="py-4 px-4 text-stone-600">
                   <span className="font-medium text-stone-800">{item.type}</span>
-                  <div className="text-[11px] text-stone-400">{item.subType}</div>
+                  <div className="text-[11px] text-stone-400">{item.subType}
+                  </div>
                 </td>
 
                 <td className="py-4 px-4">
@@ -180,16 +193,39 @@ export const PropertiesTable: React.FC<PropertiesTableProps> = ({ properties }) 
       {/* Pagination Footer */}
       <div className="px-6 py-3.5 border-t border-[#f0eee8] bg-[#fcfbf9] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500">
         <div>
-          Showing <span className="font-medium text-stone-800">{properties.length === 0 ? 0 : startIndex + 1}</span> to{" "}
-          <span className="font-medium text-stone-800">{Math.min(endIndex, properties.length)}</span> of{" "}
-          <span className="font-medium text-stone-800">{properties.length}</span> properties
+          Showing 
+          <span 
+          className="font-medium text-stone-800">
+            {properties.length === 0 ? 0 : startIndex + 1}
+            </span> to{" "}
+          <span className="font-medium text-stone-800">
+            {Math.min(endIndex, properties.length)}
+            </span> of{" "}
+
+          <span className="font-medium text-stone-800">
+          
+            {properties.length}
+            </span> 
+            properties
         </div>
+
         <div className="flex items-center gap-1.5">
-          <Button variant="outline" size="sm" disabled={currentPage <= 1} onClick={() => setCurrentPage((prev) => prev - 1)} className="h-7 px-2.5 text-xs border-[#dedad2] text-stone-400 cursor-not-allowed disabled:opacity-50">
+          <Button 
+          variant="outline" 
+          size="sm" 
+          disabled={currentPage <= 1} onClick={() => setCurrentPage((prev) => prev - 1)} 
+          className="h-7 px-2.5 text-xs border-[#dedad2] text-stone-400 cursor-not-allowed disabled:opacity-50">
             Previous
           </Button>
-          <span className="px-2.5 py-1 text-xs font-medium text-stone-700">Page {currentPage} of {totalPages}</span>
-          <Button variant="outline" size="sm" disabled={currentPage >= totalPages} onClick={() => setCurrentPage((prev) => prev + 1)} className="h-7 px-2.5 text-xs border-[#dedad2] text-stone-700 hover:bg-stone-50 disabled:opacity-50">
+          <span 
+          className="px-2.5 py-1 text-xs font-medium text-stone-700">
+            Page {currentPage} of {totalPages}
+            </span>
+          <Button 
+          variant="outline" 
+          size="sm" 
+          disabled={currentPage >= totalPages} 
+          onClick={() => setCurrentPage((prev) => prev + 1)} className="h-7 px-2.5 text-xs border-[#dedad2] text-stone-700 hover:bg-stone-50 disabled:opacity-50">
             Next
           </Button>
         </div>

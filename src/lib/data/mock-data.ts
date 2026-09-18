@@ -143,10 +143,65 @@ export const propertiesData: PropertyRecord[] = [
    ========================================== */
 
 export const tenantsData: TenantRecord[] = [
-  { id: "1", initials: "OD", names: "Oliver Davies & Clara Finch", contact: "oliver.davies@kensington-tenants.co.uk • +44 7911 123456", property: "Flat 4B, 18 Kensington Gdns", unit: "London W2 4QH (Penthouse)", startDate: "01 Oct 2024", endDate: "30 Sep 2026", termType: "AST • 24 Months", rent: "£2,450.00", paymentMethod: "Direct Debit", ledgerStatus: "Paid", ledgerBadgeStyle: "bg-[#EAF4ED] text-[#1E5E2F]", inviteStatus: "Active (Verified AST)" },
-  { id: "2", initials: "ER", names: "Elena Rostova", contact: "e.rostova@canton-arts.org • +44 7700 900231", property: "8 Camden Mews", unit: "London NW1 9UX (2 Bed Flat)", startDate: "15 Jun 2024", endDate: "14 Jun 2026", termType: "AST • 24 Months", rent: "£850.00", paymentMethod: "Standing Order", ledgerStatus: "Overdue (14 days)", ledgerBadgeStyle: "bg-rose-50 text-rose-800 border border-rose-200", inviteStatus: "Verified AST" },
-  { id: "3", initials: "MV", names: "Marcus Vance", contact: "m.vance@vanceholdings.co.uk • +44 7900 445566", property: "27 Blenheim Crescent", unit: "Notting Hill, W11 2EF (4 Bed)", startDate: "01 Oct 2023", endDate: "30 Sep 2026", termType: "AST • 36 Months", rent: "£2,600.00", paymentMethod: "Standing Order", ledgerStatus: "Overdue (7 days)", ledgerBadgeStyle: "bg-rose-50 text-rose-800 border border-rose-200", inviteStatus: "Verified AST" },
-  { id: "4", initials: "ML", names: "Maya Lin & S. Patel", contact: "maya.lin@studio-arch.co.uk • +44 7822 199342", property: "Unit 3A, St. John's Court", unit: "Clapham, SW4 7JR", startDate: "15 Jan 2024", endDate: "14 Jan 2027", termType: "AST • 36 Months", rent: "£1,850.00", paymentMethod: "Direct Debit", ledgerStatus: "Due in 3 days", ledgerBadgeStyle: "bg-amber-50 text-amber-800 border border-amber-200", inviteStatus: "Verified AST" },
+  { 
+    id: "1", 
+    initials: "OD", 
+    names: "Oliver Davies & Clara Finch", 
+    contact: "oliver.davies@kensington-tenants.co.uk • +44 7911 123456", 
+    property: "Flat 4B, 18 Kensington Gdns", 
+    unit: "London W2 4QH (Penthouse)", 
+    startDate: "01 Oct 2024", 
+    endDate: "30 Sep 2026", 
+    termType: "AST • 24 Months", 
+    rent: "£2,450.00", 
+    paymentMethod: "Direct Debit", 
+    ledgerStatus: "Paid", 
+    ledgerBadgeStyle: "bg-[#EAF4ED] text-[#1E5E2F]", 
+    inviteStatus: "Active (Verified AST)" 
+  },
+  { 
+    id: "2", 
+    initials: "ER", 
+    names: "Elena Rostova", 
+    contact: "e.rostova@canton-arts.org • +44 7700 900231", 
+    property: "8 Camden Mews", 
+    unit: "London NW1 9UX (2 Bed Flat)", 
+    startDate: "15 Jun 2024", 
+    endDate: "14 Jun 2026", 
+    termType: "AST • 24 Months", 
+    rent: "£850.00", 
+    paymentMethod: "Standing Order", 
+    ledgerStatus: "Overdue (14 days)", 
+    ledgerBadgeStyle: "bg-rose-50 text-rose-800 border border-rose-200", 
+    inviteStatus: "Verified AST" },
+  { 
+    id: "3", 
+    initials: "MV", 
+    names: "Marcus Vance", 
+    contact: "m.vance@vanceholdings.co.uk • +44 7900 445566", property: "27 Blenheim Crescent", 
+    unit: "Notting Hill, W11 2EF (4 Bed)", 
+    startDate: "01 Oct 2023", 
+    endDate: "30 Sep 2026", 
+    termType: "AST • 36 Months", 
+    rent: "£2,600.00", 
+    paymentMethod: "Standing Order", 
+    ledgerStatus: "Overdue (7 days)", 
+    ledgerBadgeStyle: "bg-rose-50 text-rose-800 border border-rose-200", 
+    inviteStatus: "Verified AST" },
+  { 
+    id: "4", 
+    initials: "ML", 
+    names: "Maya Lin & S. Patel", 
+    contact: "maya.lin@studio-arch.co.uk • +44 7822 199342", property: "Unit 3A, St. John's Court", 
+    unit: "Clapham, SW4 7JR", 
+    startDate: "15 Jan 2024", 
+    endDate: "14 Jan 2027", 
+    termType: "AST • 36 Months", 
+    rent: "£1,850.00", 
+    paymentMethod: "Direct Debit", 
+    ledgerStatus: "Due in 3 days", 
+    ledgerBadgeStyle: "bg-amber-50 text-amber-800 border border-amber-200", 
+    inviteStatus: "Verified AST" },
 ];
 
 export const tenantDataStore: Record<string, TenantDetail> = Object.fromEntries(
@@ -178,9 +233,50 @@ export const tenantDataStore: Record<string, TenantDetail> = Object.fromEntries(
    ========================================== */
 
 export const maintenanceTickets: MaintenanceTicket[] = [
-  { id: "1", code: "MN-104", issue: "Boiler pressure drop & no hot water", loggedDate: "Today 06:45", property: "Flat 4B, 18 Kensington Gdns", address: "Kensington, W2 4QH", tenant: "Oliver Finch", tenancyStatus: "AST • Active", priority: "Urgent", status: "In Progress", contractor: "Pimlico Plumbers", contractorSub: "Emergency Response", category: "Heating" },
-  { id: "2", code: "MN-103", issue: "Intercom buzzer not connecting to handset", loggedDate: "Yesterday 14:20", property: "Unit 3A, St. John's Ct", address: "Clapham, SW4", tenant: "Maya Lin", tenancyStatus: "AST • Active", priority: "Routine", status: "Submitted", contractor: "Unassigned", contractorSub: "", isUnassigned: true, category: "Electrical" },
-  { id: "3", code: "MN-102", issue: "Damp inspection on ground floor bedroom bay", loggedDate: "10 Sep 2026", property: "7 Grosvenor Vale", address: "Ruislip, HA4", tenant: "Hannah Ward", tenancyStatus: "AST • Active", priority: "High", status: "In Progress", contractor: "Aspect Property Surveyors", contractorSub: "Survey booked", category: "Structural" },
+  { 
+    id: "1", 
+    code: "MN-104", 
+    issue: "Boiler pressure drop & no hot water", 
+    loggedDate: "Today 06:45", 
+    property: "Flat 4B, 18 Kensington Gdns", 
+    address: "Kensington, W2 4QH", 
+    tenant: "Oliver Finch", 
+    tenancyStatus: "AST • Active", 
+    priority: "Urgent", 
+    status: "In Progress", 
+    contractor: "Pimlico Plumbers", 
+    contractorSub: "Emergency Response", 
+    category: "Heating" 
+  },
+  { 
+    id: "2", 
+    code: "MN-103", 
+    issue: "Intercom buzzer not connecting to handset", 
+    loggedDate: "Yesterday 14:20", 
+    property: "Unit 3A, St. John's Ct", 
+    address: "Clapham, SW4", 
+    tenant: "Maya Lin", 
+    tenancyStatus: "AST • Active", 
+    priority: "Routine", 
+    status: "Submitted", 
+    contractor: "Unassigned", 
+    contractorSub: "", 
+    isUnassigned: true, 
+    category: "Electrical" },
+  { 
+    id: "3", 
+    code: "MN-102", 
+    issue: "Damp inspection on ground floor bedroom bay", 
+    loggedDate: "10 Sep 2026", 
+    property: "7 Grosvenor Vale", 
+    address: "Ruislip, HA4", 
+    tenant: "Hannah Ward", 
+    tenancyStatus: "AST • Active", 
+    priority: "High", 
+    status: "In Progress", 
+    contractor: "Aspect Property Surveyors", 
+    contractorSub: "Survey booked", 
+    category: "Structural" },
 ];
 
 export const complianceCertificates: ComplianceItem[] = [
@@ -393,8 +489,5 @@ export const agentDataStore: Record<string, AgentDetail> = Object.fromEntries(
 ) as Record<string, AgentDetail>;
 
 export function getAgentDetail(id: string): AgentDetail {
-  return agentDataStore[id] || agentDataStore["1"];
-}
-  /* ========================================== 
-// 6. COMPLIANCE DATA & LOOKUP STORE
-   ========================================== */
+  return agentDataStore[id] || agentDataStore["1"]
+};

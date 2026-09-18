@@ -31,7 +31,7 @@ export const PropertiesHeader: React.FC<{ onAddProperty: () => void }> = ({ onAd
 
         <Button onClick={onAddProperty} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#132A20] hover:bg-[#1E3A2E] text-white text-xs font-semibold shadow-sm transition-colors">
           <Plus className="w-4 h-4" />
-          <span>+ Add Property</span>
+          <span> Add Property</span>
         </Button>
       </div>
     </div>
