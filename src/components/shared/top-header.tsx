@@ -72,7 +72,7 @@ export const TopHeader: React.FC = () => {
             <span className="text-xs font-semibold text-[#111827] leading-tight">
               Alistair Vance
             </span>
-            <span className="text-[11px] text-[#6B7280]">Principal Landlord</span>
+            <span className="text-[11px] text-[#6B7280]">Landlord</span>
           </div>
           <div className="w-9 h-9 rounded-full bg-brand text-white flex items-center justify-center font-bold text-xs border border-gray-200">
             AV
