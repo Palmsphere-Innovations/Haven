@@ -1,0 +1,2 @@
+import { SectionPage } from "@/components/shared/section-page";
+export default function AgentCompliancePage() { return <SectionPage role="Agent portal" title="Compliance" description="Keep property certificates and statutory tasks on schedule." metrics={[{ label: "Compliance score", value: "97%", detail: "+2.4% this quarter" }, { label: "Expiring soon", value: "6", detail: "Within 30 days" }]} />; }
