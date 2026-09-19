@@ -1,2 +1,0 @@
-import { SectionPage } from "@/components/shared/section-page";
-export default function AgentDashboardPage() { return <SectionPage role="Agent portal" title="Dashboard" description="A live view of your assigned portfolio and tenant pipeline." metrics={[{ label: "Assigned properties", value: "24", detail: "+3 this month" }, { label: "Active tenants", value: "86", detail: "98% verified" }, { label: "Screenings pending", value: "12", detail: "5 due today" }, { label: "Open actions", value: "8", detail: "2 high priority" }]} />; }

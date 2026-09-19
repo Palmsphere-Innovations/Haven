@@ -1,2 +1,0 @@
-import { SectionPage } from "@/components/shared/section-page";
-export default function AdminDashboardPage() { return <SectionPage role="Admin portal" title="Dashboard" description="Monitor platform health, KYC compliance, and operational risk." metrics={[{ label: "Active accounts", value: "12,482", detail: "+8.4% this month" }, { label: "KYC compliance", value: "98.7%", detail: "+0.6% this quarter" }, { label: "Open disputes", value: "23", detail: "4 high priority" }, { label: "System uptime", value: "99.99%", detail: "Last 30 days" }]} />; }

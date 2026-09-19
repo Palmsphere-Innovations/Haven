@@ -1,2 +1,0 @@
-import { SectionPage } from "@/components/shared/section-page";
-export default function AdminCompliancePage() { return <SectionPage role="Admin portal" title="Compliance" description="Review KYC queues, regulatory checks, and exception handling." metrics={[{ label: "Compliance index", value: "98.7%", detail: "Above target" }, { label: "Pending reviews", value: "31", detail: "7 due today" }]} />; }
