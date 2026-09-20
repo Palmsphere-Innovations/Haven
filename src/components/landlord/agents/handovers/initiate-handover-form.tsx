@@ -41,7 +41,7 @@ export function InitiateHandoverForm() {
             >
               <option value="RM-12">12 Richmond Hill Mansions, TW10 6RF</option>
               <option value="BC-27">27 Blenheim Crescent, London W11 2EE</option>
-              <option value="SJ-03A">Unit 3A, St. John's Court, SW4 7JT</option>
+              <option value="SJ-03A">Unit 3A, St. John&apos;s Court, SW4 7JT</option>
               <option value="EP-09">Belgrave Penthouse, 9 Eaton Place, SW1X 8BN</option>
             </select>
           </div>

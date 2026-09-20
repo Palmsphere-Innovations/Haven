@@ -1,0 +1,6 @@
+{
+  "name": "Haven — UK Estates Portfolio Management",
+  "description": "Unified UK Property Management Platform for verified property sourcing, digital tenancy agreements, and safe rent management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -32,7 +32,7 @@ const navItems = [
   { label: "Properties", href: "/properties", icon: Building2 },
   { label: "Agents", href: "/agents", icon: HandCoins },
   { label: "Tenants", href: "/tenants", icon: Users },
-  { label: "Handovers", href: "/agents/handovers", icon: FileCheck2 },
+  { label: "Handovers", href: "/handovers", icon: FileCheck2 },
   { label: "Contracts", href: "/contracts", icon: FileText },
   { label: "Documents", href: "/documents", icon: FolderOpen },
   { label: "Maintenance", href: "/maintenance", icon: Wrench },
@@ -107,12 +107,12 @@ export default function LandlordLayout({
             </button>
             <div className="flex-1">
               <TopHeader
-              id={landlord.id}
-              name={landlord.name}
-              initials={landlord.initials}
-              notificationsCount={3}
-              notificationLink="/landlord/communications/notifications"
-
+                id={landlord.id}
+                name={landlord.name}
+                initials={landlord.initials}
+                notificationsCount={3}
+                notificationLink="/communication/notifications"
+                role="Landlord"
               />
             </div>
           </div>
