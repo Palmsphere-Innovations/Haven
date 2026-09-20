@@ -136,17 +136,15 @@ export default function HandoversPage() {
   }
 
   return (
-    <PortalShell role="agent">
-      <div className="bg-[#EDEBE6] min-h-screen py-8 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto space-y-6">
-          <HandoversHeader
+   <div className="max-w-7xl mx-auto space-y-6">
+          {/* <HandoversHeader
             onOpenInitiateDrawer={() => setIsDrawerOpen(true)}
             onDownloadDossier={() => setShowToast(true)}
-          />
+          /> */}
 
           {/* Dossier Download Notification */}
           {showToast && (
-            <div className="p-4 bg-white rounded-xl shadow-md border border-stone-200 flex items-center justify-between text-xs text-[#132A20]">
+            <div className="p-4 bg-white rounded-xl shadow-md border border-stone-200 flex items-center justify-between text-xs text-brand">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-700" />
                 <span>
@@ -156,7 +154,7 @@ export default function HandoversPage() {
               </div>
               <button
                 onClick={() => setShowToast(false)}
-                className="underline text-stone-500 hover:text-[#132A20]"
+                className="underline text-stone-500 hover:text-brand"
               >
                 Dismiss
               </button>
@@ -210,7 +208,5 @@ export default function HandoversPage() {
             onSubmit={handleDrawerSubmit}
           />
         </div>
-      </div>
-    </PortalShell>
   )
 }

@@ -89,3 +89,38 @@ export const complianceCertificates: ComplianceItem[] = [
 export function getComplianceForProperty(propertyId: string): ComplianceItem | undefined {
   return complianceCertificates.find((c) => c.propertyId === propertyId);
 }
+
+
+export type ComplianceStatusFilter = "ALL" | "VALID" | "EXPIRING" | "URGENT"
+
+export interface ComplianceProperty {
+  id: string
+  address: string
+  postcode: string
+  landlord: string
+  mandateTier: "Tier 1: Full Mgt" | "Tier 2: Maint & Comms"
+  gasSafety: {
+    status: "VALID" | "EXPIRING" | "EXPIRED"
+    expiryDate: string
+    certNumber: string
+    daysRemaining?: number
+  }
+  epc: {
+    status: "VALID" | "EXPIRING" | "EXPIRED"
+    rating: string
+    expiryDate: string
+    type: string
+  }
+  eicr: {
+    status: "VALID" | "EXPIRING" | "EXPIRED"
+    expiryDate: string
+    certBody: string
+    daysRemaining?: number
+  }
+  deposit: {
+    scheme: string
+    id: string
+    protectedAmount?: string
+    isRestricted?: boolean
+  }
+}

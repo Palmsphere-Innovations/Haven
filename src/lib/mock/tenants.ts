@@ -134,3 +134,23 @@ export const tenantDataStore: Record<string, TenantDetail> = Object.fromEntries(
 export function getTenantById(id: string): TenantRecord | undefined {
   return tenantsData.find((t) => t.id === id);
 }
+
+
+export type TenancyStageFilter = "all" | "active" | "application" | "invited" | "former"
+
+// export interface TenantRecord {
+//   id: string
+//   name: string
+//   initials: string
+//   email: string
+//   isApplicant?: boolean
+//   propertyTitle: string
+//   landlord: string
+//   mandateTier: "Tier 1: Full Management" | "Tier 2: Maint + Comms" | "Tier 3: Maintenance Only"
+//   tenancyDates: string
+//   rentStatus: string
+//   rentStatusType: "success" | "warning" | "neutral" | "redacted"
+//   stageLabel: string
+//   stageType: "active" | "screening" | "signature"
+//   isFinancialRestricted?: boolean
+// }

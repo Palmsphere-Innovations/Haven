@@ -84,7 +84,7 @@ export function Sidebar({
                   collapsed ? "justify-center px-0" : ""
                 } ${
                   active
-                    ? "bg-[#E8EFEA] font-semibold text-[#132A20]"
+                    ? "bg-[#E8EFEA] font-semibold text-brand"
                     : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                 }`}
               >

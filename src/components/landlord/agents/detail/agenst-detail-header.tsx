@@ -86,7 +86,7 @@ export function AgentDetailHeader({ agent }: AgentDetailHeaderProps) {
               <span
                 className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#132A20] text-white flex items-center justify-center shadow-xs"
                 title="Propertymark Verified"
-              >
+              > 
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300" />
               </span>
             </div>
