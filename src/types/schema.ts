@@ -301,3 +301,24 @@ export interface LandlordRecord {
   agentIds: string[];
   tenantIds: string[];
 }
+
+export interface PaymentHistoryRecord {
+  id: string
+  period: string
+  dateRange: string
+  paidOn: string
+  method: string
+  transactionRef: string
+  amount: string
+  status: "Paid on Time" | "Pending" | "Overdue"
+  year: string
+}
+
+export interface UpcomingPaymentSchedule {
+  id: string
+  month: string
+  amount: string
+  dueDate: string
+  reference: string
+  status: "Autopay Active" | "Scheduled"
+}

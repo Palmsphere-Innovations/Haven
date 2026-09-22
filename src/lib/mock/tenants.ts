@@ -188,3 +188,31 @@ export type TenancyStageFilter = "all" | "active" | "application" | "invited" | 
 //   stageType: "active" | "screening" | "signature"
 //   isFinancialRestricted?: boolean
 // }
+
+export interface RentPaymentRecord {
+  id: string
+  period: string
+  status: "Paid on Time" | "Pending" | "Overdue"
+  date: string
+  directDebitRef: string
+  amount: string
+}
+
+export interface MaintenanceTicket {
+  id: string
+  title: string
+  category: string
+  status: "Visit Scheduled" | "In Progress" | "Completed"
+  loggedDate: string
+  contractor: string
+  appointmentWindow?: string
+  resolutionDate?: string
+  reference: string
+}
+
+export interface TenancyDocument {
+  id: string
+  title: string
+  metadata: string
+  type: "ast" | "deposit" | "inventory" | "gas" | "epc"
+}
