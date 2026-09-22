@@ -18,7 +18,7 @@ export const ComplianceMetricsGrid: React.FC<ComplianceMetricsGridProps> = ({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
       {/* Card 1: Urgent Action (Primary #132A20) */}
-      <div className="bg-[#132A20] text-white p-5 rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden">
+      <div className="bg-brand text-white p-5 rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden">
         <div className="absolute -right-4 -bottom-4 w-28 h-28 bg-emerald-600/20 rounded-full blur-2xl pointer-events-none" />
         <div className="flex items-start justify-between">
           <div className="flex flex-col">
@@ -48,17 +48,17 @@ export const ComplianceMetricsGrid: React.FC<ComplianceMetricsGridProps> = ({
             <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">
               Total Properties
             </span>
-            <span className="text-4xl font-bold leading-none text-[#132A20] mt-2 tracking-tight font-mono">
+            <span className="text-4xl font-bold leading-none text-brand mt-2 tracking-tight font-mono">
               {totalUnits}
             </span>
           </div>
-          <div className="w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center text-[#132A20]">
+          <div className="w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center text-brand">
             <Building2 className="w-5 h-5" />
           </div>
         </div>
         <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
           <span className="text-stone-500">Assigned units across</span>
-          <span className="font-mono text-[#132A20] font-semibold">2 Active Mandates</span>
+          <span className="font-mono text-brand font-semibold">2 Active Mandates</span>
         </div>
       </div>
 

@@ -46,9 +46,9 @@ export const ComplianceTable: React.FC<ComplianceTableProps> = ({
                         {isUrgentRow ? (
                           <AlertCircle className="w-4 h-4 text-red-800 shrink-0" />
                         ) : (
-                          <Building2 className="w-4 h-4 text-[#132A20] shrink-0" />
+                          <Building2 className="w-4 h-4 text-brand shrink-0" />
                         )}
-                        <span className="font-semibold text-sm text-[#132A20]">{row.address}</span>
+                        <span className="font-semibold text-sm text-brand">{row.address}</span>
                       </div>
                       <span className="text-stone-500 pl-5">{row.postcode}</span>
                       <div className="flex items-center gap-2 pl-5 mt-1.5">
@@ -146,7 +146,7 @@ export const ComplianceTable: React.FC<ComplianceTableProps> = ({
                       <div className="flex flex-col items-end gap-1">
                         <Button
                           onClick={() => onOrderWorkOrder(row.address)}
-                          className="bg-[#132A20] hover:bg-[#1c3e30] text-white text-xs h-8 px-3 shadow-sm flex items-center gap-1.5"
+                          className="bg-brand hover:bg-[#1c3e30] text-white text-xs h-8 px-3 shadow-sm flex items-center gap-1.5"
                         >
                           <Wrench className="w-3.5 h-3.5" />
                           <span>Order CP12 Renewal</span>

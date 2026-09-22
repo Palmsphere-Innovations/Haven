@@ -1,10 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Download, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AddPropertyModal } from "./modal/propertymodal";
 
 export const PropertiesHeader: React.FC<{ onAddProperty: () => void }> = ({ onAddProperty }) => {
+
+  const [IsAddPropertyModal,setIsAddPropertyModal] = useState(false);
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
@@ -29,11 +33,16 @@ export const PropertiesHeader: React.FC<{ onAddProperty: () => void }> = ({ onAd
           <span>Export Register (CSV)</span>
         </Button>
 
-        <Button onClick={onAddProperty} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#132A20] hover:bg-[#1E3A2E] text-white text-xs font-semibold shadow-sm transition-colors">
+        <Button onClick={ () => setIsAddPropertyModal(true)} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#132A20] hover:bg-[#1E3A2E] text-white text-xs font-semibold shadow-sm transition-colors">
           <Plus className="w-4 h-4" />
           <span> Add Property</span>
         </Button>
+
       </div>
+          {IsAddPropertyModal && 
+          <AddPropertyModal onClose={() => setIsAddPropertyModal(false)} />
+          }
+      
     </div>
   );
 };

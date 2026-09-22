@@ -31,12 +31,12 @@ export const ComplianceControls: React.FC<ComplianceControlsProps> = ({
           onClick={() => onFilterChange("ALL")}
           className={`px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all ${
             activeFilter === "ALL"
-              ? "bg-[#132A20] text-white shadow-sm"
-              : "text-stone-600 hover:text-[#132A20] hover:bg-white"
+              ? "bg-brand text-white shadow-sm"
+              : "text-stone-600 hover:text-brand hover:bg-white"
           }`}
         >
           <span>All Properties</span>
-          <span className="font-mono text-[10px] px-1.5 py-0.5 rounded-full bg-stone-200/80 text-[#132A20]">
+          <span className="font-mono text-[10px] px-1.5 py-0.5 rounded-full bg-stone-200/80 text-brand">
             {counts.all}
           </span>
         </button>
@@ -46,8 +46,8 @@ export const ComplianceControls: React.FC<ComplianceControlsProps> = ({
           onClick={() => onFilterChange("VALID")}
           className={`px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all ${
             activeFilter === "VALID"
-              ? "bg-[#132A20] text-white shadow-sm"
-              : "text-stone-600 hover:text-[#132A20] hover:bg-white"
+              ? "bg-brand text-white shadow-sm"
+              : "text-stone-600 hover:text-brand hover:bg-white"
           }`}
         >
           <span>Valid</span>
@@ -61,8 +61,8 @@ export const ComplianceControls: React.FC<ComplianceControlsProps> = ({
           onClick={() => onFilterChange("EXPIRING")}
           className={`px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all ${
             activeFilter === "EXPIRING"
-              ? "bg-[#132A20] text-white shadow-sm"
-              : "text-stone-600 hover:text-[#132A20] hover:bg-white"
+              ? "bg-brand text-white shadow-sm"
+              : "text-stone-600 hover:text-brand hover:bg-white"
           }`}
         >
           <span>Expiring Soon</span>
@@ -76,7 +76,7 @@ export const ComplianceControls: React.FC<ComplianceControlsProps> = ({
           onClick={() => onFilterChange("URGENT")}
           className={`px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-all ${
             activeFilter === "URGENT"
-              ? "bg-[#132A20] text-white shadow-sm"
+              ? "bg-brand text-white shadow-sm"
               : "text-stone-600 hover:text-red-800 hover:bg-white"
           }`}
         >
@@ -89,14 +89,14 @@ export const ComplianceControls: React.FC<ComplianceControlsProps> = ({
 
       {/* Controls */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-        <div className="relative min-w-[280px]">
+        <div className="relative min-w-70">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none" />
           <Input
             type="text"
             placeholder="Filter address, postcode, scheme ID..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="pl-9 h-8 text-xs border-stone-300 focus:border-[#132A20]"
+            className="pl-9 h-8 text-xs border-stone-300 focus:border-brand"
           />
         </div>
 
@@ -104,7 +104,7 @@ export const ComplianceControls: React.FC<ComplianceControlsProps> = ({
           <select
             value={selectedMandate}
             onChange={(e) => onMandateChange(e.target.value)}
-            className="w-full sm:w-auto h-8 bg-stone-100 text-[#132A20] text-xs font-medium pl-3 pr-8 rounded-md border border-stone-300 focus:outline-none cursor-pointer appearance-none"
+            className="w-full sm:w-auto h-8 bg-stone-100 text-brand text-xs font-medium pl-3 pr-8 rounded-md border border-stone-300 focus:outline-none cursor-pointer appearance-none"
           >
             <option value="ALL">Portfolio: All Mandates (Vance Holdings &amp; Pembroke Estate)</option>
             <option value="Vance Holdings Ltd">Mandate: Vance Holdings Ltd (Tier 1 Full Mgt)</option>

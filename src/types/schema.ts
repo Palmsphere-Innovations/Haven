@@ -146,6 +146,35 @@ export interface TenantDetail extends TenantRecord {
 }
 
 // ==========================================
+// 4b. Rent Ledger & Collections
+// ==========================================
+
+export type LedgerStatus =
+  | "overdue_14"
+  | "overdue_7"
+  | "due_soon"
+  | "paid_dd"
+  | "paid_so"
+  | "paid_bacs";
+
+export interface LedgerRecord {
+  id: string;
+  propertyId: string;
+  propertyCode: string;
+  address: string;
+  tenantId: string;
+  tenant: string;
+  tenantContact?: string;
+  rent: number;
+  dueDate: string;
+  status: LedgerStatus;
+  paymentMethod: "Direct Debit" | "Standing Order" | "BACS Transfer" | string;
+  paidDate?: string;
+  referenceNumber: string;
+  daysOverdue?: number;
+}
+
+// ==========================================
 // 5. Managing Agents (Database: agents)
 // ==========================================
 

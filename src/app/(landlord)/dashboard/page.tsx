@@ -1,4 +1,6 @@
-import React from "react";
+"use client"
+
+import React , {useState} from "react";
 import { Plus, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatCards } from "@/components/landlord/dashboard/stat-cards";
@@ -6,8 +8,12 @@ import { RentLedgerCard } from "@/components/landlord/dashboard/rent-ledger-card
 import { MaintenanceCard } from "@/components/landlord/dashboard/maintenance-card";
 import { ComplianceWidget } from "@/components/landlord/dashboard/compliance-widget";
 import { VendorDirectory } from "@/components/landlord/dashboard/vendor-directory";
+import {InviteTenantModal } from "@/components/landlord/tenants/modals/invite-tenant-modal" 
 
 export default function LandlordDashboardPage() {
+const [isInviteModalOpen, setIsInviteModalOpen ] = useState(false)
+
+
   return (
     <>
       {/* Page Title & Header Actions */}
@@ -35,7 +41,9 @@ export default function LandlordDashboardPage() {
             Export Statement
           </Button>
           
-          <Button className="h-9 bg-brand hover:bg-[#0b1b14] text-white rounded-full text-xs font-semibold shadow-sm">
+          <Button 
+        onClick={() => setIsInviteModalOpen(true)  }
+          className="h-9 bg-brand hover:bg-[#0b1b14] text-white rounded-full text-xs font-semibold shadow-sm">
             <Plus className="w-4 h-4 mr-1" />
             New Tenancy
           </Button>
@@ -57,6 +65,9 @@ export default function LandlordDashboardPage() {
         <div className="lg:col-span-4 flex flex-col gap-8">
           <ComplianceWidget />
           <VendorDirectory />
+           {isInviteModalOpen && (
+                  <InviteTenantModal onClose={() => setIsInviteModalOpen(false)} />
+                )}
         </div>
       </div>
     </>

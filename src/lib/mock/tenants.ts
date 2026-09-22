@@ -105,6 +105,40 @@ export const tenantsData: TenantRecord[] = [
     ledgerBadgeStyle: "bg-amber-50 text-amber-800 border border-amber-200",
     inviteStatus: "Verified AST",
   },
+  {
+    id: "5",
+    propertyId: "5", // RM-12
+    initials: "AT",
+    names: "Dr. Aris Thorne",
+    contact: "aris.thorne@nhs.net • +44 7711 889900",
+    property: "12 Richmond Hill Mansions",
+    unit: "Richmond, TW10 6RF",
+    startDate: "01 Feb 2024",
+    endDate: "31 Jan 2027",
+    termType: "AST • 36 Months",
+    rent: "£3,100.00",
+    paymentMethod: "Standing Order",
+    ledgerStatus: "Paid",
+    ledgerBadgeStyle: "bg-[#EAF4ED] text-[#1E5E2F]",
+    inviteStatus: "Verified AST",
+  },
+  {
+    id: "6",
+    propertyId: "7", // CS-05
+    initials: "JT",
+    names: "Julian Thorne & Alex Mercer",
+    contact: "julian.thorne@mercer-partners.com • +44 7899 112233",
+    property: "5 Charlotte Street",
+    unit: "Fitzrovia, W1T 1RE",
+    startDate: "01 Nov 2023",
+    endDate: "31 Oct 2026",
+    termType: "AST • 36 Months",
+    rent: "£1,950.00",
+    paymentMethod: "Direct Debit",
+    ledgerStatus: "Paid",
+    ledgerBadgeStyle: "bg-[#EAF4ED] text-[#1E5E2F]",
+    inviteStatus: "Verified AST",
+  },
 ];
 
 export const tenantDataStore: Record<string, TenantDetail> = Object.fromEntries(

@@ -21,10 +21,10 @@ export const ComplianceHeader: React.FC<ComplianceHeaderProps> = ({
           <span className="text-stone-300">/</span>
           <span className="text-stone-600 font-medium">Prime Heritage Management Ltd</span>
           <span className="text-stone-300">/</span>
-          <span className="text-[#132A20] font-semibold">Compliance Vault &amp; Statutory Tracking</span>
+          <span className="text-brand font-semibold">Compliance Vault &amp; Statutory Tracking</span>
         </div>
         <div className="flex items-baseline gap-3 flex-wrap mt-0.5">
-          <h1 className="text-2xl sm:text-3xl font-semibold text-[#132A20] tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-brand tracking-tight">
             Compliance Status
           </h1>
           <Badge variant="outline" className="font-mono text-xs bg-stone-100 text-stone-700 border-stone-300">
@@ -39,14 +39,14 @@ export const ComplianceHeader: React.FC<ComplianceHeaderProps> = ({
       <div className="flex items-center gap-2 shrink-0 self-start md:self-auto">
         <Button
           variant="outline"
-          className="border-stone-300 bg-white text-[#132A20] hover:bg-stone-100 text-xs font-semibold shadow-sm"
+          className="border-stone-300 bg-white text-brand hover:bg-stone-100 text-xs font-semibold shadow-sm"
         >
           <PieChart className="w-3.5 h-3.5 mr-1.5 text-stone-500" />
           <span>Audit Summary</span>
         </Button>
         <Button
           onClick={onExportDossier}
-          className="bg-[#132A20] hover:bg-[#1c3e30] text-white text-xs font-semibold shadow-sm flex items-center gap-1.5"
+          className="bg-brand hover:bg-[#1c3e30] text-white text-xs font-semibold shadow-sm flex items-center gap-1.5"
         >
           <Download className="w-3.5 h-3.5" />
           <span>Export Compliance Dossier</span>

@@ -5,13 +5,13 @@ export const ComplianceMandateMemo: React.FC = () => {
   return (
     <div className="bg-stone-100 p-6 rounded-xl border border-stone-200/80 flex flex-col justify-between">
       <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-2 text-[#132A20] font-semibold text-sm">
+        <div className="flex items-center gap-2 text-brand font-semibold text-sm">
           <ShieldCheck className="w-5 h-5 text-stone-600" />
           <span>Delegated Authority Mandate</span>
         </div>
 
         <div className="p-3.5 bg-white rounded-lg border border-stone-200 flex flex-col gap-1">
-          <span className="text-[11px] font-bold text-[#132A20] uppercase tracking-wider">
+          <span className="text-[11px] font-bold text-brand uppercase tracking-wider">
             Tier 1: Full Management
           </span>
           <p className="text-xs text-stone-600 leading-relaxed">
@@ -31,7 +31,7 @@ export const ComplianceMandateMemo: React.FC = () => {
 
       <div className="pt-4 border-t border-stone-200 flex items-center justify-between text-stone-500 text-[11px]">
         <span>MARLA License: #V77109-UK</span>
-        <span className="font-mono text-[#132A20] font-semibold">Haven Protocol v3.8</span>
+        <span className="font-mono text-brand font-semibold">Haven Protocol v3.8</span>
       </div>
     </div>
   )

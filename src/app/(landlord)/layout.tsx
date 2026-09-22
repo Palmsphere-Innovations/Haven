@@ -113,6 +113,7 @@ export default function LandlordLayout({
                 notificationsCount={3}
                 notificationLink="/communication/notifications"
                 role="Landlord"
+                dashboardLink='/dashboard'
               />
             </div>
           </div>

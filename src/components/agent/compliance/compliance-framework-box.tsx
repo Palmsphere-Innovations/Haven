@@ -5,7 +5,7 @@ export const ComplianceFrameworkBox: React.FC = () => {
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-stone-200/80 flex flex-col justify-between">
       <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2 text-[#132A20] font-semibold text-sm">
+        <div className="flex items-center gap-2 text-brand font-semibold text-sm">
           <ShieldCheck className="w-5 h-5 text-emerald-800" />
           <span>UK Statutory Compliance Framework</span>
         </div>
@@ -15,7 +15,7 @@ export const ComplianceFrameworkBox: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3 pt-3 border-t border-stone-200/80 text-xs">
           <div className="flex flex-col gap-1">
-            <span className="font-semibold text-[#132A20] flex items-center gap-1.5">
+            <span className="font-semibold text-brand flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-800" />
               Gas Safety Regs 1998 (CP12)
             </span>
@@ -25,7 +25,7 @@ export const ComplianceFrameworkBox: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="font-semibold text-[#132A20] flex items-center gap-1.5">
+            <span className="font-semibold text-brand flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-800" />
               Electrical Safety (EICR 2020)
             </span>
@@ -35,7 +35,7 @@ export const ComplianceFrameworkBox: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="font-semibold text-[#132A20] flex items-center gap-1.5">
+            <span className="font-semibold text-brand flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-800" />
               EPC Minimum Energy Efficiency (MEES)
             </span>
@@ -45,7 +45,7 @@ export const ComplianceFrameworkBox: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="font-semibold text-[#132A20] flex items-center gap-1.5">
+            <span className="font-semibold text-brand flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-800" />
               Tenancy Deposit Protection (Housing Act 2004)
             </span>
