@@ -34,7 +34,7 @@ const navItems = [
   { label: "Rent & Payments", href: "/tenant/payments", icon: Wallet },
   { label: "Maintenance", href: "/tenant/maintenance", icon: Wrench },
   { label: "Documents", href: "/tenant/documents", icon: FolderOpen },
-  { label: "Contact", href: "/tenant/communication", icon: Phone },
+  { label: "Contact", href: "/tenant/contact", icon: Phone },
   { label: "Disputes", href: "/tenant/disputes", icon: Gavel },
   { label: "Settings", href: "/tenant/settings", icon: Settings },
   // { label: "App", href: "/tenant/application", icon: Settings },

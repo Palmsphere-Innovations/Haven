@@ -322,3 +322,31 @@ export interface UpcomingPaymentSchedule {
   reference: string
   status: "Autopay Active" | "Scheduled"
 }
+
+
+export type DisputeStatus = 'open' | 'under_review' | 'resolved'
+export type DisputeCategory = 'maintenance' | 'deposit' | 'rent' | 'breach' | 'other'
+
+export interface DisputeRecord {
+  id: string
+  reference: string
+  category: DisputeCategory
+  categoryLabel: string
+  title: string
+  status: DisputeStatus
+  statusLabel: string
+  openedDate: string
+  remedy: string
+  outcome?: string
+  settledTime?: string
+  isSelected?: boolean
+}
+
+export interface DisputeChatMessage {
+  id: string
+  sender: 'agent' | 'tenant' | 'system'
+  senderName: string
+  senderInitials?: string
+  timestamp: string
+  text: string
+}

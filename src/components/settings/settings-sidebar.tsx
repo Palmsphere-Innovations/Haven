@@ -7,22 +7,14 @@ export type SettingsTab = 'account' | 'notifications' | 'security' | 'team' | 'b
 interface SettingsSidebarProps {
   activeTab: SettingsTab;
   onTabChange: (tab: SettingsTab) => void;
+  tabs: { id: SettingsTab; label: string; desc: string }[];
 }
 
-const NAV_ITEMS: { id: SettingsTab; label: string; desc: string }[] = [
-  { id: 'account', label: 'Account', desc: 'Profile & business entity' },
-  { id: 'notifications', label: 'Notifications', desc: 'Alert preferences & thresholds' },
-  { id: 'security', label: 'Security', desc: 'Password & MFA management' },
-  { id: 'team', label: 'Team & Access', desc: 'Agent management links' },
-  { id: 'billing', label: 'Billing', desc: 'Invoices & subscription plan' },
-  { id: 'pwa', label: 'PWA / App', desc: 'Standalone app install settings' },
-];
-
-export const SettingsSidebar: React.FC<SettingsSidebarProps> = ({ activeTab, onTabChange }) => {
+export const SettingsSidebar: React.FC<SettingsSidebarProps> = ({ activeTab, onTabChange, tabs }) => {
   return (
     <aside className="w-full md:w-60 border-b md:border-b-0 md:border-r border-slate-200 p-3 bg-slate-50/60">
       <nav className="flex md:flex-col gap-1 overflow-x-auto md:overflow-x-visible no-scrollbar">
-        {NAV_ITEMS.map((item) => {
+        {tabs.map((item) => {
           const isActive = activeTab === item.id;
           return (
             <button
