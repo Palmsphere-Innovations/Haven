@@ -10,7 +10,7 @@ import {
   Check,
   ExternalLink,
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface RoleOption {
   label: string;
