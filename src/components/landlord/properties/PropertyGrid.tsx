@@ -1,22 +1,9 @@
 "use client";
 
 import React from "react";
-import { Building2, User, AlertTriangle, CheckCircle2 } from "lucide-react";
-
-interface PropertyRecord {
-  id: string | number;
-  code: string;
-  title: string;
-  address: string;
-  isVacant: boolean;
-  type: string;
-  subType: string;
-  occupant: string;
-  rentType: string;
-  rent: string;
-  complianceStatus: "action" | "warning" | "valid";
-  complianceText: string;
-}
+import Link from "next/link";
+import { Building2, User, AlertTriangle, CheckCircle2, ArrowRight } from "lucide-react";
+import type { PropertyRecord } from "@/lib/mock/properties";
 
 interface PropertyGridProps {
   properties: PropertyRecord[];
@@ -25,7 +12,7 @@ interface PropertyGridProps {
 export const PropertyGrid: React.FC<PropertyGridProps> = ({ properties }) => {
   if (properties.length === 0) {
     return (
-      <div className="bg-white border border-[#e5e2dc] rounded-xl p-12 text-center text-stone-500 text-xs">
+      <div className="bg-white border border-[#e5e2dc] rounded-2xl p-12 text-center text-stone-500 text-xs">
         No properties found matching your filter criteria.
       </div>
     );
@@ -36,7 +23,7 @@ export const PropertyGrid: React.FC<PropertyGridProps> = ({ properties }) => {
       {properties.map((item) => (
         <div
           key={item.id}
-          className="bg-white border border-[#e5e2dc] rounded-xl p-4 flex flex-col justify-between hover:border-stone-400 transition-colors shadow-xs"
+          className="bg-white border border-[#e5e2dc] rounded-2xl p-5 flex flex-col justify-between hover:border-stone-400 hover:shadow-md transition-all group"
         >
           {/* Header Tag & Unit Ref */}
           <div>
@@ -55,8 +42,12 @@ export const PropertyGrid: React.FC<PropertyGridProps> = ({ properties }) => {
               </span>
             </div>
 
-            <h3 className="text-sm font-semibold text-stone-900">{item.title}</h3>
-            <p className="text-xs text-stone-500 mt-0.5">{item.address}</p>
+            <Link href={`/properties/${item.id}`} className="block group-hover:text-brand">
+              <h3 className="text-sm font-semibold text-stone-900 group-hover:text-brand transition-colors">
+                {item.title}
+              </h3>
+              <p className="text-xs text-stone-500 mt-0.5">{item.address}</p>
+            </Link>
           </div>
 
           {/* Property Info Details */}
@@ -88,17 +79,19 @@ export const PropertyGrid: React.FC<PropertyGridProps> = ({ properties }) => {
               <span className="text-[10px] text-stone-400 block uppercase tracking-wider">
                 {item.rentType}
               </span>
-              <span className="text-sm font-bold text-stone-900 font-mono">{item.rent}</span>
+              <span className="text-sm font-bold text-stone-900 font-mono">
+                {item.rent}
+              </span>
             </div>
 
-            <div className="text-right">
+            <div className="flex items-center gap-2">
               <div
                 className={`inline-flex items-center gap-1 text-[11px] font-medium px-2 py-1 rounded ${
                   item.complianceStatus === "action"
                     ? "bg-rose-50 text-rose-700 border border-rose-200"
                     : item.complianceStatus === "warning"
                     ? "bg-amber-50 text-amber-700 border border-amber-200"
-                    : "bg-stone-100 text-stone-700 border border-stone-200"
+                    : "bg-[#eaf4ed] text-[#1e5e2f] border border-emerald-200"
                 }`}
               >
                 {item.complianceStatus === "valid" ? (
@@ -108,6 +101,14 @@ export const PropertyGrid: React.FC<PropertyGridProps> = ({ properties }) => {
                 )}
                 <span>{item.complianceText}</span>
               </div>
+
+              <Link
+                href={`/properties/${item.id}`}
+                className="p-1.5 rounded-lg border border-stone-200 hover:bg-stone-50 text-stone-600 hover:text-stone-900"
+                title="View Property"
+              >
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
         </div>

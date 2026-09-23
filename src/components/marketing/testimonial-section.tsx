@@ -1,19 +1,20 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ShieldCheck, Lock, Sparkles } from "lucide-react";
-import { motion, useInView, useMotionValue, useSpring, type Variants } from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring, type Variants } from "motion/react";
 
 // Helper Component for Animated Number Counters
 function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const [displayValue, setDisplayValue] = useState(value);
 
   const motionValue = useMotionValue(0);
   const springValue = useSpring(motionValue, {
     stiffness: 70,
     damping: 20,
-    duration: 1.5,
+    duration: 1.2,
   });
 
   useEffect(() => {
@@ -24,13 +25,15 @@ function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
 
   useEffect(() => {
     return springValue.on("change", (latest) => {
-      if (ref.current) {
-        ref.current.textContent = Math.floor(latest) + suffix;
-      }
+      setDisplayValue(Math.floor(latest));
     });
-  }, [springValue, suffix]);
+  }, [springValue]);
 
-  return <span ref={ref} className="font-mono text-3xl sm:text-4xl font-extrabold text-brand" />;
+  return (
+    <span ref={ref} className="font-mono text-3xl sm:text-4xl font-extrabold text-brand">
+      {displayValue}{suffix}
+    </span>
+  );
 }
 
 export const TestimonialSection: React.FC = () => {
@@ -47,11 +50,11 @@ export const TestimonialSection: React.FC = () => {
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 16 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.215, 0.61, 0.355, 1] },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
@@ -64,7 +67,7 @@ export const TestimonialSection: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, amount: 0.1 }}
           className="max-w-4xl mx-auto text-center space-y-6"
         >
           <motion.p variants={itemVariants} className="text-xs font-semibold tracking-widest text-brand uppercase">
@@ -110,10 +113,10 @@ export const TestimonialSection: React.FC = () => {
 
         {/* Bottom Part: Key System Metrics with Animated Counter */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="pt-12 border-t border-neutral-200/80"
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">

@@ -2,7 +2,6 @@
 "use client"
 
 import React, { useState, useMemo } from "react"
-// import { PortalShell } from "@/components/shared/portal-shell"
 // import { DocumentsHeader } from "@/components/tenant/documents/documents-header"
 import { FeaturedASTCard } from "@/components/tenant/documents/featured-ast-card"
 import { DocumentsLedger } from "@/components/tenant/documents/documents-ledger"

@@ -13,7 +13,7 @@ import {
   forgotPasswordSchema,
   type ForgotPasswordFormData,
 } from "@/lib/validations/auth";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 
 export const ForgotPasswordForm: React.FC = () => {
   const [viewState, setViewState] = useState<"form" | "sent">("form");

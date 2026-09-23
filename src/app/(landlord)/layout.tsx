@@ -16,16 +16,15 @@ import { Menu,
   Wrench,
   BarChart3,
   Gavel,
-  } from "lucide-react";
-  import { usePathname } from "next/navigation";
-  import { landlordsData   } from "@/lib/mock/landlord";
-  import { ReactNode } from "react";
+  Settings,
+} from "lucide-react";
+import { usePathname } from "next/navigation";
+import { landlordsData } from "@/lib/mock/landlord";
+import { ReactNode } from "react";
 
-
- interface LandlordLayoutProps {
-   children: ReactNode;
- }
-
+interface LandlordLayoutProps {
+  children: ReactNode;
+}
 
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -38,7 +37,7 @@ const navItems = [
   { label: "Maintenance", href: "/maintenance", icon: Wrench },
   { label: "Cost Analysis", href: "/cost-analysis", icon: BarChart3 },
   { label: "Disputes", href: "/disputes", icon: Gavel },
-  // { label: "Settings", href: "/disputes", icon: Gavel },
+  { label: "Settings", href: "/settings", icon: Settings },
 ];
 
 export default function LandlordLayout({

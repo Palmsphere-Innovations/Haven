@@ -5,7 +5,7 @@ import React from "react";
 import { HeroDashboardMockup } from "./hero-dashboard-mockup";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export const HeroSection: React.FC = () => {
   return (

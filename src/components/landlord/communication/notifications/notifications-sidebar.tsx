@@ -1,10 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { AlertCircle, Mail, MessageSquare, Bell, Shield, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function NotificationsSidebar() {
+interface NotificationsSidebarProps {
+  onInitiateDispatches?: () => void;
+}
+
+export function NotificationsSidebar({ onInitiateDispatches }: NotificationsSidebarProps) {
+  const [dispatched, setDispatched] = useState(false);
+
+  const handleDispatch = () => {
+    setDispatched(true);
+    if (onInitiateDispatches) onInitiateDispatches();
+    setTimeout(() => setDispatched(false), 3000);
+  };
+
   return (
     <div className="space-y-6">
       {/* Priority Summary */}
@@ -43,8 +55,12 @@ export function NotificationsSidebar() {
           </div>
         </div>
 
-        <Button className="w-full h-9 bg-[#132A20] hover:bg-[#1E3A2E] text-white text-xs font-bold rounded-xl shadow-xs">
-          <CheckCircle2 className="w-4 h-4 mr-1.5" /> Initiate Statutory Dispatches
+        <Button
+          onClick={handleDispatch}
+          className="w-full h-9 bg-[#132A20] hover:bg-[#1E3A2E] text-white text-xs font-bold rounded-xl shadow-xs cursor-pointer"
+        >
+          <CheckCircle2 className="w-4 h-4 mr-1.5" />
+          {dispatched ? "Dispatches Initiated!" : "Initiate Statutory Dispatches"}
         </Button>
       </div>
 
@@ -59,54 +75,34 @@ export function NotificationsSidebar() {
         <div className="space-y-3 text-xs">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-stone-500" />
-              <div>
-                <div className="font-bold text-stone-900">Daily Digest Email</div>
-                <div className="text-[10px] text-stone-400">07:30 GMT to a.vance@...</div>
-              </div>
+              <Mail className="w-3.5 h-3.5 text-stone-400" />
+              <span className="text-stone-700">Email Notifications</span>
             </div>
-            <span className="px-2 py-0.5 rounded bg-[#E8EFEA] text-[#132A20] text-[10px] font-bold">
+            <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[10px] font-semibold border border-emerald-200">
               Active
             </span>
           </div>
 
-          <div className="flex items-center justify-between border-t border-[#ECEEED] pt-2">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <MessageSquare className="w-4 h-4 text-stone-500" />
-              <div>
-                <div className="font-bold text-stone-900">Urgent SMS Alerts</div>
-                <div className="text-[10px] text-stone-400">Gas Safety &amp; Arrears Only</div>
-              </div>
+              <MessageSquare className="w-3.5 h-3.5 text-stone-400" />
+              <span className="text-stone-700">SMS Critical Pings</span>
             </div>
-            <span className="px-2 py-0.5 rounded bg-[#E8EFEA] text-[#132A20] text-[10px] font-bold">
-              Enabled
+            <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[10px] font-semibold border border-emerald-200">
+              Active
             </span>
           </div>
 
-          <div className="flex items-center justify-between border-t border-[#ECEEED] pt-2">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Bell className="w-4 h-4 text-stone-500" />
-              <div>
-                <div className="font-bold text-stone-900">PWA Push Stream</div>
-                <div className="text-[10px] text-stone-400">Browser push active</div>
-              </div>
+              <Bell className="w-3.5 h-3.5 text-stone-400" />
+              <span className="text-stone-700">In-Portal Push Alerts</span>
             </div>
-            <span className="px-2 py-0.5 rounded bg-[#E8EFEA] text-[#132A20] text-[10px] font-bold">
-              Live
+            <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[10px] font-semibold border border-emerald-200">
+              Active
             </span>
           </div>
         </div>
-      </div>
-
-      {/* Regulatory Box */}
-      <div className="p-4 rounded-2xl bg-[#F9F9F8] border border-[#ECEEED] space-y-1">
-        <div className="flex items-center gap-1.5 text-[#132A20] text-xs font-bold">
-          <Shield className="w-3.5 h-3.5" />
-          <span>UK Statutory Note</span>
-        </div>
-        <p className="text-[11px] text-stone-500 leading-relaxed">
-          Under Landlord &amp; Tenant Act 1985 and Gas Safety Regs 1998, copies of certificates must be retained for at least 2 years and served to tenants within 28 days.
-        </p>
       </div>
     </div>
   );

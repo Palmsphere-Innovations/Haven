@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-import { PortalShell } from "@/components/shared/portal-shell"
 import { HandoversHeader } from "@/components/agent/handovers/handovers-header"
 import { HandoversMetricsGrid } from "@/components/agent/handovers/handovers-metrics-grid"
 import { HandoversTabNav } from "@/components/agent/handovers/handovers-tab-nav"

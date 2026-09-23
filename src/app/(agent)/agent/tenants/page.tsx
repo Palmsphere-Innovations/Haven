@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useMemo } from "react"
-import { PortalShell } from "@/components/shared/portal-shell"
 import { TenantsHeader } from "@/components/agent/tenants/tenants-header"
 import { TenantsQuickStats } from "@/components/agent/tenants/tenants-quick-stats"
 import { TenantsControls } from "@/components/agent/tenants/tenants-controls"

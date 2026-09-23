@@ -66,19 +66,19 @@ export const ActiveJobsTable: React.FC<ActiveJobsTableProps> = ({
                     )}
                   </td>
                   <td className="py-3.5 px-4">
-                    {job.status === "In Progress" && (
+                    {(job.status === "In Progress" || job.status === "in_progress") && (
                       <Badge className="bg-amber-100 text-amber-900 border-amber-200 text-[10px] font-semibold flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
                         <span>In Progress</span>
                       </Badge>
                     )}
-                    {job.status === "Awaiting Parts" && (
+                    {(job.status === "Awaiting Parts" || job.status === "awaiting_parts") && (
                       <Badge variant="outline" className="bg-blue-50 text-blue-900 border-blue-200 text-[10px] font-semibold flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                         <span>Awaiting Parts</span>
                       </Badge>
                     )}
-                    {job.status === "Scheduled" && (
+                    {(job.status === "Scheduled" || job.status === "scheduled") && (
                       <Badge variant="outline" className="bg-emerald-50 text-emerald-900 border-emerald-200 text-[10px] font-semibold flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-700" />
                         <span>Scheduled</span>

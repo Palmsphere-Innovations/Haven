@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-// import { PortalShell } from "@/components/shared/portal-shell"
 import { TenantWelcomeHeader } from "@/components/tenant/dashboard/tenat-welcome-header"
 import { TenantQuickStats } from "@/components/tenant/dashboard/tenats-quick-stats"
 import { TenantPaymentsPanel } from "@/components/tenant/dashboard/tenant-payments-panel"

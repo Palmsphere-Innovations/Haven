@@ -1,13 +1,28 @@
 "use client";
 
-import React from "react";
-import { ArrowRight, Check, Key, Mail, Copy, Bell, FileText, Hourglass, RefreshCw } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowRight, Check, Mail, Copy, FileText, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function ActiveHandoversList() {
-  const copyLink = (link: string) => {
+  const [copiedLink, setCopiedLink] = useState<string | null>(null);
+  const [activeStepCard1, setActiveStepCard1] = useState(3);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  const copyLink = (link: string, id: string) => {
     navigator.clipboard.writeText(link);
-    alert("Acceptance link copied to clipboard!");
+    setCopiedLink(id);
+    setNotice("Acceptance link copied to clipboard!");
+    setTimeout(() => {
+      setCopiedLink(null);
+      setNotice(null);
+    }, 2500);
+  };
+
+  const handleAdvanceStep = () => {
+    setActiveStepCard1(4);
+    setNotice("Key custody signed off! Advancing to Stage 4: Access Transfer.");
+    setTimeout(() => setNotice(null), 3000);
   };
 
   return (
@@ -24,6 +39,13 @@ export function ActiveHandoversList() {
         </span>
       </div>
 
+      {notice && (
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-medium text-emerald-800 flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+          <span>{notice}</span>
+        </div>
+      )}
+
       {/* Card 1 */}
       <div className="bg-white rounded-2xl border border-[#ECEEED] p-6 shadow-xs space-y-5">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-3 border-b border-[#ECEEED]">
@@ -37,7 +59,7 @@ export function ActiveHandoversList() {
               </span>
               <span className="px-2 py-0.5 rounded bg-[#E8EFEA] text-brand text-[10px] font-bold flex items-center gap-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
-                Stage 3 of 4
+                Stage {activeStepCard1} of 4
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-2 text-xs text-stone-500">
@@ -60,45 +82,61 @@ export function ActiveHandoversList() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="h-5 w-5 rounded-full bg-brand text-white flex items-center justify-center shrink-0">
-                  <Check className="w-3 h-3 stroke-3" />
+                <span className="h-5 w-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3 stroke-[3]" />
                 </span>
-                <div className="h-0.5 flex-1 bg-brand hidden md:block" />
+                <div className="h-0.5 flex-1 bg-emerald-600 hidden md:block" />
               </div>
-              <p className="text-xs font-semibold text-stone-900">1. Initiated by Landlord</p>
-              <p className="text-[10px] text-stone-500">Vance Holdings • 24 Oct</p>
+              <p className="text-xs font-semibold text-stone-900">1. Notice Served</p>
+              <p className="text-[10px] text-stone-500">Completed 01 Oct</p>
             </div>
 
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="h-5 w-5 rounded-full bg-brand text-white flex items-center justify-center shrink-0">
-                  <Check className="w-3 h-3 stroke-3" />
+                <span className="h-5 w-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3 stroke-[3]" />
                 </span>
-                <div className="h-0.5 flex-1 bg-brand hidden md:block" />
+                <div className="h-0.5 flex-1 bg-emerald-600 hidden md:block" />
               </div>
-              <p className="text-xs font-semibold text-stone-900">2. Incoming Mandate</p>
-              <p className="text-[10px] text-stone-500">E. Vance signed • 26 Oct</p>
+              <p className="text-xs font-semibold text-stone-900">2. Mandate Accepted</p>
+              <p className="text-[10px] text-stone-500">Eleanor Vance signed</p>
             </div>
 
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="h-5 w-5 rounded-full bg-brand text-white flex items-center justify-center shrink-0 ring-4 ring-[#E8EFEA]">
-                  <RefreshCw className="w-3 h-3 animate-spin" />
+                <span
+                  className={`h-5 w-5 rounded-full flex items-center justify-center shrink-0 text-white ${
+                    activeStepCard1 >= 4 ? "bg-emerald-600" : "bg-brand animate-pulse"
+                  }`}
+                >
+                  {activeStepCard1 >= 4 ? <Check className="w-3 h-3 stroke-[3]" /> : "3"}
                 </span>
-                <div className="h-0.5 flex-1 bg-stone-200 hidden md:block" />
+                <div
+                  className={`h-0.5 flex-1 hidden md:block ${
+                    activeStepCard1 >= 4 ? "bg-emerald-600" : "bg-stone-200"
+                  }`}
+                />
               </div>
-              <p className="text-xs font-bold text-brand ">3. Key Custody Audit</p>
-              <p className="text-[10px] text-stone-500">Physical handover today</p>
+              <p className="text-xs font-semibold text-stone-900">3. Key Custody Audit</p>
+              <p className="text-[10px] text-amber-700 font-medium">
+                {activeStepCard1 >= 4 ? "Signed & Confirmed" : "Requires signoff"}
+              </p>
             </div>
 
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="h-5 w-5 rounded-full bg-stone-200 text-stone-500 flex items-center justify-center shrink-0 text-[10px] font-bold">
+                <span
+                  className={`h-5 w-5 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold ${
+                    activeStepCard1 >= 4
+                      ? "bg-brand text-white"
+                      : "bg-stone-200 text-stone-500"
+                  }`}
+                >
                   4
                 </span>
               </div>
-              <p className="text-xs font-medium text-stone-400">4. Access Transfer</p>
-              <p className="text-[10px] text-stone-400">Scheduled 01 Nov 00:01</p>
+              <p className="text-xs font-semibold text-stone-900">4. Access Transfer</p>
+              <p className="text-[10px] text-stone-500">Final handover cutover</p>
             </div>
           </div>
         </div>
@@ -106,17 +144,38 @@ export function ActiveHandoversList() {
         {/* Card Actions */}
         <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
           <div className="flex items-center gap-2 text-xs text-stone-500">
-            <Key className="w-3.5 h-3.5 text-brand " />
-            <span>4 key sets, 2 fob badges, EPC rating C registered in vault.</span>
+            <Mail className="w-3.5 h-3.5 text-stone-400" />
+            <span>Custodian Ref: #CS-88192 (DPS Custodial Deposit transferred)</span>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="h-8 text-xs border-[#ECEEED] rounded-xl">
-              <Bell className="w-3.5 h-3.5 mr-1.5 text-stone-500" />
-              Send Reminder
-            </Button>
-            <Button size="sm" className="h-8 text-xs bg-brand hover:bg-[#1E3A2E] text-white rounded-xl">
-              <FileText className="w-3.5 h-3.5 mr-1.5" />
-              View Audit Trail
+            {activeStepCard1 === 3 && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleAdvanceStep}
+                className="h-8 text-xs border-emerald-300 text-emerald-800 bg-emerald-50 hover:bg-emerald-100 rounded-xl cursor-pointer font-semibold"
+              >
+                <Check className="w-3.5 h-3.5 mr-1" />
+                Signoff Key Custody
+              </Button>
+            )}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() =>
+                copyLink(
+                  "https://haven.estate/mandates/accept/kg4b-prime-heritage",
+                  "c1"
+                )
+              }
+              className="h-8 text-xs border-[#ECEEED] rounded-xl cursor-pointer"
+            >
+              {copiedLink === "c1" ? (
+                <Check className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
+              ) : (
+                <Copy className="w-3.5 h-3.5 mr-1.5 text-stone-500" />
+              )}
+              {copiedLink === "c1" ? "Link Copied" : "Copy Acceptance Link"}
             </Button>
           </div>
         </div>
@@ -131,73 +190,24 @@ export function ActiveHandoversList() {
                 8 Camden Mews, London NW1 9UX
               </h3>
               <span className="px-2 py-0.5 rounded bg-stone-100 text-stone-700 text-[10px] font-semibold">
-                Maintenance + Communication
+                Maintenance Only
               </span>
-              <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-[10px] font-semibold flex items-center gap-1">
-                <Hourglass className="w-3 h-3 text-amber-600" />
-                Stage 2 of 4 (Pending Signoff)
+              <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-[10px] font-bold">
+                Stage 1 of 4 • Awaiting Acceptance
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-2 text-xs text-stone-500">
-              <span>Outgoing: <strong className="text-stone-900">None — New Assignment</strong></span>
+              <span>Outgoing: <strong className="text-stone-900">Direct Landlord</strong></span>
               <ArrowRight className="w-3.5 h-3.5 text-stone-400" />
-              <span>Incoming: <strong className="text-stone-900">Apex Residential London</strong> (Siobhan Campbell)</span>
+              <span>Incoming: <strong className="text-stone-900">Apex Residential</strong> (Siobhan O&apos;Connor)</span>
             </div>
           </div>
           <div className="text-left lg:text-right shrink-0">
             <span className="text-[10px] uppercase font-bold text-stone-400 block tracking-wider">
-              Target Date
+              Cutover Target
             </span>
             <span className="text-xs font-mono font-bold text-stone-900">15 Nov 2026</span>
             <span className="text-[10px] text-stone-500 block">(18 days remaining)</span>
-          </div>
-        </div>
-
-        {/* Horizontal Stepper */}
-        <div className="py-3 px-4 bg-[#F9F9F8] border border-[#ECEEED] rounded-xl">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="h-5 w-5 rounded-full bg-brand text-white flex items-center justify-center shrink-0">
-                  <Check className="w-3 h-3 stroke-3" />
-                </span>
-                <div className="h-0.5 flex-1 bg-brand hidden md:block" />
-              </div>
-              <p className="text-xs font-semibold text-stone-900">1. Initiated by Landlord</p>
-              <p className="text-[10px] text-stone-500">Vance Holdings • 27 Oct</p>
-            </div>
-
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="h-5 w-5 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 ring-4 ring-amber-50">
-                  <Hourglass className="w-3 h-3" />
-                </span>
-                <div className="h-0.5 flex-1 bg-stone-200 hidden md:block" />
-              </div>
-              <p className="text-xs font-semibold text-stone-900">2. Incoming Mandate</p>
-              <p className="text-[10px] text-stone-500">Awaiting Siobhan Campbell</p>
-            </div>
-
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="h-5 w-5 rounded-full bg-stone-200 text-stone-500 flex items-center justify-center shrink-0 text-[10px] font-bold">
-                  3
-                </span>
-                <div className="h-0.5 flex-1 bg-stone-200 hidden md:block" />
-              </div>
-              <p className="text-xs font-medium text-stone-400">3. Key Custody Audit</p>
-              <p className="text-[10px] text-stone-400">Pending Step 2</p>
-            </div>
-
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="h-5 w-5 rounded-full bg-stone-200 text-stone-500 flex items-center justify-center shrink-0 text-[10px] font-bold">
-                  4
-                </span>
-              </div>
-              <p className="text-xs font-medium text-stone-400">4. Access Transfer</p>
-              <p className="text-[10px] text-stone-400">Scheduled 15 Nov</p>
-            </div>
           </div>
         </div>
 
@@ -211,15 +221,20 @@ export function ActiveHandoversList() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => copyLink("https://haven.estate/mandates/accept/apex-8camden-9ux")}
-              className="h-8 text-xs border-[#ECEEED] rounded-xl"
+              onClick={() =>
+                copyLink(
+                  "https://haven.estate/mandates/accept/apex-8camden-9ux",
+                  "c2"
+                )
+              }
+              className="h-8 text-xs border-[#ECEEED] rounded-xl cursor-pointer"
             >
-              <Copy className="w-3.5 h-3.5 mr-1.5 text-stone-500" />
-              Copy Acceptance Link
-            </Button>
-            <Button size="sm" className="h-8 text-xs bg-brand hover:bg-[#1E3A2E] text-white rounded-xl">
-              <FileText className="w-3.5 h-3.5 mr-1.5" />
-              View Audit Trail
+              {copiedLink === "c2" ? (
+                <Check className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
+              ) : (
+                <Copy className="w-3.5 h-3.5 mr-1.5 text-stone-500" />
+              )}
+              {copiedLink === "c2" ? "Link Copied" : "Copy Acceptance Link"}
             </Button>
           </div>
         </div>

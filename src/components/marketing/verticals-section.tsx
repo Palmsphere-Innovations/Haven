@@ -2,7 +2,7 @@
 
 import React, { ReactNode } from "react";
 import { CreditCard, Wrench, ShieldCheck, FileText } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 interface VerticalModuleProps {
   icon: ReactNode;
@@ -11,7 +11,7 @@ interface VerticalModuleProps {
 }
 
 const VerticalCard: React.FC<VerticalModuleProps & { index: number }> = ({ icon, title, description, index }) => (
-  <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45, delay: index * 0.08 }} whileHover={{ y: -4, scale: 1.01 }} className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm flex flex-col justify-between">
+  <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.05 }} transition={{ duration: 0.45, delay: index * 0.08 }} whileHover={{ y: -4, scale: 1.01 }} className="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm flex flex-col justify-between">
     <div>
       <div className="w-11 h-11 rounded-xl bg-[#132A20]/5 flex items-center justify-center text-[#132A20] mb-6">
         {icon}

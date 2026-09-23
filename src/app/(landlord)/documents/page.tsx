@@ -30,7 +30,7 @@ export default function DocumentsPage() {
   // Document Operations
   const handleAddDocument = (newDoc: DocumentItem) => {
     setDocuments((prev) => [newDoc, ...prev]);
-    showNotice(`Document "${newDoc.name}" uploaded successfully`);
+    showNotice(`Document "${newDoc.name}" uploaded successfully to vault`);
     setModal(null);
   };
 
@@ -41,7 +41,47 @@ export default function DocumentsPage() {
   };
 
   const handleDownload = (name: string) => {
-    showNotice(`Downloading ${name}...`);
+    const dummyContent = `HAVEN COMPLIANCE & LEGAL VAULT
+Document: ${name}
+Downloaded: ${new Date().toUTCString()}
+Verification: eIDAS / UK ECA 2000 Immutably Signed
+Status: Statutory Validated`;
+
+    const blob = new Blob([dummyContent], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${name.toLowerCase().replace(/[^a-z0-9]/g, "-")}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    showNotice(`Downloaded statutory record: ${name}`);
+  };
+
+  const handleExportAuditPack = () => {
+    const headers = ["Document Name", "Document Type", "Property", "Uploaded By", "Upload Date", "Size"];
+    const rows = documents.map((d) => [
+      `"${d.name}"`,
+      `"${d.type}"`,
+      `"${d.property}"`,
+      `"${d.uploadedBy}"`,
+      `"${d.uploadDate}"`,
+      `"${d.size}"`,
+    ]);
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.href = encodedUri;
+    link.download = `haven-statutory-audit-register-${new Date().toISOString().split("T")[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    showNotice("Statutory audit register exported successfully (CSV).");
   };
 
   return (
@@ -49,7 +89,7 @@ export default function DocumentsPage() {
       {/* 1. Page Header */}
       <DocumentsHeader
         onUpload={() => setModal("upload")}
-        onExport={() => showNotice("Audit pack generated: statutory-certificates.zip")}
+        onExport={handleExportAuditPack}
       />
 
       {/* 2. Key KPI Metric Cards */}

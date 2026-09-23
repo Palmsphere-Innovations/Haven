@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-import { PortalShell } from "@/components/shared/portal-shell"
 import { ComplianceHeader } from "@/components/agent/compliance/compliance-header"
 import { ComplianceMetricsGrid } from "@/components/agent/compliance/compliance-metrics-grid"
 import { ComplianceControls } from "@/components/agent/compliance/compliance-controls"

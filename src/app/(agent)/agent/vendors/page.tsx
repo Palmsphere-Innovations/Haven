@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useMemo } from "react"
-import { PortalShell } from "@/components/shared/portal-shell"
 import { VendorsHeader } from "@/components/agent/vendors/vendors-header"
 import { VendorsQuickStats } from "@/components/agent/vendors/vendors-quick-stats"
 import { VendorsFilterBar } from "@/components/agent/vendors/vendors-filter-bar"

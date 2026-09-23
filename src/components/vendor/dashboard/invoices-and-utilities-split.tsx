@@ -52,24 +52,24 @@ export const InvoicesAndUtilitiesSplit: React.FC<InvoicesAndUtilitiesSplitProps>
                   <td className="py-3 px-4 font-mono text-stone-500">{inv.date}</td>
                   <td className="py-3 px-4 font-mono font-bold text-[#132A20]">{inv.amount}</td>
                   <td className="py-3 px-4">
-                    {inv.status === "Paid" && (
+                    {(inv.status === "Paid" || inv.status === "paid") && (
                       <Badge className="bg-emerald-100 text-emerald-900 border-emerald-200 text-[10px] font-semibold">
                         Paid (BACS Direct)
                       </Badge>
                     )}
-                    {inv.status === "Submitted" && (
+                    {(inv.status === "Submitted" || inv.status === "submitted") && (
                       <Badge className="bg-amber-100 text-amber-900 border-amber-200 text-[10px] font-semibold">
                         Submitted (Under Review)
                       </Badge>
                     )}
-                    {inv.status === "Overdue" && (
+                    {(inv.status === "Overdue" || inv.status === "overdue") && (
                       <Badge className="bg-rose-100 text-rose-900 border-rose-200 text-[10px] font-semibold">
                         Overdue (3 Days)
                       </Badge>
                     )}
                   </td>
                   <td className="py-3 px-4 text-right">
-                    {inv.status === "Overdue" ? (
+                    {(inv.status === "Overdue" || inv.status === "overdue") ? (
                       <Button
                         type="button"
                         variant="ghost"

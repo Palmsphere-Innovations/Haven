@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useMemo } from "react"
-// import { PortalShell } from "@/components/shared/portal-shell"
 import { PaymentsHeader } from "@/components/tenant/payments/payments-header"
 import { PaymentsHeroGrid } from "@/components/tenant/payments/payments-hero-grid"
 import { PaymentsScheduleForecast } from "@/components/tenant/payments/payments-schedule-forecast"

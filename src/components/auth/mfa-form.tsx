@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export const VerifyIdentityForm: React.FC = () => {
   const searchParams = useSearchParams();

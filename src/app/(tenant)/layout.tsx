@@ -1,33 +1,25 @@
 "use client";
 
 import React, { useState } from "react";
-// import { LandlordSidebar } from "@/components/landlord/dashboard/sidebar";
 import { Sidebar } from "@/components/shared/sidebar";
 import { TopHeader } from "@/components/shared/top-header";
-import { Menu,
+import {
+  Menu,
   ChevronLeft,
   LayoutDashboard,
-  Building2,
-  Users,
-  HandCoins,
-  FileCheck2,
-  FileText,
-  FolderOpen,
-  Wrench,
-  BarChart3,
-  Gavel,
   Wallet,
+  Wrench,
+  FolderOpen,
   Phone,
-  Settings
-  } from "lucide-react";
-  import { usePathname } from "next/navigation";
-  import { tenantsData } from "@/lib/mock/tenants";
-  import { ReactNode } from "react";
+  Gavel,
+  Settings,
+} from "lucide-react";
+import { tenantsData } from "@/lib/mock/tenants";
+import { ReactNode } from "react";
 
-
- interface LandlordLayoutProps {
-   children: ReactNode;
- }
+interface TenantLayoutProps {
+  children: ReactNode;
+}
 
 const navItems = [
   { label: "Dashboard", href: "/tenant/dashboard", icon: LayoutDashboard },
@@ -37,27 +29,23 @@ const navItems = [
   { label: "Contact", href: "/tenant/contact", icon: Phone },
   { label: "Disputes", href: "/tenant/disputes", icon: Gavel },
   { label: "Settings", href: "/tenant/settings", icon: Settings },
-  // { label: "App", href: "/tenant/application", icon: Settings },
-];;
+];
 
-export default function LandlordLayout({
-  children,
-  } : LandlordLayoutProps ) {
+export default function TenantLayout({ children }: TenantLayoutProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const tenant = tenantsData[0]
+  const tenant = tenantsData[0];
 
   return (
     <div className="bg-[#F0F2F1] text-[#111827] antialiased min-h-screen flex justify-center items-start">
       {/* Canvas Wrapper */}
       <div className="w-full max-w-[1600px] h-screen max-h-screen bg-white sm:rounded-[32px] border border-black/5 shadow-2xl flex flex-col md:flex-row overflow-hidden relative">
-        
         {/* DESKTOP SIDEBAR */}
         <div className="hidden md:block">
           <Sidebar
             navItems={navItems}
-            title="Landlord"
+            title="Tenant"
             onClose={() => setIsMobileOpen(false)}
             onToggle={() => setIsCollapsed((prev) => !prev)}
             collapsed={isCollapsed}
@@ -77,7 +65,7 @@ export default function LandlordLayout({
               <button
                 type="button"
                 onClick={() => setIsMobileOpen(false)}
-                className="aria-label-close absolute right-4 top-4 z-100 p-1 border border-[#ECEEED] rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="aria-label-close absolute right-4 top-4 z-10 p-1 border border-[#ECEEED] rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -110,9 +98,9 @@ export default function LandlordLayout({
                 name={tenant.names}
                 initials={tenant.initials}
                 notificationsCount={3}
-                notificationLink="/communication/notifications"
-                role="Tenants"
-                dashboardLink='/settings'
+                notificationLink="/tenant/contact"
+                role="Tenant"
+                dashboardLink="/tenant/dashboard"
               />
             </div>
           </div>

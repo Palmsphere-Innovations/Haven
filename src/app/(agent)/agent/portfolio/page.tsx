@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useMemo } from "react"
-import { PortalShell } from "@/components/shared/portal-shell"
 import { PortfolioHeader } from "@/components/agent/portfolio/portfolio-header"
 import { PortfolioMetricsGrid } from "@/components/agent/portfolio/portfolio-metrics-grid"
 import { PortfolioControls } from "@/components/agent/portfolio/portfolio-controls"

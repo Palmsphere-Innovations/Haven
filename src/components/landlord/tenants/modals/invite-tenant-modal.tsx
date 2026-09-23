@@ -5,14 +5,32 @@ import { X, Mail, Send, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export function InviteTenantModal({ onClose }: { onClose: () => void }) {
+interface InviteTenantModalProps {
+  onClose: () => void;
+  onAdd?: (name: string, email: string, property: string) => void;
+}
+
+export function InviteTenantModal({ onClose, onAdd }: InviteTenantModalProps) {
   const [copied, setCopied] = useState(false);
-  const inviteLink = "https://haven.estate/invite?email=oliver.davies@kensington-tenants.co.uk";
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [property, setProperty] = useState("Flat 4B, 18 Kensington Gdns (KG-4B)");
+  const inviteLink = `https://haven.estate/invite?email=${encodeURIComponent(
+    email || "new.tenant@haven.estate"
+  )}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(inviteLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onAdd && name && email) {
+      onAdd(name, email, property);
+    }
+    onClose();
   };
 
   return (
@@ -33,41 +51,70 @@ export function InviteTenantModal({ onClose }: { onClose: () => void }) {
           </button>
         </div>
 
-        <form onSubmit={(e) => { e.preventDefault(); onClose(); }} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <label className="block space-y-1.5">
             <span className="text-xs font-semibold text-stone-700">Tenant Legal Full Name</span>
-            <Input required placeholder="e.g. Oliver Davies" className="bg-[#F9F9F8] border-[#ECEEED] h-10 text-xs rounded-xl" />
+            <Input
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g. Oliver Davies"
+              className="bg-[#F9F9F8] border-[#ECEEED] h-10 text-xs rounded-xl"
+            />
           </label>
 
           <label className="block space-y-1.5">
             <span className="text-xs font-semibold text-stone-700">Tenant Email Address</span>
-            <Input type="email" required placeholder="oliver.davies@kensington-tenants.co.uk" className="bg-[#F9F9F8] border-[#ECEEED] h-10 text-xs rounded-xl" />
+            <Input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="oliver.davies@kensington-tenants.co.uk"
+              className="bg-[#F9F9F8] border-[#ECEEED] h-10 text-xs rounded-xl"
+            />
           </label>
 
           <label className="block space-y-1.5">
             <span className="text-xs font-semibold text-stone-700">Link Property Unit</span>
-            <select className="w-full h-10 px-3 text-xs bg-[#F9F9F8] border border-[#ECEEED] rounded-xl text-stone-800">
+            <select
+              value={property}
+              onChange={(e) => setProperty(e.target.value)}
+              className="w-full h-10 px-3 text-xs bg-[#F9F9F8] border border-[#ECEEED] rounded-xl text-stone-800"
+            >
               <option>Flat 4B, 18 Kensington Gdns (KG-4B)</option>
               <option>8 Camden Mews (CM-08)</option>
               <option>27 Blenheim Crescent (BC-27)</option>
+              <option>12 Richmond Hill Mansions (RM-12)</option>
             </select>
           </label>
 
           <div className="pt-2 space-y-1.5">
             <span className="text-xs font-semibold text-stone-700 block">Direct Magic Invite Link</span>
             <div className="flex items-center gap-2">
-              <Input readOnly value={inviteLink} className="bg-[#F9F9F8] text-[11px] font-mono h-9 text-stone-600 rounded-xl" />
-              <Button type="button" onClick={handleCopy} variant="outline" className="h-9 px-3 text-xs shrink-0 rounded-xl border-[#ECEEED]">
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+              <Input
+                readOnly
+                value={inviteLink}
+                className="bg-[#F9F9F8] text-[11px] font-mono h-9 text-stone-600 rounded-xl"
+              />
+              <Button
+                type="button"
+                onClick={handleCopy}
+                variant="outline"
+                className="h-9 px-3 text-xs shrink-0 rounded-xl border-[#ECEEED]"
+              >
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 mr-1" /> : <Copy className="w-3.5 h-3.5 mr-1" />}
+                {copied ? "Copied" : "Copy"}
               </Button>
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#ECEEED]">
-            <Button type="button" variant="outline" onClick={onClose} className="rounded-xl h-10 text-xs">Cancel</Button>
-            <Button type="submit" className="rounded-xl bg-brand hover:bg-[#1E3A2E] text-white text-xs font-semibold h-10 px-5">
-              <Send className="w-3.5 h-3.5 mr-2" />
-              Send Invitation
+          <div className="flex items-center justify-end gap-2.5 pt-4 border-t border-[#ECEEED]">
+            <Button type="button" variant="outline" onClick={onClose} className="h-9 text-xs rounded-xl border-[#ECEEED]">
+              Cancel
+            </Button>
+            <Button type="submit" className="h-9 bg-brand hover:bg-[#1E3A2E] text-white text-xs font-semibold rounded-xl">
+              <Send className="w-3.5 h-3.5 mr-1.5" /> Send Invitation
             </Button>
           </div>
         </form>

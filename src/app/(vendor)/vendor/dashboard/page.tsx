@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-// import { PortalShell } from "@/components/shared/portal-shell"
 import { VendorHeader } from "@/components/vendor/dashboard/vendor-header"
 import { VendorStatsRow } from "@/components/vendor/dashboard/vendor-stats-row"
 import { IncomingRequestsGrid } from "@/components/vendor/dashboard/incoming-requests-grid"
@@ -182,8 +181,8 @@ export default function VendorDashboardPage() {
      <div className=" min-h-screen py-4 px-2 sm:px-8">
         <div className="max-w-[1600px] mx-auto space-y-6">
           <VendorHeader
-            onLogUnscheduledVisit={() => alert("Opening Unscheduled Visit Logging form...")}
-            onSubmitNewInvoice={() => alert("Opening New Invoice Upload modal...")}
+            onLogVisit={() => alert("Opening Unscheduled Visit Logging form...")}
+            onSubmitInvoice={() => alert("Opening New Invoice Upload modal...")}
           />
 
           <VendorStatsRow />

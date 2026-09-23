@@ -1,9 +1,15 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
-import { Gavel, Calendar, ArrowRight } from "lucide-react";
+import { Gavel, Calendar, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ServiceOrderModal } from "@/components/landlord/documents/modals/service-order-modal";
 
 export const ComplianceWidget: React.FC = () => {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [bookingNotice, setBookingNotice] = useState<string | null>(null);
+
   return (
     <div className="bg-[#132A20] text-white rounded-2xl p-6 sm:p-7 shadow-md flex flex-col justify-between">
       <div>
@@ -22,6 +28,13 @@ export const ComplianceWidget: React.FC = () => {
           Section 11 Landlord &amp; Tenant Act 1985 and Deregulation Act 2015 index.
         </p>
 
+        {bookingNotice && (
+          <div className="mt-3 p-3 rounded-xl bg-emerald-900/60 border border-emerald-500/40 text-xs text-emerald-200 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>{bookingNotice}</span>
+          </div>
+        )}
+
         <div className="flex flex-col gap-3.5 mt-5">
           {/* Gas Safety Alert */}
           <div className="p-4 rounded-xl bg-white/10 border border-white/10 flex flex-col gap-2">
@@ -37,7 +50,11 @@ export const ComplianceWidget: React.FC = () => {
             </div>
             <div className="pt-2 border-t border-white/10 flex items-center justify-between mt-1">
               <span className="text-[10px] text-[#A3B8AD]">Reg 36 Compliance</span>
-              <Button size="sm" className="bg-white hover:bg-gray-100 text-[#132A20] text-xs font-semibold h-7">
+              <Button
+                size="sm"
+                onClick={() => setIsBookingOpen(true)}
+                className="bg-white hover:bg-gray-100 text-[#132A20] text-xs font-semibold h-7 cursor-pointer"
+              >
                 <Calendar className="w-3.5 h-3.5 mr-1" />
                 Book Gas Safe
               </Button>
@@ -71,6 +88,14 @@ export const ComplianceWidget: React.FC = () => {
           <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
         </Link>
       </div>
+
+      {isBookingOpen && (
+        <ServiceOrderModal
+          property="Flat 2, 8 Camden Mews"
+          service="Gas Safety (CP12)"
+          onClose={() => setIsBookingOpen(false)}
+        />
+      )}
     </div>
   );
 };

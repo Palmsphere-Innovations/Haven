@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { loginUser } from "@/lib/auth";
 import { loginSchema, type LoginFormData } from "@/lib/validations/auth";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export const LoginForm: React.FC = () => {
   const router = useRouter();

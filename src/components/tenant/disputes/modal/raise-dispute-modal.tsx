@@ -2,10 +2,17 @@ import React, { useState } from "react"
 import { X, ChevronDown, Upload, FolderArchive, XCircle, ShieldCheck, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
+export interface RaiseDisputeFormData {
+  category: string
+  value: string
+  title: string
+  description: string
+}
+
 interface RaiseDisputeModalProps {
   isOpen: boolean
   onClose: () => void
-  onSubmit: (formData: any) => void
+  onSubmit: (formData: RaiseDisputeFormData) => void
 }
 
 export const RaiseDisputeModal: React.FC<RaiseDisputeModalProps> = ({

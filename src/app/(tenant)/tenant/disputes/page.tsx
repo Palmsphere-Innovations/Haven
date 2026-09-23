@@ -1,13 +1,12 @@
 "use client"
 
 import React, { useState, useMemo } from "react"
-// import { PortalShell } from "@/components/shared/portal-shell"
 import { DisputeHeader } from "@/components/tenant/disputes/dispute-header"
 import { DisputeMetricsRow } from "@/components/tenant/disputes/dispute-metrics-row"
 import { DisputeLedgerTable } from "@/components/tenant/disputes/dispute-ledger-table"
 import { DisputeDetailWorkspace } from "@/components/tenant/disputes/dispute-detail-workspace"
 import { DisputeAdvisorySidebar } from "@/components/tenant/disputes/dispute-advisory-sidebar"
-import { RaiseDisputeModal } from "@/components/tenant/disputes/modal/raise-dispute-modal"
+import { RaiseDisputeModal, RaiseDisputeFormData } from "@/components/tenant/disputes/modal/raise-dispute-modal"
 import { DisputeRecord, DisputeChatMessage } from "@/types/index"
 
 const INITIAL_DISPUTES: DisputeRecord[] = [
@@ -105,7 +104,7 @@ export default function TenantDisputesPage() {
     setChatMessages((prev) => [...prev, newMsg])
   }
 
-  const handleRaiseDisputeSubmit = (formData: any) => {
+  const handleRaiseDisputeSubmit = (formData: RaiseDisputeFormData) => {
     setIsModalOpen(false)
     alert(`Dispute "${formData.title}" submitted successfully under statutory ADR rules.`)
   }

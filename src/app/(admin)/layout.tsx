@@ -1,41 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-// import { LandlordSidebar } from "@/components/landlord/dashboard/sidebar";
-import { Sidebar } from "@/components/shared/sidebar";
+import { AdminSidebar } from "@/components/admin/sidebar";
 import { TopHeader } from "@/components/shared/top-header";
-import { Menu,
-  ChevronLeft,
-  LayoutDashboard,
-  Building2,
-  Users,
-  HandCoins,
-  FileCheck2,
-  FileText,
-  FolderOpen,
-  Wrench,
-  BarChart3,
-  Gavel,
-  } from "lucide-react";
+import { Menu, ChevronLeft } from "lucide-react";
 
-
-
-
-const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Properties", href: "/properties", icon: Building2 },
-  { label: "Agents", href: "/agents", icon: HandCoins },
-  { label: "Tenants", href: "/tenants", icon: Users },
-  { label: "Handovers", href: "/agents/handovers", icon: FileCheck2 },
-  { label: "Contracts", href: "/contracts", icon: FileText },
-  { label: "Documents", href: "/documents", icon: FolderOpen },
-  { label: "Maintenance", href: "/maintenance", icon: Wrench },
-  { label: "Cost Analysis", href: "/cost-analysis", icon: BarChart3 },
-  { label: "Disputes", href: "/disputes", icon: Gavel },
-  // { label: "Settings", href: "/disputes", icon: Gavel },
-];
-
-export default function LandlordLayout({
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -50,12 +20,10 @@ export default function LandlordLayout({
         
         {/* DESKTOP SIDEBAR */}
         <div className="hidden md:block">
-          <Sidebar
-            navItems={navItems}
-            title="admin"
-            onClose={() => setIsMobileOpen(false)}
-            onToggle={() => setIsCollapsed((prev) => !prev)}
+          <AdminSidebar
             collapsed={isCollapsed}
+            onToggle={() => setIsCollapsed((prev) => !prev)}
+            onClose={() => {}}
           />
         </div>
 
@@ -72,16 +40,14 @@ export default function LandlordLayout({
               <button
                 type="button"
                 onClick={() => setIsMobileOpen(false)}
-                className="aria-label-close absolute right-4 top-4 z-100 p-1 border border-[#ECEEED] rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="aria-label-close absolute right-4 top-4 z-10 p-1 border border-[#ECEEED] rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <Sidebar
+              <AdminSidebar
                 collapsed={false}
-                navItems={navItems}
-                title="admin"
                 onClose={() => setIsMobileOpen(false)}
-                onToggle={() => setIsCollapsed((prev) => !prev)}
+                onToggle={() => {}}
               />
             </div>
           </div>
@@ -100,9 +66,15 @@ export default function LandlordLayout({
               <Menu className="w-5 h-5" />
             </button>
             <div className="flex-1">
-              {/* <TopHeader
-              
-              /> */}
+              <TopHeader
+                id="admin-001"
+                name="Platform Operations"
+                initials="PO"
+                notificationsCount={2}
+                notificationLink="/admin/disputes"
+                role="Super Admin"
+                dashboardLink="/admin/dashboard"
+              />
             </div>
           </div>
 
