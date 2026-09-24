@@ -10,7 +10,7 @@ import {
   TrendingUp,
   Keyboard,
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export interface MetricItem {
   label: string;
