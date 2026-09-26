@@ -1,3 +1,4 @@
+"use client";
 import React from "react"
 import { Download, Gavel, Lock, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"

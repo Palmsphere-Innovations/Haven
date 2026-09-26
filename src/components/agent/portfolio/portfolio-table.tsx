@@ -1,3 +1,4 @@
+"use client";
 import React from "react"
 import {
   Building2,
@@ -23,6 +24,12 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
   properties,
   onViewUnit,
 }) => {
+  const [currentPage, setCurrentPage] = React.useState(1)
+  const pageSize = 4
+  const totalPages = Math.max(1, Math.ceil(properties.length / pageSize))
+  const safePage = currentPage > totalPages ? 1 : currentPage
+  const paginatedProperties = properties.slice((safePage - 1) * pageSize, safePage * pageSize)
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-stone-200/80 overflow-hidden flex flex-col">
       <div className="overflow-x-auto w-full">
@@ -39,7 +46,7 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
             </tr>
           </thead>
           <tbody className="divide-y divide-stone-200/60">
-            {properties.map((row) => (
+            {paginatedProperties.map((row) => (
               <tr key={row.id} className="hover:bg-stone-50 transition-colors">
                 {/* Property & Principal Landlord */}
                 <td className="pl-4 pr-3 py-3.5 align-middle">
@@ -169,7 +176,9 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
                     <Button
                       type="button"
                       variant="ghost"
-                      className="h-7 w-7 p-0 text-stone-500 hover:text-[#132A20]"
+                      onClick={() => onViewUnit(row.id)}
+                      title="View unit details"
+                      className="h-7 w-7 p-0 text-stone-500 hover:text-[#132A20] cursor-pointer"
                     >
                       <MoreVertical className="w-4 h-4" />
                     </Button>
@@ -184,20 +193,48 @@ export const PortfolioTable: React.FC<PortfolioTableProps> = ({
       {/* Pagination & Count */}
       <div className="p-3 bg-stone-100/80 border-t border-stone-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-600">
         <div>
-          Displaying <span className="font-mono font-semibold text-[#132A20]">{properties.length}</span> of{" "}
-          <span className="font-mono font-semibold text-[#132A20]">14</span> delegated properties under active agent mandate
+          Displaying{" "}
+          <span className="font-mono font-semibold text-[#132A20]">
+            {paginatedProperties.length}
+          </span>{" "}
+          of{" "}
+          <span className="font-mono font-semibold text-[#132A20]">
+            {properties.length}
+          </span>{" "}
+          delegated properties under active agent mandate
         </div>
         <div className="flex items-center gap-1">
-          <Button variant="outline" disabled className="h-7 px-2.5 text-xs bg-white text-stone-400 border-stone-200">
+          <Button
+            type="button"
+            variant="outline"
+            disabled={safePage <= 1}
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            className="h-7 px-2.5 text-xs bg-white text-stone-700 border-stone-200 disabled:opacity-40 cursor-pointer"
+          >
             Previous
           </Button>
-          <Button className="h-7 px-2.5 text-xs bg-[#132A20] text-white hover:bg-[#1c3e30]">
-            1
-          </Button>
-          <Button variant="outline" className="h-7 px-2.5 text-xs bg-white text-stone-700 border-stone-300">
-            2
-          </Button>
-          <Button variant="outline" className="h-7 px-2.5 text-xs bg-white text-stone-700 border-stone-300">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+            <Button
+              key={pageNum}
+              type="button"
+              variant={safePage === pageNum ? "default" : "outline"}
+              onClick={() => setCurrentPage(pageNum)}
+              className={`h-7 px-2.5 text-xs cursor-pointer ${
+                safePage === pageNum
+                  ? "bg-[#132A20] text-white hover:bg-[#1c3e30]"
+                  : "bg-white text-stone-700 border-stone-300 hover:bg-stone-50"
+              }`}
+            >
+              {pageNum}
+            </Button>
+          ))}
+          <Button
+            type="button"
+            variant="outline"
+            disabled={safePage >= totalPages}
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            className="h-7 px-2.5 text-xs bg-white text-stone-700 border-stone-300 disabled:opacity-40 cursor-pointer"
+          >
             Next
           </Button>
         </div>

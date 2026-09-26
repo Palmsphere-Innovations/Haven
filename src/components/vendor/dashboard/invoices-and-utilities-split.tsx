@@ -7,12 +7,32 @@ import { VendorInvoice } from "./vendor-types"
 interface InvoicesAndUtilitiesSplitProps {
   invoices: VendorInvoice[]
   onRemindInvoice: (id: string) => void
+  onDownloadPdf?: (id: string) => void
 }
 
 export const InvoicesAndUtilitiesSplit: React.FC<InvoicesAndUtilitiesSplitProps> = ({
   invoices,
   onRemindInvoice,
+  onDownloadPdf,
 }) => {
+  const handleDownload = (inv: VendorInvoice) => {
+    if (onDownloadPdf) {
+      onDownloadPdf(inv.id);
+      return;
+    }
+    const blob = new Blob(
+      [`HAVEN INVOICE STATEMENT\nInvoice: ${inv.id}\nProperty: ${inv.property}\nAmount: ${inv.amount}\nDue: ${inv.dueDate || inv.date}\nStatus: ${inv.status}\nVerified by Haven Payment Gateway`],
+      { type: "text/plain" }
+    );
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Invoice-${inv.id}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Invoices Ledger (2 Cols) */}
@@ -83,7 +103,8 @@ export const InvoicesAndUtilitiesSplit: React.FC<InvoicesAndUtilitiesSplitProps>
                       <Button
                         type="button"
                         variant="ghost"
-                        className="h-7 text-xs text-[#132A20] hover:bg-stone-100"
+                        onClick={() => handleDownload(inv)}
+                        className="h-7 text-xs text-[#132A20] hover:bg-stone-100 cursor-pointer"
                       >
                         <Download className="w-3.5 h-3.5 mr-1" />
                         PDF

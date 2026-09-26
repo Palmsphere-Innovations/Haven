@@ -95,15 +95,15 @@ export const SignUpForm: React.FC = () => {
           <Label className="mb-2 block text-[11px] font-bold uppercase tracking-wider text-gray-900">
             Select Platform Role
           </Label>
-          <div aria-label="Platform Role" className="grid grid-cols-2 gap-3" role="group">
-            {(["landlord", "agent"] as const).map((role) => (
+          <div aria-label="Platform Role" className="grid grid-cols-2 sm:grid-cols-4 gap-2" role="group">
+            {(["landlord", "agent", "vendor", "tenant"] as const).map((role) => (
               <button
                 key={role}
                 type="button"
                 onClick={() => setValue("role", role, { shouldValidate: true })}
-                className={`w-full rounded-lg border px-4 py-2.5 text-[14px] capitalize transition-all ${
+                className={`w-full rounded-lg border px-3 py-2 text-xs capitalize transition-all cursor-pointer ${
                   selectedRole === role
-                    ? "border-brand bg-brand font-semibold text-white"
+                    ? "border-brand bg-brand font-semibold text-white shadow-xs"
                     : "border-gray-300 bg-gray-50/70 font-medium text-gray-700 hover:bg-gray-100"
                 }`}
               >
@@ -111,6 +111,14 @@ export const SignUpForm: React.FC = () => {
               </button>
             ))}
           </div>
+          {selectedRole === "vendor" && (
+            <p className="mt-2 text-xs text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-md p-2">
+              Note: Commercial trade partners can also use the{" "}
+              <Link href="/vendor/join" className="font-semibold underline">
+                Contractor Statutory Verification Portal →
+              </Link>
+            </p>
+          )}
           {error("role")}
         </div>
 
@@ -275,6 +283,17 @@ export const SignUpForm: React.FC = () => {
           Already have an account?{" "}
           <Link className="ml-1 font-semibold text-brand hover:underline" href="/sign-in">
             Log in
+          </Link>
+        </div>
+
+        {/* Vendor Onboarding Link */}
+        <div className="mt-4 pt-4 border-t border-gray-100 text-center">
+          <Link
+            href="/vendor/join"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-800 hover:text-emerald-950 transition-colors"
+          >
+            <span>Are you a contractor or trade partner?</span>
+            <span className="font-semibold underline">Join Haven as a Vendor →</span>
           </Link>
         </div>
       </form>
