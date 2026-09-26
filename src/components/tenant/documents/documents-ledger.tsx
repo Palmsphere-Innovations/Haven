@@ -19,28 +19,46 @@ export const DocumentsLedger: React.FC<DocumentsLedgerProps> = ({
   onViewDoc,
   onDownloadDoc,
 }) => {
-  const categories: { id: DocumentCategory; label: string; count: number }[] = [
-    { id: "all", label: "All Documents", count: 8 },
-    { id: "statutory", label: "Statutory & Safety", count: 3 },
-    { id: "identity", label: "Identity & Referencing", count: 2 },
-    { id: "inventories", label: "Inventories & Reports", count: 2 },
-    { id: "notices", label: "Notices & Schedules", count: 1 },
-  ]
+  const getCategoryCount = (catId: DocumentCategory) => {
+    if (catId === "all") return documents.length;
+    return documents.filter((d) => d.category === catId).length;
+  };
+
+  const categories: { id: DocumentCategory; label: string }[] = [
+    { id: "all", label: "All Documents" },
+    { id: "statutory", label: "Statutory & Safety" },
+    { id: "identity", label: "Identity & Referencing" },
+    { id: "inventories", label: "Inventories & Reports" },
+    { id: "notices", label: "Notices & Schedules" },
+  ];
 
   const getCategoryIcon = (category: DocumentCategory) => {
     switch (category) {
       case "statutory":
-        return <Flame className="w-4 h-4 text-amber-700" />
+        return <Flame className="w-4 h-4 text-amber-700" />;
       case "identity":
-        return <BadgeCheck className="w-4 h-4 text-stone-600" />
+        return <BadgeCheck className="w-4 h-4 text-stone-600" />;
       case "inventories":
-        return <ImageIcon className="w-4 h-4 text-emerald-800" />
+        return <ImageIcon className="w-4 h-4 text-emerald-800" />;
       case "notices":
-        return <Calendar className="w-4 h-4 text-stone-600" />
+        return <Calendar className="w-4 h-4 text-stone-600" />;
       default:
-        return <ShieldUser className="w-4 h-4 text-[#132A20]" />
+        return <ShieldUser className="w-4 h-4 text-[#132A20]" />;
     }
-  }
+  };
+
+  const getBadgeStyle = (statusType: DocumentRecord["statusType"]) => {
+    switch (statusType) {
+      case "verified":
+        return "bg-emerald-100 text-emerald-900 border-emerald-200";
+      case "countersigned":
+        return "bg-blue-100 text-blue-900 border-blue-200";
+      case "valid":
+        return "bg-emerald-50 text-emerald-800 border-emerald-300";
+      default:
+        return "bg-stone-100 text-stone-800 border-stone-300";
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4 min-w-0">
@@ -51,13 +69,13 @@ export const DocumentsLedger: React.FC<DocumentsLedgerProps> = ({
             key={cat.id}
             type="button"
             onClick={() => onCategoryChange(cat.id)}
-            className={`px-4 py-2 rounded-xl text-xs font-medium shrink-0 transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-medium shrink-0 transition-all cursor-pointer ${
               activeCategory === cat.id
                 ? "bg-[#132A20] text-white shadow-sm"
                 : "bg-white text-stone-600 hover:text-[#132A20] hover:bg-stone-100 border border-stone-200/80"
             }`}
           >
-            {cat.label} ({cat.count})
+            {cat.label} ({getCategoryCount(cat.id)})
           </button>
         ))}
       </div>
@@ -95,8 +113,12 @@ export const DocumentsLedger: React.FC<DocumentsLedgerProps> = ({
               </div>
 
               <div className="col-span-3 md:col-span-2 flex items-center">
-                <Badge className="bg-emerald-100 text-emerald-900 border-emerald-200 text-[10px] font-semibold px-2 py-0.5 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-700" />
+                <Badge
+                  className={`text-[10px] font-semibold px-2 py-0.5 flex items-center gap-1 ${getBadgeStyle(
+                    doc.statusType
+                  )}`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-current" />
                   <span>{doc.status}</span>
                 </Badge>
               </div>

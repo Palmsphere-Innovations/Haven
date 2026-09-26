@@ -117,7 +117,7 @@ export const PropertiesTable: React.FC<PropertiesTableProps> = ({ properties }) 
                           {item.code}
                         </span>
                       </div>
-                      <div className="text-[11px] text-stone-500 mt-0.5">
+                      <div className="text-[11px] text-stone-500 mt-0.5 ">
                         {item.address}
                       </div>
                     </div>

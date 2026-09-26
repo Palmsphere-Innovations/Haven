@@ -41,9 +41,9 @@ export const TenantDocumentsPanel: React.FC<TenantDocumentsPanelProps> = ({
         <button
           type="button"
           onClick={onViewAllDocuments}
-          className="text-xs font-semibold text-[#132A20] hover:underline"
+          className="text-xs font-semibold text-[#132A20] hover:underline cursor-pointer"
         >
-          View All (6)
+          View All ({documents.length})
         </button>
       </div>
 

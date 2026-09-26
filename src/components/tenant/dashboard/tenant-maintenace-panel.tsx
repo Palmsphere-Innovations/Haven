@@ -95,7 +95,11 @@ export const TenantMaintenancePanel: React.FC<TenantMaintenancePanelProps> = ({
                   View Details
                 </button>
                 {t.status === "Visit Scheduled" && (
-                  <button type="button" className="text-stone-500 hover:text-[#132A20]">
+                  <button
+                    type="button"
+                    onClick={() => onViewTicketDetails(t.id)}
+                    className="text-stone-500 hover:text-[#132A20] hover:underline cursor-pointer"
+                  >
                     Reschedule
                   </button>
                 )}

@@ -116,13 +116,13 @@ export default function ContractsPage() {
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="space-y-1">
           <nav className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-500 uppercase tracking-wider">
-            <Link
+            {/* <Link
               href="/documents"
               className="hover:text-stone-900 transition-colors flex items-center gap-1"
             >
               <ArrowLeft className="w-3 h-3" /> Documents
-            </Link>
-            <span>/</span>
+            </Link> */}
+            {/* <span>/</span> */}
             <span className="text-brand font-bold">Contracts &amp; Leases</span>
           </nav>
           <h1 className="text-xl lg:text-2xl font-bold text-stone-900 tracking-tight">

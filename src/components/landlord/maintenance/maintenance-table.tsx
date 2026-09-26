@@ -125,7 +125,7 @@ export const MaintenanceTable: React.FC<{ tickets: MaintenanceTicket[]; onSelect
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          <div className="relative min-w-">60
+          <div className="relative min-w-">
             <Search className="w-4 h-4 text-stone-400 absolute left-3 top-2 pointer-events-none" />
             <Input
               type="text"

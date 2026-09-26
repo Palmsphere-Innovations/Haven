@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import { ChevronLeft, Menu } from "lucide-react";
 import { Sidebar } from "@/components/shared/sidebar";
 import { TopHeader } from "@/components/shared/top-header";
+import { RouteTransition } from "@/components/shared/route-transition";
 import { vendorNavItems } from "@/components/vendor/nav-items";
 
 export default function VendorLayout({ children }: { children: ReactNode }) {
@@ -73,7 +74,7 @@ export default function VendorLayout({ children }: { children: ReactNode }) {
           </div>
 
           <main className="flex h-screen min-h-0 flex-1 flex-col gap-8 overflow-x-hidden overflow-y-auto p-4 sm:p-8 lg:p-10">
-            {children}
+            <RouteTransition>{children}</RouteTransition>
           </main>
         </div>
       </div>

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { DevRoleSwitcher } from "@/components/shared/dev-role-switcher";
-import { RouteTransition } from "@/components/shared/route-transition";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,7 +29,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans bg-[#F0F2F1] text-neutral-900 min-h-screen antialiased">
-        <RouteTransition>{children}</RouteTransition>
+        {children}
         <DevRoleSwitcher />
       </body>
     </html>

@@ -23,6 +23,7 @@ export function TenantsRegulatoryBanner() {
         </div>
       </div>
       <button
+      
         type="button"
         className="text-xs font-semibold text-[#132A20] hover:underline flex items-center gap-1 shrink-0"
       >

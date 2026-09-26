@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-// import { LandlordSidebar } from "@/components/landlord/dashboard/sidebar";
 import { Sidebar } from "@/components/shared/sidebar";
 import { TopHeader } from "@/components/shared/top-header";
-import { Menu,
+import { RouteTransition } from "@/components/shared/route-transition";
+import {
+  Menu,
   ChevronLeft,
   LayoutDashboard,
   Building2,
@@ -18,7 +19,6 @@ import { Menu,
   Gavel,
   Settings,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { landlordsData } from "@/lib/mock/landlord";
 import { ReactNode } from "react";
 
@@ -40,19 +40,17 @@ const navItems = [
   { label: "Settings", href: "/settings", icon: Settings },
 ];
 
-export default function LandlordLayout({
-  children,
-  } : LandlordLayoutProps ) {
+export default function LandlordLayout({ children }: LandlordLayoutProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const landlord = landlordsData[0]
+  const landlord = landlordsData[0];
 
   return (
     <div className="bg-[#F0F2F1] text-[#111827] antialiased min-h-screen flex justify-center items-start">
       {/* Canvas Wrapper */}
       <div className="w-full max-w-[1600px] h-screen max-h-screen bg-white sm:rounded-[32px] border border-black/5 shadow-2xl flex flex-col md:flex-row overflow-hidden relative">
-        
+
         {/* DESKTOP SIDEBAR */}
         <div className="hidden md:block">
           <Sidebar
@@ -112,13 +110,13 @@ export default function LandlordLayout({
                 notificationsCount={3}
                 notificationLink="/communication/notifications"
                 role="Landlord"
-                dashboardLink='/dashboard'
+                dashboardLink="/dashboard"
               />
             </div>
           </div>
 
           <main className="flex-1 h-screen min-h-0 overflow-y-auto overflow-x-hidden p-4 sm:p-8 lg:p-10 flex flex-col gap-8">
-            {children}
+            <RouteTransition>{children}</RouteTransition>
           </main>
         </div>
       </div>

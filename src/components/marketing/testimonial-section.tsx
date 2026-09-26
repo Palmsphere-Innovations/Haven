@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { ShieldCheck, Lock, Sparkles } from "lucide-react";
-import { motion, useInView, useMotionValue, useSpring, type Variants } from "motion/react";
+import { motion, useInView, useMotionValue, useSpring, type Variants } from "framer-motion";
 
 // Helper Component for Animated Number Counters
 function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {

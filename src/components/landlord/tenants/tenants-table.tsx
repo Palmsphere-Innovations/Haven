@@ -135,7 +135,7 @@ export function TenantsTable({ tenants }: TenantsTableProps) {
             </thead>
             <tbody className="divide-y divide-[#ECEEED]">
               {filteredTenants.map((row) => (
-                <tr key={row.id} className="hover:bg-stone-50/70 transition-colors">
+                <tr key={row.id} className="hover:bg-stone-50/70 transition-colors w-max">
                   <td className="py-3.5 px-4">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-[#E8EFEA] text-[#132A20] flex items-center justify-center font-bold text-xs shrink-0">
@@ -148,7 +148,7 @@ export function TenantsTable({ tenants }: TenantsTableProps) {
                     </div>
                   </td>
 
-                  <td className="py-3.5 px-4">
+                  <td className="py-3.5 px-4 ">
                     <div className="font-medium text-stone-900">{row.property}</div>
                     <div className="text-[11px] text-stone-500">{row.unit}</div>
                   </td>
