@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { registerUser } from "@/lib/auth";
 import { signUpSchema, type SignUpFormData } from "@/lib/validations/auth";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 const fieldClass =
   "w-full rounded-lg border border-gray-300 px-3.5 text-[14px] placeholder:text-gray-400 focus:border-brand focus:ring-1 focus:ring-brand focus:outline-none transition-colors";

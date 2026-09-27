@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { resolveUserFromEmail, verifyOtp, ROLE_PORTAL_MAP, type AuthUser } from "@/lib/auth";
 import type { UserRole } from "@/types/schema";
 import { ShieldCheck, KeyRound } from "lucide-react";

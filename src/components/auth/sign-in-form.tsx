@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { loginUser, DEMO_ACCOUNTS } from "@/lib/auth";
 import { loginSchema, type LoginFormData } from "@/lib/validations/auth";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { ShieldCheck, UserCheck } from "lucide-react";
 
 export const LoginForm: React.FC = () => {
