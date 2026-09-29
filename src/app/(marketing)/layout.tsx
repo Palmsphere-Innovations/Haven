@@ -11,7 +11,7 @@ export default function MarketingLayout({
   return (
     <div className="bg-brand-surface text-neutral-900 flex flex-col min-h-screen selection:bg-brand selection:text-white">
       <Header />
-      <main className="grow pt-28 sm:pt-32 pb-16">{children}</main>
+      <main className="grow pt-16 pb-12 sm:pt-20 sm:pb-16">{children}</main>
       <Footer />
     </div>
   );

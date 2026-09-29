@@ -47,18 +47,18 @@ export const VerticalsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 sm:py-24 border-t border-neutral-200/70 bg-[#FAF7F5]" data-purpose="verticals-section">
+    <section className="border-t border-neutral-200/70 bg-[#FAF7F5] py-16 sm:py-20 lg:py-24" data-purpose="verticals-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-left mb-14 max-w-2xl">
+        <div className="mb-9 max-w-2xl text-left sm:mb-12 lg:mb-14">
           <p className="text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-3">
             PLATFORM MODULES
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
+          <h2 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
             Key Functional Verticals
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6">
           {modules.map((m, index) => (
             <VerticalCard key={m.title} {...m} index={index} />
           ))}

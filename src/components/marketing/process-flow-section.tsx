@@ -38,7 +38,7 @@ export const ProcessFlowSection: React.FC = () => {
 
   return (
     <section
-      className="py-20 sm:py-28 border-t border-neutral-200/70 bg-white"
+      className="border-t border-neutral-200/70 bg-white py-16 sm:py-20 lg:py-28"
       id="how-it-works"
       data-purpose="how-it-works-section"
     >
@@ -48,17 +48,17 @@ export const ProcessFlowSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="mx-auto mb-10 max-w-3xl text-center sm:mb-14 lg:mb-16"
         >
           <p className="text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-3">
             THE PROCESS FLOW
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
+          <h2 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
             How Haven Operates
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        <div className="relative grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-8">
           {steps.map((item, index) => (
             <motion.div
               key={item.step}
@@ -67,7 +67,7 @@ export const ProcessFlowSection: React.FC = () => {
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.45, delay: index * 0.1 }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="relative flex flex-col p-6 rounded-2xl bg-[#FCF9F8] border border-neutral-200 shadow-xs"
+              className="relative flex flex-col rounded-2xl border border-neutral-200 bg-[#FCF9F8] p-5 shadow-xs sm:p-6"
             >
               <span className="text-xs font-mono font-bold text-neutral-400 mb-3">
                 {item.step}
@@ -79,7 +79,7 @@ export const ProcessFlowSection: React.FC = () => {
                 {item.description}
               </p>
               {item.showArrow && (
-                <div className="hidden md:block absolute -right-5 top-1/2 -translate-y-1/2 z-10 text-neutral-400">
+                <div className="absolute -right-5 top-1/2 z-10 hidden -translate-y-1/2 text-neutral-400 lg:block">
                   <ArrowRight className="w-6 h-6" />
                 </div>
               )}

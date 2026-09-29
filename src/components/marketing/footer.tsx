@@ -58,8 +58,8 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="border-t border-neutral-200 bg-[#FCF9F8]" data-purpose="footer">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-10 lg:gap-12">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-6 md:gap-10 lg:gap-12">
           {/* Brand Col */}
           <div className="md:col-span-2">
             <Link aria-label="Haven Homepage" className="h-8 flex items-center mb-4" href="/">
@@ -81,7 +81,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom copyright row */}
-        <div className="mt-14 pt-8 border-t border-neutral-200/80 flex items-center justify-center sm:justify-start text-xs text-neutral-500">
+        <div className="mt-10 flex items-center justify-center border-t border-neutral-200/80 pt-6 text-center text-xs text-neutral-500 sm:mt-14 sm:justify-start sm:pt-8 sm:text-left">
           <div>© 2026 Haven Platform Ltd. UK Registered.</div>
         </div>
       </div>

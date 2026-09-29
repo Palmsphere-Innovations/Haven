@@ -27,16 +27,16 @@ const StakeholderCard: React.FC<StakeholderCardProps> = ({
     viewport={{ once: true, amount: 0.1 }}
     transition={{ duration: 0.45, delay: index * 0.1 }}
     whileHover={{ y: -4, transition: { duration: 0.2 } }}
-    className="flex flex-col justify-between p-8 rounded-2xl bg-brand-surface border border-neutral-200 hover:border-brand/30 hover:shadow-md transition-all duration-200"
+    className="flex flex-col justify-between rounded-2xl border border-neutral-200 bg-brand-surface p-6 transition-all duration-200 hover:border-brand/30 hover:shadow-md sm:p-8"
   >
     <div>
-      <span className="inline-block text-xs font-semibold text-neutral-400 bg-white px-2.5 py-1 rounded-md border border-neutral-200 mb-6">
+      <span className="mb-4 inline-block rounded-md border border-neutral-200 bg-white px-2.5 py-1 text-xs font-semibold text-neutral-400 sm:mb-6">
         {step}
       </span>
-      <h3 className="text-2xl font-bold text-neutral-900 mb-3 tracking-tight">
+      <h3 className="mb-3 text-xl font-bold tracking-tight text-neutral-900 sm:text-2xl">
         {title}
       </h3>
-      <p className="text-neutral-600 text-sm leading-relaxed mb-8">
+      <p className="mb-6 text-sm leading-relaxed text-neutral-600 sm:mb-8">
         {description}
       </p>
     </div>
@@ -84,7 +84,7 @@ export const StakeholderSection: React.FC = () => {
 
   return (
     <section
-      className="py-20 sm:py-24 border-t border-neutral-200/70 bg-white"
+      className="border-t border-neutral-200/70 bg-white py-16 sm:py-20 lg:py-24"
       id="features"
       data-purpose="stakeholders-section"
     >
@@ -94,17 +94,17 @@ export const StakeholderSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="mx-auto mb-10 max-w-3xl text-center sm:mb-14 lg:mb-16"
         >
           <p className="text-xs font-semibold tracking-widest text-neutral-500 uppercase mb-3">
             CHOOSE YOUR INTERFACE
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
+          <h2 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
             Designed for Every Stakeholder
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-8">
           {stakeholders.map((item, index) => (
             <StakeholderCard key={item.step} {...item} index={index} />
           ))}

@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 export const FinalCTASection: React.FC = () => {
   return (
     <section
-      className="py-24 sm:py-32 border-t border-neutral-200/70 bg-white"
+      className="border-t border-neutral-200/70 bg-white py-16 sm:py-24 lg:py-32"
       id="pricing"
       data-purpose="final-cta"
     >
@@ -17,9 +17,9 @@ export const FinalCTASection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5 }}
-        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8"
       >
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-4">
+        <h2 className="mb-4 text-2xl font-bold tracking-tight text-neutral-900 sm:text-4xl md:text-5xl">
           Ready to simplify your property management?
         </h2>
         <p className="text-base sm:text-lg text-neutral-600 max-w-xl mx-auto mb-9 leading-relaxed">
@@ -30,7 +30,7 @@ export const FinalCTASection: React.FC = () => {
           <Button
             asChild
             size="md"
-            className="px-8 py-4 bg-brand hover:bg-brand text-white rounded-xl shadow-md"
+          className="w-full rounded-xl bg-brand px-8 py-4 text-white shadow-md hover:bg-brand sm:w-auto"
           >
             <Link href="/sign-up">Initialize Free Account</Link>
           </Button>

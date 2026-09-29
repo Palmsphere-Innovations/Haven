@@ -59,8 +59,8 @@ export const TestimonialSection: React.FC = () => {
   };
 
   return (
-    <section className="py-20 sm:py-28 border-t border-neutral-200/70 bg-[#FAF7F5] overflow-hidden" data-purpose="mission-and-metrics-section">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <section className="overflow-hidden border-t border-neutral-200/70 bg-[#FAF7F5] py-16 sm:py-20 lg:py-28" data-purpose="mission-and-metrics-section">
+      <div className="mx-auto max-w-5xl space-y-12 px-4 sm:space-y-16 sm:px-6 lg:px-8">
         
         {/* Top Part: Platform Standard & Mission */}
         <motion.div
@@ -68,7 +68,7 @@ export const TestimonialSection: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="max-w-4xl mx-auto text-center space-y-6"
+          className="mx-auto max-w-4xl space-y-5 text-center sm:space-y-6"
         >
           <motion.p variants={itemVariants} className="text-xs font-semibold tracking-widest text-brand uppercase">
             OUR PLATFORM STANDARD
@@ -76,7 +76,7 @@ export const TestimonialSection: React.FC = () => {
 
           <motion.blockquote
             variants={itemVariants}
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-neutral-900 leading-snug"
+            className="text-xl font-bold leading-snug tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl"
           >
             “Built from the ground up for UK landlords and property managers who demand uncompromising statutory compliance, absolute ledger clarity, and zero administrative friction.”
           </motion.blockquote>
@@ -117,9 +117,9 @@ export const TestimonialSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="pt-12 border-t border-neutral-200/80"
+          className="border-t border-neutral-200/80 pt-8 sm:pt-12"
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div className="grid grid-cols-1 gap-8 text-center md:grid-cols-3 md:gap-8">
             
             {/* Stat 1 */}
             <div className="space-y-1.5 p-4 rounded-2xl hover:bg-white/50 transition-colors">
@@ -135,7 +135,7 @@ export const TestimonialSection: React.FC = () => {
             </div>
 
             {/* Stat 2 */}
-            <div className="space-y-1.5 p-4 rounded-2xl border-y md:border-y-0 md:border-x border-neutral-200/80 py-6 md:py-4 hover:bg-white/50 transition-colors">
+            <div className="space-y-1.5 rounded-2xl border-y border-neutral-200/80 px-4 py-6 transition-colors hover:bg-white/50 md:border-y-0 md:border-x md:py-4">
               <div className="flex items-center justify-center">
                 <Counter value={0} suffix="s" />
               </div>
