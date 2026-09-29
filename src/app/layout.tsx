@@ -11,7 +11,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Haven — UK Estates Portfolio Management",
-  description: "Unified UK Property Management Platform,The secure platform for verified property sourcing, digital tenancy agreements, and safe rent management.",
+  description: "Unified UK Property Management Platform for verified property sourcing, digital tenancy agreements, and safe rent management.",
+  openGraph: {
+    title: "Haven — UK Estates Portfolio Management",
+    description: "Unified UK Property Management Platform for verified property sourcing, digital tenancy agreements, and safe rent management.",
+  },
 };
 
 export default function RootLayout({

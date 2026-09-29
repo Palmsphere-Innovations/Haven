@@ -8,7 +8,8 @@ import {
   ShieldCheck,
   Users,
   Wrench,
-  Handshake
+  Handshake,
+  Settings,
 } from "lucide-react";
 import type { SidebarNavItem } from "@/components/shared/sidebar";
 
@@ -23,5 +24,6 @@ export const agentNavItems: SidebarNavItem[] = [
   { label: "Maintenance", href: "/agent/maintenance", icon: Wrench },
   { label: "Documents", href: "/agent/documents", icon: FileText },
   { label: "Communication", href: "/agent/communication", icon: MessageSquare },
-  // { label: "Disputes", href: "/agent/disputes", icon: Gavel },
+  { label: "Disputes", href: "/agent/disputes", icon: Gavel },
+  { label: "Settings", href: "/agent/settings", icon: Settings },
 ];

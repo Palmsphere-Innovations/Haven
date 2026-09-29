@@ -45,6 +45,10 @@ const roles: RoleOption[] = [
       path.startsWith("/documents") ||
       path.startsWith("/maintenance") ||
       path.startsWith("/financials") ||
+      path.startsWith("/cost-analysis") ||
+      path.startsWith("/handovers") ||
+      path.startsWith("/disputes") ||
+      path.startsWith("/settings") ||
       path.startsWith("/communication"),
   },
   {

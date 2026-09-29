@@ -8,12 +8,13 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
   },
-  allowedDevOrigins: [
-    "*.run.app",
-    "ais-dev-sr2l3wv3r54k4dknpdn2qy-708234144551.europe-west2.run.app",
-  ],
+  allowedDevOrigins: ["*.run.app"],
 };
 
 export default nextConfig;

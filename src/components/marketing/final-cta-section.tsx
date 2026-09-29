@@ -28,6 +28,7 @@ export const FinalCTASection: React.FC = () => {
         </p>
         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
           <Button
+            asChild
             size="md"
             className="px-8 py-4 bg-brand hover:bg-brand text-white rounded-xl shadow-md"
           >

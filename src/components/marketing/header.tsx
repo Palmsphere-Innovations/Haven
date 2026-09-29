@@ -32,10 +32,10 @@ export const Header: React.FC = () => {
 
         {/* Authentication & CTA Actions */}
         <div className="flex items-center gap-3 sm:gap-5">
-          <Button  variant="ghost" className="text-neutral-700 hover:text-brand hover:bg-transparent">
+          <Button asChild variant="ghost" className="text-neutral-700 hover:text-brand hover:bg-transparent">
             <Link href="/sign-in">Login</Link>
           </Button>
-          <Button  className="text-sm font-medium bg-brand text-white px-4 sm:px-5 py-5 rounded-xl hover:bg-brand-hover active:scale-[0.99] transition-all shadow-sm cursor-pointer">
+          <Button asChild className="text-sm font-medium bg-brand text-white px-4 sm:px-5 py-5 rounded-xl hover:bg-brand-hover active:scale-[0.99] transition-all shadow-sm cursor-pointer">
             <Link href="/sign-up">Sign up</Link>
           </Button>
         </div>

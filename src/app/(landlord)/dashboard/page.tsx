@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Plus, Download, CheckCircle2, Building2, CalendarDays, ChartNoAxesCombined, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatCards } from "@/components/landlord/dashboard/stat-cards";
@@ -18,20 +18,16 @@ export default function LandlordDashboardPage() {
   const landlord = useLandlordProfile();
   const firstName = landlord.name.trim().split(/\s+/)[0] || "there";
   const propertyCount = landlord.portfolioStats?.totalProperties ?? landlord.propertyIds.length;
-  const [greeting, setGreeting] = useState("Welcome back");
-  const [todayLabel, setTodayLabel] = useState("");
 
-  useEffect(() => {
-    const now = new Date();
-    const hour = now.getHours();
-    setGreeting(hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening");
-    setTodayLabel(new Intl.DateTimeFormat("en-GB", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }).format(now));
-  }, []);
+  const now = new Date();
+  const hour = now.getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const todayLabel = new Intl.DateTimeFormat("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(now);
 
   const handleExportStatement = () => {
     // Generate CSV for landlord financial statement
@@ -66,9 +62,9 @@ export default function LandlordDashboardPage() {
           <div className="min-w-0">
             <div className="mb-2 flex items-center gap-2 text-xs font-medium text-[#647268]">
               <CalendarDays className="h-3.5 w-3.5" />
-              <span>{todayLabel || "Your portfolio overview"}</span>
+              <span suppressHydrationWarning>{todayLabel || "Your portfolio overview"}</span>
             </div>
-            <h1 className="text-2xl font-semibold tracking-tight text-[#173526] sm:text-3xl">
+            <h1 suppressHydrationWarning className="text-2xl font-semibold tracking-tight text-[#173526] sm:text-3xl">
               {greeting}, {firstName}
             </h1>
             <p className="mt-1.5 text-sm text-[#68756C]">

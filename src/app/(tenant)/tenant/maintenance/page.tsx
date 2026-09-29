@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { ShieldCheck, CheckCircle2, X, Phone, AlertTriangle, ShieldAlert } from "lucide-react";
 import { MaintenanceTicket, INITIAL_TENANT_TICKETS } from "@/lib/mock/tenants";
@@ -11,19 +11,21 @@ import { TicketDetailModal } from "@/components/tenant/maintenance/ticket-detail
 
 function MaintenanceContent() {
   const searchParams = useSearchParams();
+  const actionParam = searchParams.get("action");
+  const [prevActionParam, setPrevActionParam] = useState(actionParam);
   const [tickets, setTickets] = useState<MaintenanceTicket[]>(INITIAL_TENANT_TICKETS);
   const [selectedTicket, setSelectedTicket] = useState<MaintenanceTicket | null>(null);
-  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+  const [isNewModalOpen, setIsNewModalOpen] = useState(actionParam === "new");
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Auto-open new ticket modal if URL has ?action=new
-  useEffect(() => {
-    if (searchParams.get("action") === "new") {
+  if (actionParam !== prevActionParam) {
+    setPrevActionParam(actionParam);
+    if (actionParam === "new") {
       setIsNewModalOpen(true);
     }
-  }, [searchParams]);
+  }
 
   const handleSelectTicket = (ticket: MaintenanceTicket) => {
     setSelectedTicket(ticket);

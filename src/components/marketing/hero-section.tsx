@@ -34,10 +34,10 @@ export const HeroSection: React.FC = () => {
 
         {/* CTAs */}
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.24 }} className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button size="md" className="w-full sm:w-auto px-7 py-3.5 bg-brand hover:bg-[#1c3429] text-white rounded-xl">
+          <Button asChild size="md" className="w-full sm:w-auto px-7 py-3.5 bg-brand hover:bg-[#1c3429] text-white rounded-xl">
             <Link href="/sign-up">Create Account</Link>
           </Button>
-          <Button variant="outline" size="md" className="w-full sm:w-auto px-7 py-3.5 bg-white text-neutral-800 border-neutral-300 hover:bg-neutral-50 rounded-xl">
+          <Button asChild variant="outline" size="md" className="w-full sm:w-auto px-7 py-3.5 bg-white text-neutral-800 border-neutral-300 hover:bg-neutral-50 rounded-xl">
             <Link href="#agency">Inquire as Agent</Link>
           </Button>
         </motion.div>

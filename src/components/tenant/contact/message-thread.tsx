@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { Paperclip, Send, FileText, X, CheckCircle2 } from "lucide-react";
 import { Message, initialMessages } from "./types";
 
@@ -12,16 +12,18 @@ interface MessageThreadProps {
 export function MessageThread({ contactName, prefillDraft }: MessageThreadProps) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [draft, setDraft] = useState(prefillDraft || "");
+  const [prevPrefill, setPrevPrefill] = useState(prefillDraft);
   const [attachedFile, setAttachedFile] = useState<{ name: string; size: string } | null>(null);
   const [isAgentTyping, setIsAgentTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
+  if (prefillDraft !== prevPrefill) {
+    setPrevPrefill(prefillDraft);
     if (prefillDraft) {
       setDraft(prefillDraft);
     }
-  }, [prefillDraft]);
+  }
 
   const scrollToBottom = () => {
     requestAnimationFrame(() => {

@@ -180,15 +180,17 @@ export function NewTicketModal({ isOpen, onClose, onSubmit }: NewTicketModalProp
               Priority Urgency
             </label>
             <div className="grid grid-cols-3 gap-2">
-              {[
-                { level: "Routine", label: "Routine (within 5-7 days)", desc: "Minor cosmetic or non-essential" },
-                { level: "Urgent", label: "Urgent (24-48 hrs)", desc: "Heating failure or hot water loss" },
-                { level: "Emergency", label: "Emergency (Immediate)", desc: "Active flooding or gas leak" },
-              ].map((p) => (
+              {(
+                [
+                  { level: "Routine", label: "Routine (within 5-7 days)", desc: "Minor cosmetic or non-essential" },
+                  { level: "Urgent", label: "Urgent (24-48 hrs)", desc: "Heating failure or hot water loss" },
+                  { level: "Emergency", label: "Emergency (Immediate)", desc: "Active flooding or gas leak" },
+                ] as const
+              ).map((p) => (
                 <button
                   key={p.level}
                   type="button"
-                  onClick={() => setPriority(p.level as any)}
+                  onClick={() => setPriority(p.level)}
                   className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                     priority === p.level
                       ? p.level === "Emergency"

@@ -27,17 +27,11 @@ export const PaymentsHistoryTable: React.FC<PaymentsHistoryTableProps> = ({
   const [currentPage, setCurrentPage] = React.useState(1);
   const pageSize = 5;
   const totalPages = Math.max(1, Math.ceil(payments.length / pageSize));
-
-  // Reset to page 1 if filter reduces totalPages below currentPage
-  React.useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(1);
-    }
-  }, [totalPages, currentPage]);
+  const activePage = Math.min(currentPage, totalPages);
 
   const paginatedPayments = payments.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
+    (activePage - 1) * pageSize,
+    activePage * pageSize
   );
 
   return (
@@ -160,30 +154,30 @@ export const PaymentsHistoryTable: React.FC<PaymentsHistoryTableProps> = ({
         <span>
           Showing{" "}
           <span className="font-semibold text-[#132A20]">
-            {payments.length === 0 ? 0 : (currentPage - 1) * pageSize + 1}
+            {payments.length === 0 ? 0 : (activePage - 1) * pageSize + 1}
           </span>
           –
           <span className="font-semibold text-[#132A20]">
-            {Math.min(currentPage * pageSize, payments.length)}
+            {Math.min(activePage * pageSize, payments.length)}
           </span>{" "}
           of <span className="font-semibold text-[#132A20]">{payments.length}</span> payments
         </span>
         <div className="flex items-center gap-1">
           <Button
             variant="outline"
-            disabled={currentPage <= 1}
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={activePage <= 1}
+            onClick={() => setCurrentPage(Math.max(1, activePage - 1))}
             className="h-7 w-7 p-0 bg-stone-50 text-stone-600 border-stone-200 cursor-pointer disabled:opacity-40"
           >
             <ChevronLeft className="w-4 h-4" />
           </Button>
           <span className="px-2 font-mono text-xs font-bold text-[#132A20]">
-            {currentPage} / {totalPages}
+            {activePage} / {totalPages}
           </span>
           <Button
             variant="outline"
-            disabled={currentPage >= totalPages}
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={activePage >= totalPages}
+            onClick={() => setCurrentPage(Math.min(totalPages, activePage + 1))}
             className="h-7 w-7 p-0 bg-stone-50 text-stone-700 border-stone-300 cursor-pointer disabled:opacity-40"
           >
             <ChevronRight className="w-4 h-4" />

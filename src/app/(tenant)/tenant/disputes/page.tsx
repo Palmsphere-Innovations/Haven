@@ -7,7 +7,7 @@ import { DisputeLedgerTable } from "@/components/tenant/disputes/dispute-ledger-
 import { DisputeDetailWorkspace } from "@/components/tenant/disputes/dispute-detail-workspace";
 import { DisputeAdvisorySidebar } from "@/components/tenant/disputes/dispute-advisory-sidebar";
 import { RaiseDisputeModal, RaiseDisputeFormData } from "@/components/tenant/disputes/modal/raise-dispute-modal";
-import { DisputeRecord, DisputeChatMessage } from "@/types/index";
+import { DisputeRecord, DisputeChatMessage, DisputeCategory } from "@/types/index";
 import { Calendar, CheckCircle2, ShieldAlert, X } from "lucide-react";
 
 const INITIAL_DISPUTES: DisputeRecord[] = [
@@ -139,7 +139,7 @@ export default function TenantDisputesPage() {
     const newRecord: DisputeRecord = {
       id: `dsp-${Date.now()}`,
       reference: newReference,
-      category: formData.category as any,
+      category: formData.category as DisputeCategory,
       categoryLabel: formData.category.charAt(0).toUpperCase() + formData.category.slice(1),
       title: formData.title,
       status: "under_review",
