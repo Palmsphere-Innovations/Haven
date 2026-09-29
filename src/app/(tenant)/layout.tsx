@@ -40,7 +40,7 @@ export default function TenantLayout({ children }: TenantLayoutProps) {
   return (
     <div className="bg-[#F0F2F1] text-[#111827] antialiased min-h-screen flex justify-center items-start">
       {/* Canvas Wrapper */}
-      <div className="w-full max-w-[1600px] h-screen max-h-screen bg-white sm:rounded-[32px] border border-black/5 shadow-2xl flex flex-col md:flex-row overflow-hidden relative">
+      <div className="w-full max-w-[1600px] h-screen max-h-screen bg-white  border border-black/5 shadow-2xl flex flex-col md:flex-row overflow-hidden relative">
         {/* DESKTOP SIDEBAR */}
         <div className="hidden md:block">
           <Sidebar

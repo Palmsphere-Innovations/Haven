@@ -1,106 +1,100 @@
 import React from "react";
 import Link from "next/link";
-import { Building2, Key, Wrench, ArrowRight } from "lucide-react";
-import { AlertCircle } from "lucide-react";
+import { ArrowUpRight, Building2, CircleAlert, KeyRound, Wrench } from "lucide-react";
+
+const cards = [
+  {
+    label: "Total properties",
+    value: "42",
+    suffix: "units",
+    detail: "38 residential · 4 commercial",
+    footerLabel: "Occupancy rate",
+    footerValue: "98%",
+    icon: Building2,
+    href: "/properties",
+    tone: "neutral",
+  },
+  {
+    label: "Active tenancies",
+    value: "39",
+    suffix: "active",
+    detail: "2 renewals scheduled this month",
+    footerLabel: "Average tenure",
+    footerValue: "2.4 years",
+    icon: KeyRound,
+    href: "/tenants",
+    tone: "neutral",
+  },
+  {
+    label: "Rent overdue",
+    value: "£3,450",
+    suffix: "",
+    detail: "Across 2 tenancies",
+    footerLabel: "Overdue ratio",
+    footerValue: "3.7% of monthly rent",
+    icon: CircleAlert,
+    href: "#rent-ledger-card",
+    tone: "alert",
+  },
+  {
+    label: "Open maintenance",
+    value: "7",
+    suffix: "tickets",
+    detail: "1 urgent · 3 in progress · 3 scheduled",
+    footerLabel: "Priority attention",
+    footerValue: "1 urgent",
+    icon: Wrench,
+    href: "#maintenance-section",
+    tone: "neutral",
+  },
+] as const;
 
 export const StatCards: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-      {/* Card 1: Total Properties */}
-      <div className="bg-white rounded-2xl p-6 border border-[#ECEEED] shadow-sm flex flex-col justify-between">
-        <div className="flex items-center justify-between">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6B7280]">
-            Total Properties
-          </span>
-          <Building2 className="w-5 h-5 text-gray-400" />
-        </div>
-        <div className="my-4">
-          <div className="text-3xl font-bold tracking-tight text-[#111827]">
-            42 <span className="text-base font-normal text-[#6B7280]">Units</span>
-          </div>
-          <div className="text-xs text-[#6B7280] mt-1">
-            38 Residential • 4 Commercial
-          </div>
-        </div>
-        <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
-          <span className="text-[#6B7280]">Occupancy Rate</span>
-          <span className="font-semibold text-[#111827]">98.0%</span>
-        </div>
-      </div>
+    <section aria-label="Portfolio key figures" className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      {cards.map(({ label, value, suffix, detail, footerLabel, footerValue, icon: Icon, href, tone }) => {
+        const isAlert = tone === "alert";
 
-      {/* Card 2: Active Tenancies */}
-      <div className="bg-white rounded-2xl p-6 border border-[#ECEEED] shadow-sm flex flex-col justify-between">
-        <div className="flex items-center justify-between">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6B7280]">
-            Active Tenancies
-          </span>
-          <Key className="w-5 h-5 text-gray-400" />
-        </div>
-        <div className="my-4">
-          <div className="text-3xl font-bold tracking-tight text-[#111827]">
-            39 <span className="text-base font-normal text-[#6B7280]">Active</span>
-          </div>
-          <div className="text-xs text-[#6B7280] mt-1">
-            2 renewals scheduled this month
-          </div>
-        </div>
-        <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
-          <span className="text-[#6B7280]">Average Tenure</span>
-          <span className="font-semibold text-[#111827]">2.4 Years</span>
-        </div>
-      </div>
-
-      {/* Card 3: Rent Overdue (Forest Green Hero Card) */}
-      <div className="bg-[#132A20] rounded-2xl p-6 text-white shadow-md flex flex-col justify-between relative overflow-hidden">
-        <div className="flex items-center justify-between">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#A3B8AD]">
-            Rent Overdue
-          </span>
-          <span className=" gap-1.5 p-1 justify-center  flex items-center rounded-full bg-rose-500/20 border border-rose-400/70 animate-pulse text-rose-200 text-[10px] font-semibold tracking-wide">
-            <AlertCircle size={20} />
-          </span>
-        </div>
-        <div className="my-4">
-          <div className="text-3xl font-bold tracking-tight text-white">
-            £3,450.00
-          </div>
-          <div className="text-xs text-[#A3B8AD] mt-1">
-            2 tenancies with pending rents
-          </div>
-        </div>
-        <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
-          <span className="text-[#A3B8AD]">Overdue Ratio</span>
-          <span className="font-semibold text-white">3.7% of monthly roll</span>
-        </div>
-      </div>
-
-      {/* Card 4: Open Maintenance */}
-      <div className="bg-white rounded-2xl p-6 border border-[#ECEEED] shadow-sm flex flex-col justify-between">
-        <div className="flex items-center justify-between">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6B7280]">
-            Open Maintenance
-          </span>
-          <Wrench className="w-5 h-5 text-gray-400" />
-        </div>
-        <div className="my-4">
-          <div className="text-3xl font-bold tracking-tight text-[#111827]">
-            7 <span className="text-base font-normal text-[#6B7280]">Open</span>
-          </div>
-          <div className="text-xs text-[#6B7280] mt-1">
-            1 Urgent • 3 In Progress • 3 Sched.
-          </div>
-        </div>
-        <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
+        return (
           <Link
-            href="#maintenance-section"
-            className="font-medium text-[#374151] hover:text-black flex items-center gap-1 transition-colors"
+            key={label}
+            href={href}
+            className={`group flex min-h-[208px] flex-col rounded-2xl border p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#426A50] focus-visible:ring-offset-2 sm:p-5 ${
+              isAlert
+                ? "border-[#203D2D] bg-[#132A20] text-white hover:bg-[#1B3527]"
+                : "border-[#E7ECE8] bg-white text-[#18251C] hover:border-[#CFDCD1]"
+            }`}
           >
-            <span>View ticket queue</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <div className="flex items-start justify-between gap-3">
+              <span className={`text-xs font-semibold tracking-wide ${isAlert ? "text-[#C3D1C7]" : "text-[#68756C]"}`}>
+                {label}
+              </span>
+              <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${isAlert ? "bg-white/10 text-[#F4C6BC]" : "bg-[#F0F4F1] text-[#45634F]"}`}>
+                <Icon aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={1.8} />
+              </span>
+            </div>
+
+            <div className="mt-4 flex items-baseline gap-2">
+              <span className={`text-[2rem] font-semibold leading-none tracking-tight ${isAlert ? "text-white" : "text-[#132A20]"}`}>
+                {value}
+              </span>
+              {suffix && <span className={`text-sm ${isAlert ? "text-[#C3D1C7]" : "text-[#738078]"}`}>{suffix}</span>}
+            </div>
+            <p className={`mt-2 min-h-5 text-xs leading-5 ${isAlert ? "text-[#C3D1C7]" : "text-[#77827A]"}`}>
+              {detail}
+            </p>
+
+            <div className={`mt-auto flex items-center justify-between gap-3 border-t pt-3.5 text-xs ${isAlert ? "border-white/15" : "border-[#EEF1EE]"}`}>
+              <span className={isAlert ? "text-[#B5C5B9]" : "text-[#77827A]"}>{footerLabel}</span>
+              <span className="flex items-center gap-1.5 text-right font-semibold">
+                {isAlert && <span className="h-1.5 w-1.5 rounded-full bg-[#F28B78]" />}
+                {footerValue}
+                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 opacity-0 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-70" />
+              </span>
+            </div>
           </Link>
-          <span className="h-2 w-2 rounded-full bg-amber-500" />
-        </div>
-      </div>
-    </div>
+        );
+      })}
+    </section>
   );
 };

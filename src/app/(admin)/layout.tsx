@@ -60,7 +60,7 @@ export default function AdminLayout({
             <button
               type="button"
               onClick={() => setIsMobileOpen(true)}
-              className="md:hidden ml-4 p-2 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-100"
+              className="md:hidden ml-4 p-2 border border-gray-200 text-gray-600 hover:bg-gray-100"
               aria-label="Open Mobile Menu"
             >
               <Menu className="w-5 h-5" />

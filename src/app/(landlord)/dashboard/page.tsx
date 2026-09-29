@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Plus, Download, CheckCircle2 } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Plus, Download, CheckCircle2, Building2, CalendarDays, ChartNoAxesCombined, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatCards } from "@/components/landlord/dashboard/stat-cards";
 import { RentLedgerCard } from "@/components/landlord/dashboard/rent-ledger-card";
@@ -9,10 +9,29 @@ import { MaintenanceCard } from "@/components/landlord/dashboard/maintenance-car
 import { ComplianceWidget } from "@/components/landlord/dashboard/compliance-widget";
 import { VendorDirectory } from "@/components/landlord/dashboard/vendor-directory";
 import { InviteTenantModal } from "@/components/landlord/tenants/modals/invite-tenant-modal";
+import { useLandlordProfile } from "@/hooks/use-landlord-profile";
+import { formatCurrency, formatPercent } from "@/lib/formatters";
 
 export default function LandlordDashboardPage() {
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+  const landlord = useLandlordProfile();
+  const firstName = landlord.name.trim().split(/\s+/)[0] || "there";
+  const propertyCount = landlord.portfolioStats?.totalProperties ?? landlord.propertyIds.length;
+  const [greeting, setGreeting] = useState("Welcome back");
+  const [todayLabel, setTodayLabel] = useState("");
+
+  useEffect(() => {
+    const now = new Date();
+    const hour = now.getHours();
+    setGreeting(hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening");
+    setTodayLabel(new Intl.DateTimeFormat("en-GB", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(now));
+  }, []);
 
   const handleExportStatement = () => {
     // Generate CSV for landlord financial statement
@@ -42,40 +61,61 @@ export default function LandlordDashboardPage() {
   return (
     <>
       {/* Page Title & Header Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl lg:text-3xl font-bold tracking-tight text-[#111827]">
-              Hi, Vance
+      <header className="overflow-hidden rounded-2xl border border-[#E6EBE6] bg-gradient-to-br from-[#F1F6F1] via-[#F7F8F4] to-[#F8F4EB] shadow-sm">
+        <div className="flex flex-col gap-6 px-5 py-5 sm:px-7 sm:py-6 xl:flex-row xl:items-center xl:justify-between">
+          <div className="min-w-0">
+            <div className="mb-2 flex items-center gap-2 text-xs font-medium text-[#647268]">
+              <CalendarDays className="h-3.5 w-3.5" />
+              <span>{todayLabel || "Your portfolio overview"}</span>
+            </div>
+            <h1 className="text-2xl font-semibold tracking-tight text-[#173526] sm:text-3xl">
+              {greeting}, {firstName}
             </h1>
-            <span className="px-2.5 py-0.5 rounded-full bg-gray-100 text-[#374151] text-[11px] font-semibold tracking-wide">
-              Q4 ACTIVE
-            </span>
+            <p className="mt-1.5 text-sm text-[#68756C]">
+              Here&apos;s a quick look at {landlord.name}&apos;s portfolio.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              <div className="inline-flex items-center gap-2 rounded-xl border border-white/80 bg-white/75 px-3 py-2 shadow-sm shadow-[#173526]/[0.03]">
+                <Building2 className="h-4 w-4 text-[#55745D]" />
+                <span className="text-xs text-[#68756C]">Properties</span>
+                <span className="text-sm font-semibold text-[#173526]">{propertyCount}</span>
+              </div>
+              {landlord.occupancyRate && (
+                <div className="inline-flex items-center gap-2 rounded-xl border border-white/80 bg-white/75 px-3 py-2 shadow-sm shadow-[#173526]/[0.03]">
+                  <ChartNoAxesCombined className="h-4 w-4 text-[#55745D]" />
+                  <span className="text-xs text-[#68756C]">Occupancy</span>
+                  <span className="text-sm font-semibold text-[#173526]">{formatPercent(landlord.occupancyRate)}</span>
+                </div>
+              )}
+              {landlord.monthlyRent !== undefined && (
+                <div className="inline-flex items-center gap-2 rounded-xl border border-white/80 bg-white/75 px-3 py-2 shadow-sm shadow-[#173526]/[0.03]">
+                  <Wallet className="h-4 w-4 text-[#55745D]" />
+                  <span className="text-xs text-[#68756C]">Monthly rent</span>
+                  <span className="text-sm font-semibold text-[#173526]">{formatCurrency(landlord.monthlyRent)}</span>
+                </div>
+              )}
+            </div>
           </div>
-          <p className="text-xs sm:text-sm text-[#6B7280] mt-1">
-            Summary of 42 properties across Greater London &amp; Surrey. Reconciled today at{" "}
-            <span className="font-medium text-[#111827]">08:30 GMT</span>.
-          </p>
-        </div>
-        <div className="flex items-center gap-3 self-start sm:self-auto">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center xl:shrink-0">
           <Button
             variant="outline"
             onClick={handleExportStatement}
-            className="h-9 rounded-full text-xs font-semibold border-gray-200 text-[#111827] shadow-sm hover:bg-gray-50 cursor-pointer"
+            className="h-10 rounded-lg border-[#D6DFD6] bg-white/80 px-4 text-sm font-medium text-[#344239] shadow-none hover:bg-white cursor-pointer"
           >
-            <Download className="w-3.5 h-3.5 text-[#6B7280] mr-1.5" />
-            Export Statement
+            <Download className="mr-2 h-4 w-4" />
+            Export statement
           </Button>
-
           <Button
             onClick={() => setIsInviteModalOpen(true)}
-            className="h-9 bg-brand hover:bg-[#0b1b14] text-white rounded-full text-xs font-semibold shadow-sm cursor-pointer"
+            className="h-10 rounded-lg bg-[#173526] px-4 text-sm font-semibold text-white shadow-none hover:bg-[#244632] cursor-pointer"
           >
-            <Plus className="w-4 h-4 mr-1" />
-            New Tenancy
+            <Plus className="mr-2 h-4 w-4" />
+            New tenancy
           </Button>
+          </div>
         </div>
-      </div>
+        <div className="h-1 bg-gradient-to-r from-[#173526] via-[#76947D] to-[#D4BE91]" />
+      </header>
 
       {notice && (
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-xs font-medium text-emerald-800 flex items-center gap-2">

@@ -12,7 +12,7 @@ export default function VendorLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen items-start justify-center bg-[#F0F2F1] text-[#111827] antialiased">
-      <div className="relative flex h-screen max-h-screen w-full max-w-[1600px] flex-col overflow-hidden border border-black/5 bg-white shadow-2xl sm:rounded-[32px] md:flex-row">
+      <div className="relative flex h-screen max-h-screen w-full max-w-[1600px] flex-col overflow-hidden border border-black/5 bg-white shadow-2xl  md:flex-row">
         <div className="hidden md:block">
           <Sidebar
             title="Vendor"
