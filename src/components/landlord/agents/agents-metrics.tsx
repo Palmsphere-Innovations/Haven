@@ -1,9 +1,39 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { UserCheck, ShieldCheck, RefreshCw, Building2 } from "lucide-react";
+import { agentsData, type AgentRecord } from "@/lib/mock/agents";
+import { propertiesData } from "@/lib/mock/properties";
 
-export function AgentMetrics() {
+interface AgentMetricsProps {
+  agents?: AgentRecord[];
+  totalProperties?: number;
+}
+
+export function AgentMetrics({
+  agents = agentsData,
+  totalProperties = propertiesData.length,
+}: AgentMetricsProps) {
+  const { activeCount, pendingCount, managedCount, totalPropsCount, pct, unassignedCount } =
+    useMemo(() => {
+      const active = agents.filter((a) => a.status === "Active").length;
+      const pending = agents.filter((a) => a.status === "Pending Handover").length;
+      const totalProps = Math.max(propertiesData.length, totalProperties);
+      const sumProperties = agents.reduce((sum, a) => sum + (a.propertiesCount || 0), 0);
+      const managed = Math.min(sumProperties, totalProps);
+      const percentage = totalProps > 0 ? ((managed / totalProps) * 100).toFixed(1) : "0";
+      const unassigned = Math.max(0, totalProps - managed);
+
+      return {
+        activeCount: active,
+        pendingCount: pending,
+        managedCount: managed,
+        totalPropsCount: totalProps,
+        pct: percentage,
+        unassignedCount: unassigned,
+      };
+    }, [agents, totalProperties]);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <div className="bg-white rounded-2xl p-4 border border-[#ECEEED] shadow-xs flex flex-col justify-between space-y-3">
@@ -17,7 +47,7 @@ export function AgentMetrics() {
         </div>
         <div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-stone-900">8</span>
+            <span className="text-2xl font-bold text-stone-900">{activeCount}</span>
             <span className="text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-full">
               100% verified
             </span>
@@ -40,7 +70,7 @@ export function AgentMetrics() {
         </div>
         <div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-stone-900">2</span>
+            <span className="text-2xl font-bold text-stone-900">{pendingCount}</span>
             <span className="text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full">
               Action queue
             </span>
@@ -61,13 +91,13 @@ export function AgentMetrics() {
         <div>
           <div className="flex items-baseline gap-2">
             <span className="text-2xl font-bold text-stone-900">
-              38 <span className="text-sm font-normal text-stone-500">/ 42</span>
+              {managedCount} <span className="text-sm font-normal text-stone-500">/ {totalPropsCount}</span>
             </span>
             <span className="text-[10px] font-semibold bg-[#F0EEE9] text-stone-700 px-2 py-0.5 rounded-full">
-              90.4%
+              {pct}%
             </span>
           </div>
-          <p className="text-xs text-stone-500 mt-1">4 unassigned / self-managed</p>
+          <p className="text-xs text-stone-500 mt-1">{unassignedCount} unassigned / self-managed</p>
         </div>
       </div>
 

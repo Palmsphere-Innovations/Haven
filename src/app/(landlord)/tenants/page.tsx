@@ -136,7 +136,7 @@ export default function LandlordTenantsPage() {
       )}
 
       {/* Modular Section Components */}
-      <TenantsMetrics />
+      <TenantsMetrics tenants={tenants} />
       <TenantsTable tenants={tenants} />
       <TenantsRegulatoryBanner />
 

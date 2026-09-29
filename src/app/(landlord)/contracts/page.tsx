@@ -157,7 +157,7 @@ export default function ContractsPage() {
         </div>
       )}
 
-      <ContractMetrics />
+      <ContractMetrics contracts={contracts} />
 
       <ContractsTable
         contracts={contracts}

@@ -1,9 +1,46 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Clock, Wrench, CheckCircle2 } from "lucide-react";
+import { maintenanceTickets, type MaintenanceTicket } from "@/lib/mock/maintenance";
 
-export const MaintenanceStats: React.FC = () => {
+interface MaintenanceStatsProps {
+  tickets?: MaintenanceTicket[];
+}
+
+export const MaintenanceStats: React.FC<MaintenanceStatsProps> = ({
+  tickets = maintenanceTickets,
+}) => {
+  const {
+    openCount,
+    urgentCount,
+    highCount,
+    routineCount,
+    inProgressCount,
+    resolvedCount,
+    urgentTicket,
+  } = useMemo(() => {
+    const open = tickets.filter((t) => t.status !== "Resolved");
+    const urgent = open.filter((t) => t.priority === "Urgent").length;
+    const high = open.filter((t) => t.priority === "High").length;
+    const routine = open.filter((t) => t.priority === "Routine").length;
+
+    const inProgress = tickets.filter((t) => t.status === "In Progress").length;
+    const resolved = tickets.filter((t) => t.status === "Resolved").length;
+
+    const firstUrgent = open.find((t) => t.priority === "Urgent" || t.priority === "High");
+
+    return {
+      openCount: open.length,
+      urgentCount: urgent,
+      highCount: high,
+      routineCount: routine,
+      inProgressCount: inProgress,
+      resolvedCount: resolved,
+      urgentTicket: firstUrgent,
+    };
+  }, [tickets]);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
       {/* Card 1: Open Requests */}
@@ -16,9 +53,11 @@ export const MaintenanceStats: React.FC = () => {
         </div>
         <div className="my-4">
           <div className="text-3xl font-bold tracking-tight text-stone-900">
-            7 <span className="text-base font-normal text-stone-500">Active</span>
+            {openCount} <span className="text-base font-normal text-stone-500">Active</span>
           </div>
-          <div className="text-xs text-stone-500 mt-1">1 Urgent • 2 High • 4 Routine</div>
+          <div className="text-xs text-stone-500 mt-1">
+            {urgentCount} Urgent • {highCount} High • {routineCount} Routine
+          </div>
         </div>
         <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
           <span className="text-stone-500">SLA Adherence</span>
@@ -39,13 +78,22 @@ export const MaintenanceStats: React.FC = () => {
         </div>
         <div className="my-4">
           <div className="text-3xl font-bold tracking-tight text-white">
-            1 <span className="text-base font-normal text-[#A3B8AD]">Ticket</span>
+            {urgentCount + highCount}{" "}
+            <span className="text-base font-normal text-[#A3B8AD]">
+              {urgentCount + highCount === 1 ? "Ticket" : "Tickets"}
+            </span>
           </div>
-          <div className="text-xs text-[#A3B8AD] mt-1">Flat 4B Boiler Pressure • Pimlico Plumbers</div>
+          <div className="text-xs text-[#A3B8AD] mt-1 truncate">
+            {urgentTicket
+              ? `${urgentTicket.property} • ${urgentTicket.issue}`
+              : "No urgent priority tickets pending"}
+          </div>
         </div>
         <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
-          <span className="text-[#A3B8AD]">Time remaining</span>
-          <span className="font-semibold text-white">1h 25m</span>
+          <span className="text-[#A3B8AD]">Assigned Contractor</span>
+          <span className="font-semibold text-white truncate max-w-[150px]">
+            {urgentTicket?.contractor || "Automated Dispatch"}
+          </span>
         </div>
       </div>
 
@@ -53,13 +101,14 @@ export const MaintenanceStats: React.FC = () => {
       <div className="bg-white rounded-2xl p-6 border border-[#ECEEED] shadow-xs flex flex-col justify-between">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-semibold uppercase tracking-wider text-stone-500">
-            In Progress
+            In Progress / Booked
           </span>
           <Wrench className="w-5 h-5 text-stone-400" />
         </div>
         <div className="my-4">
           <div className="text-3xl font-bold tracking-tight text-stone-900">
-            3 <span className="text-base font-normal text-stone-500">Dispatched</span>
+            {inProgressCount}{" "}
+            <span className="text-base font-normal text-stone-500">Dispatched</span>
           </div>
           <div className="text-xs text-stone-500 mt-1">Contractors currently on-site or booked</div>
         </div>
@@ -73,19 +122,20 @@ export const MaintenanceStats: React.FC = () => {
       <div className="bg-white rounded-2xl p-6 border border-[#ECEEED] shadow-xs flex flex-col justify-between">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-semibold uppercase tracking-wider text-stone-500">
-            Resolved (Oct roll)
+            Resolved Tickets
           </span>
           <CheckCircle2 className="w-5 h-5 text-stone-400" />
         </div>
         <div className="my-4">
           <div className="text-3xl font-bold tracking-tight text-stone-900">
-            5 <span className="text-base font-normal text-stone-500">Completed</span>
+            {resolvedCount}{" "}
+            <span className="text-base font-normal text-stone-500">Completed</span>
           </div>
           <div className="text-xs text-stone-500 mt-1">100% invoices signed &amp; filed</div>
         </div>
         <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
-          <span className="text-stone-500">Spend MTD</span>
-          <span className="font-semibold text-stone-900">£1,420.00</span>
+          <span className="text-stone-500">Status</span>
+          <span className="font-semibold text-emerald-700">Audit Reconciled</span>
         </div>
       </div>
     </div>

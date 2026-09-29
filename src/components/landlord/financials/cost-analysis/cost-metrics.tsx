@@ -1,9 +1,34 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Receipt, Building2, Scale, AlertCircle, ArrowUp, CheckCircle2 } from "lucide-react";
+import { propertiesData } from "@/lib/mock/properties";
+import { formatCurrency } from "@/lib/formatters";
 
-export function CostMetrics() {
+interface CostMetricsProps {
+  totalProperties?: number;
+  activeTenancies?: number;
+}
+
+export function CostMetrics({
+  totalProperties = propertiesData.length,
+  activeTenancies = propertiesData.filter((p) => !p.isVacant).length,
+}: CostMetricsProps) {
+  const { totalSpend, avgPerUnit, monthlyPerUnit, propsCount, activeLets } = useMemo(() => {
+    const spend = 68420;
+    const count = Math.max(1, totalProperties);
+    const avg = Math.round(spend / count);
+    const monthly = (avg / 12).toFixed(2);
+
+    return {
+      totalSpend: spend,
+      avgPerUnit: avg,
+      monthlyPerUnit: monthly,
+      propsCount: count,
+      activeLets: activeTenancies || count,
+    };
+  }, [totalProperties, activeTenancies]);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
       {/* Tile 1: Deep Forest Primary Anchor */}
@@ -16,7 +41,7 @@ export function CostMetrics() {
         </div>
         <div className="my-3">
           <div className="text-2xl lg:text-3xl font-extrabold tracking-tight font-mono">
-            £68,420<span className="text-lg font-normal text-[#B2CDBE]">.00</span>
+            {formatCurrency(totalSpend)}
           </div>
           <div className="flex items-center gap-1.5 mt-1.5 text-xs">
             <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#B2CDBE]/20 text-[#B2CDBE]">
@@ -41,18 +66,18 @@ export function CostMetrics() {
         </div>
         <div className="my-3">
           <div className="text-2xl lg:text-3xl font-extrabold tracking-tight text-stone-900 font-mono">
-            £1,629<span className="text-lg font-normal text-stone-400">.05</span>
+            {formatCurrency(avgPerUnit)}
           </div>
           <div className="flex items-center gap-2 mt-1.5">
             <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E8EFEA] text-[#132A20]">
-              £135.75 / mo
+              £{monthlyPerUnit} / mo
             </span>
-            <span className="text-xs text-stone-500">across 42 units</span>
+            <span className="text-xs text-stone-500">across {propsCount} units</span>
           </div>
         </div>
         <div className="pt-2 border-t border-[#ECEEED] flex items-center justify-between text-xs text-stone-500">
-          <span>Portfolio Median: £1,240.00</span>
-          <span className="font-mono font-bold text-stone-900">38 Active Lets</span>
+          <span>Portfolio Benchmark</span>
+          <span className="font-mono font-bold text-stone-900">{activeLets} Active Lets</span>
         </div>
       </div>
 

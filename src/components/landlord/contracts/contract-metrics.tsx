@@ -1,9 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { ShieldCheck, PenTool, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { initialContracts, type ContractRecord } from "@/lib/mock/contracts";
 
-export function ContractMetrics() {
+interface ContractMetricsProps {
+  contracts?: ContractRecord[];
+}
+
+export function ContractMetrics({ contracts = initialContracts }: ContractMetricsProps) {
+  const { activeCount, awaitingCount, expiringCount, executedCount } = useMemo(() => {
+    const active = contracts.filter((c) => c.status === "active").length;
+    const awaiting = contracts.filter((c) => c.status === "awaiting" || c.status === "draft").length;
+    const expiring = contracts.filter((c) => c.status === "expiring").length;
+    const executed = contracts.filter((c) => c.status === "active" || c.status === "expiring").length;
+
+    return {
+      activeCount: active,
+      awaitingCount: awaiting,
+      expiringCount: expiring,
+      executedCount: executed,
+    };
+  }, [contracts]);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
       {/* Stat 1 */}
@@ -18,7 +37,7 @@ export function ContractMetrics() {
         </div>
         <div className="mt-3">
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-extrabold text-stone-900 tracking-tight">38</span>
+            <span className="text-2xl font-extrabold text-stone-900 tracking-tight">{activeCount}</span>
             <span className="text-xs font-semibold text-emerald-700">100% compliant</span>
           </div>
           <p className="text-xs text-stone-500 mt-1">DPS &amp; TDS custodial deposit backed</p>
@@ -37,7 +56,7 @@ export function ContractMetrics() {
         </div>
         <div className="mt-3">
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-extrabold text-stone-900 tracking-tight">3</span>
+            <span className="text-2xl font-extrabold text-stone-900 tracking-tight">{awaitingCount}</span>
             <span className="text-xs font-semibold text-amber-700">Action pending</span>
           </div>
           <p className="text-xs text-stone-500 mt-1">Pending tenant / guarantor e-sign</p>
@@ -48,7 +67,7 @@ export function ContractMetrics() {
       <div className="p-5 rounded-2xl bg-white border border-[#ECEEED] shadow-xs flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider">
-            Expiring in &lt; 60 Days
+            Expiring / Renewal Window
           </span>
           <span className="p-2 rounded-xl bg-rose-50 text-rose-800 border border-rose-200">
             <AlertTriangle className="w-4 h-4 text-rose-600" />
@@ -56,7 +75,7 @@ export function ContractMetrics() {
         </div>
         <div className="mt-3">
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-extrabold text-stone-900 tracking-tight">2</span>
+            <span className="text-2xl font-extrabold text-stone-900 tracking-tight">{expiringCount}</span>
             <span className="text-xs font-semibold text-rose-700">Renewal review</span>
           </div>
           <p className="text-xs text-stone-500 mt-1">Section 21 / Renewal window open</p>
@@ -67,7 +86,7 @@ export function ContractMetrics() {
       <div className="p-5 rounded-2xl bg-white border border-[#ECEEED] shadow-xs flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider">
-            Fully Executed YTD
+            Fully Executed Leases
           </span>
           <span className="p-2 rounded-xl bg-stone-100 text-stone-700">
             <CheckCircle2 className="w-4 h-4" />
@@ -75,8 +94,8 @@ export function ContractMetrics() {
         </div>
         <div className="mt-3">
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-extrabold text-stone-900 tracking-tight">24</span>
-            <span className="text-xs font-semibold text-stone-500">Ø 3.2 days</span>
+            <span className="text-2xl font-extrabold text-stone-900 tracking-tight">{executedCount}</span>
+            <span className="text-xs font-semibold text-stone-500">Recorded</span>
           </div>
           <p className="text-xs text-stone-500 mt-1">Average execution turnaround</p>
         </div>

@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Contact, Phone, Plus, Check, MoreHorizontal } from "lucide-react";
+import { Contact, Phone, Plus, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { directoryListings } from "@/lib/mock/vendor-directory";
 
 interface Vendor {
   id: string;
@@ -13,35 +14,32 @@ interface Vendor {
   color: string;
 }
 
-const initialVendors: Vendor[] = [
-  {
-    id: "v1",
-    name: "Pimlico Emergency Gas & Plumbing",
-    initials: "PP",
-    service: "24/7 SLA Response • Gas Safe Reg #5021",
-    phone: "+44 20 7924 1000",
-    color: "bg-blue-100 text-blue-900",
-  },
-  {
-    id: "v2",
-    name: "Apex Electrical & Fire Solutions",
-    initials: "AE",
-    service: "NICEIC Approved • EICR Specialist",
-    phone: "+44 20 8452 3311",
-    color: "bg-amber-100 text-amber-900",
-  },
-  {
-    id: "v3",
-    name: "London Locksmiths & Security",
-    initials: "LL",
-    service: "MLA Master Locksmiths • Master Keys",
-    phone: "+44 20 7700 8989",
-    color: "bg-emerald-100 text-emerald-900",
-  },
+const colorPalette = [
+  "bg-blue-100 text-blue-900",
+  "bg-amber-100 text-amber-900",
+  "bg-emerald-100 text-emerald-900",
+  "bg-purple-100 text-purple-900",
 ];
 
+const mappedVendors: Vendor[] = directoryListings.slice(0, 3).map((item, idx) => {
+  const words = item.companyName.split(" ");
+  const initials =
+    words.length >= 2
+      ? `${words[0][0]}${words[1][0]}`.toUpperCase()
+      : item.companyName.slice(0, 2).toUpperCase();
+
+  return {
+    id: item.id,
+    name: item.companyName,
+    initials,
+    service: `${item.primaryTrade} • ${item.accreditationBody} #${item.accreditationNumber}`,
+    phone: item.contactPhoneMasked.replace(/•+/g, "5555"),
+    color: colorPalette[idx % colorPalette.length],
+  };
+});
+
 export const VendorDirectory: React.FC = () => {
-  const [vendors, setVendors] = useState<Vendor[]>(initialVendors);
+  const [vendors, setVendors] = useState<Vendor[]>(mappedVendors);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newVendor, setNewVendor] = useState({ name: "", service: "", phone: "" });
@@ -65,86 +63,104 @@ export const VendorDirectory: React.FC = () => {
       id: `v-${Date.now()}`,
       name: newVendor.name,
       initials: initials || "VN",
-      service: newVendor.service || "Contractor Service",
+      service: newVendor.service || "General Contractor • Verified",
       phone: newVendor.phone,
-      color: "bg-purple-100 text-purple-900",
+      color: "bg-stone-100 text-stone-800",
     };
-    setVendors((prev) => [created, ...prev]);
+    setVendors((prev) => [...prev, created]);
     setNewVendor({ name: "", service: "", phone: "" });
     setShowAddModal(false);
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-[#ECEEED] shadow-sm p-6 sm:p-7 flex flex-col">
-      <div className="flex items-center justify-between pb-5 border-b border-gray-100">
-        <div className="flex items-center gap-2">
-          <Contact className="w-5 h-5 text-[#111827]" />
-          <h2 className="text-base font-bold text-[#111827]">Vendor Directory</h2>
-        </div>
-        <Button
-          size="sm"
-          variant="ghost"
-          onClick={() => setShowAddModal(true)}
-          className="h-8 px-2 text-xs font-semibold text-brand hover:bg-[#E8EFEA] rounded-lg cursor-pointer"
-        >
-          <Plus className="w-3.5 h-3.5 mr-1" /> Add
-        </Button>
-      </div>
-
-      <div className="flex flex-col gap-3 py-4">
-        {vendors.map((v) => (
-          <div
-            key={v.id}
-            className="p-3 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-between hover:bg-gray-100/70 transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className={`w-8 h-8 rounded-lg ${v.color} flex items-center justify-center font-semibold text-xs shrink-0`}
-              >
-                {v.initials}
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xs font-semibold text-[#111827]">
-                  {v.name}
-                </span>
-                <span className="text-[11px] text-[#6B7280]">{v.service}</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => handleCopyPhone(v.id, v.phone)}
-                title="Copy phone"
-                className="p-2 rounded-lg bg-white hover:bg-gray-200 text-[#111827] border border-gray-200 transition-colors cursor-pointer text-xs"
-              >
-                {copiedId === v.id ? (
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                ) : (
-                  <Phone className="w-3.5 h-3.5" />
-                )}
-              </button>
-            </div>
+    <div className="bg-white rounded-2xl border border-[#ECEEED] shadow-sm p-6 sm:p-7 flex flex-col justify-between">
+      <div>
+        <div className="flex items-center justify-between pb-4 border-b border-gray-100">
+          <div className="flex items-center gap-2">
+            <Contact className="w-5 h-5 text-[#132A20]" />
+            <h2 className="text-base font-bold text-[#111827]">
+              Approved Contractors
+            </h2>
           </div>
-        ))}
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setShowAddModal(true)}
+            className="text-xs h-7 rounded-lg border-gray-200 text-[#132A20] hover:bg-gray-50 flex items-center gap-1 cursor-pointer"
+          >
+            <Plus className="w-3.5 h-3.5" /> Add Contractor
+          </Button>
+        </div>
+
+        <div className="flex flex-col divide-y divide-gray-100 mt-2">
+          {vendors.map((vendor) => (
+            <div
+              key={vendor.id}
+              className="py-3.5 flex items-center justify-between gap-3 hover:bg-gray-50/60 rounded-xl px-2 transition-colors"
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <div
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 ${vendor.color}`}
+                >
+                  {vendor.initials}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold text-[#111827] truncate">
+                    {vendor.name}
+                  </p>
+                  <p className="text-[11px] text-[#6B7280] truncate mt-0.5">
+                    {vendor.service}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => handleCopyPhone(vendor.id, vendor.phone)}
+                  title="Copy Phone Number"
+                  className={`p-1.5 rounded-lg border text-xs flex items-center gap-1 transition-colors cursor-pointer ${
+                    copiedId === vendor.id
+                      ? "bg-emerald-50 text-emerald-700 border-emerald-300"
+                      : "bg-white text-gray-600 border-gray-200 hover:bg-gray-100"
+                  }`}
+                >
+                  {copiedId === vendor.id ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-[10px] font-semibold">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Phone className="w-3.5 h-3.5" />
+                      <span className="text-[10px] font-mono hidden sm:inline">
+                        {vendor.phone}
+                      </span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-[11px] text-[#6B7280]">
-        <span>Client Money Protection: Propertymark</span>
-        <span className="font-mono">ICO: ZA48291</span>
+      <div className="pt-4 border-t border-gray-100 mt-2 flex items-center justify-between text-xs text-[#6B7280]">
+        <span>All vendors Gas Safe / NICEIC verified</span>
+        <span className="font-semibold text-[#132A20]">{vendors.length} Active</span>
       </div>
 
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
           <form
             onSubmit={handleAddVendor}
-            className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl space-y-4"
+            className="bg-white rounded-2xl shadow-xl border border-stone-200 w-full max-w-sm p-5 space-y-3"
           >
-            <h3 className="text-base font-bold text-[#111827]">
-              Add Approved Vendor
+            <h3 className="text-sm font-bold text-stone-900">
+              Add Emergency Contractor
             </h3>
             <div>
               <label className="block text-xs font-semibold text-stone-600 mb-1">
-                Company / Trade Name
+                Company Name
               </label>
               <input
                 required
@@ -152,20 +168,20 @@ export const VendorDirectory: React.FC = () => {
                 onChange={(e) =>
                   setNewVendor((prev) => ({ ...prev, name: e.target.value }))
                 }
-                placeholder="e.g. Metro Gas Safe Ltd"
+                placeholder="e.g. Apex Electrical Solutions"
                 className="w-full h-9 rounded-xl border border-stone-300 px-3 text-xs"
               />
             </div>
             <div>
               <label className="block text-xs font-semibold text-stone-600 mb-1">
-                Accreditation / Specialty
+                Trade &amp; Accreditation
               </label>
               <input
                 value={newVendor.service}
                 onChange={(e) =>
                   setNewVendor((prev) => ({ ...prev, service: e.target.value }))
                 }
-                placeholder="e.g. Gas Safe #12345 • 24/7 Callout"
+                placeholder="e.g. NICEIC Approved • 24/7 Response"
                 className="w-full h-9 rounded-xl border border-stone-300 px-3 text-xs"
               />
             </div>

@@ -1,55 +1,108 @@
-import React from "react";
+"use client";
+
+import React, { useMemo } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Building2, CircleAlert, KeyRound, Wrench } from "lucide-react";
+import { propertiesData, type PropertyRecord } from "@/lib/mock/properties";
+import { tenantsData, type TenantRecord } from "@/lib/mock/tenants";
+import { maintenanceTickets, type MaintenanceTicket } from "@/lib/mock/maintenance";
+import { INITIAL_MONTHLY_LEDGERS } from "@/lib/mock/ledger";
+import { formatCurrency } from "@/lib/formatters";
 
-const cards = [
-  {
-    label: "Total properties",
-    value: "42",
-    suffix: "units",
-    detail: "38 residential · 4 commercial",
-    footerLabel: "Occupancy rate",
-    footerValue: "98%",
-    icon: Building2,
-    href: "/properties",
-    tone: "neutral",
-  },
-  {
-    label: "Active tenancies",
-    value: "39",
-    suffix: "active",
-    detail: "2 renewals scheduled this month",
-    footerLabel: "Average tenure",
-    footerValue: "2.4 years",
-    icon: KeyRound,
-    href: "/tenants",
-    tone: "neutral",
-  },
-  {
-    label: "Rent overdue",
-    value: "£3,450",
-    suffix: "",
-    detail: "Across 2 tenancies",
-    footerLabel: "Overdue ratio",
-    footerValue: "3.7% of monthly rent",
-    icon: CircleAlert,
-    href: "#rent-ledger-card",
-    tone: "alert",
-  },
-  {
-    label: "Open maintenance",
-    value: "7",
-    suffix: "tickets",
-    detail: "1 urgent · 3 in progress · 3 scheduled",
-    footerLabel: "Priority attention",
-    footerValue: "1 urgent",
-    icon: Wrench,
-    href: "#maintenance-section",
-    tone: "neutral",
-  },
-] as const;
+interface StatCardsProps {
+  properties?: PropertyRecord[];
+  tenants?: TenantRecord[];
+  tickets?: MaintenanceTicket[];
+}
 
-export const StatCards: React.FC = () => {
+export const StatCards: React.FC<StatCardsProps> = ({
+  properties = propertiesData,
+  tenants = tenantsData,
+  tickets = maintenanceTickets,
+}) => {
+  const cards = useMemo(() => {
+    const totalProps = properties.length;
+    const resCount = properties.filter((p) => p.type === "Residential").length;
+    const comCount = properties.filter((p) => p.type === "Commercial").length;
+
+    const activeTenancies = properties.filter((p) => !p.isVacant).length || tenants.length;
+    const occupancyRate = totalProps > 0 ? Math.round((activeTenancies / totalProps) * 100) : 0;
+
+    // Calculate overdue rent from ledgers / properties
+    let overdueTotal = 0;
+    let overdueCount = 0;
+    const currentMonthLedger = INITIAL_MONTHLY_LEDGERS["Oct 2025"] || Object.values(INITIAL_MONTHLY_LEDGERS)[0] || [];
+    currentMonthLedger.forEach((entry) => {
+      if (entry.status === "overdue_14" || entry.status === "overdue_7") {
+        overdueTotal += entry.rent;
+        overdueCount += 1;
+      }
+    });
+    if (overdueTotal === 0) {
+      properties.forEach((p) => {
+        if (p.ledgerStatus === "overdue_14" || p.ledgerStatus === "overdue_7") {
+          const val = Number(String(p.rent).replace(/[£,]/g, "")) || 0;
+          overdueTotal += val;
+          overdueCount += 1;
+        }
+      });
+    }
+
+    const openTickets = tickets.filter((t) => t.status !== "Resolved");
+    const urgentCount = openTickets.filter(
+      (t) => t.priority === "Urgent" || t.priority === "High"
+    ).length;
+    const scheduledCount = openTickets.filter((t) => t.status === "Submitted").length;
+    const inProgressCount = openTickets.filter((t) => t.status === "In Progress").length;
+
+    return [
+      {
+        label: "Total properties",
+        value: String(totalProps),
+        suffix: "units",
+        detail: `${resCount} residential · ${comCount} commercial`,
+        footerLabel: "Occupancy rate",
+        footerValue: `${occupancyRate}%`,
+        icon: Building2,
+        href: "/properties",
+        tone: "neutral" as const,
+      },
+      {
+        label: "Active tenancies",
+        value: String(activeTenancies),
+        suffix: "active",
+        detail: `${Math.min(2, activeTenancies)} renewals scheduled this month`,
+        footerLabel: "Average tenure",
+        footerValue: "2.4 years",
+        icon: KeyRound,
+        href: "/tenants",
+        tone: "neutral" as const,
+      },
+      {
+        label: "Rent overdue",
+        value: formatCurrency(overdueTotal),
+        suffix: "",
+        detail: `Across ${overdueCount} ${overdueCount === 1 ? "tenancy" : "tenancies"}`,
+        footerLabel: "Overdue ratio",
+        footerValue: `${totalProps > 0 ? ((overdueCount / totalProps) * 100).toFixed(1) : 0}% of portfolio`,
+        icon: CircleAlert,
+        href: "#rent-ledger-card",
+        tone: "alert" as const,
+      },
+      {
+        label: "Open maintenance",
+        value: String(openTickets.length),
+        suffix: "tickets",
+        detail: `${urgentCount} urgent · ${inProgressCount} in progress · ${scheduledCount} scheduled`,
+        footerLabel: "Priority attention",
+        footerValue: urgentCount > 0 ? `${urgentCount} urgent` : "Routine",
+        icon: Wrench,
+        href: "/maintenance",
+        tone: "neutral" as const,
+      },
+    ];
+  }, [properties, tenants, tickets]);
+
   return (
     <section aria-label="Portfolio key figures" className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {cards.map(({ label, value, suffix, detail, footerLabel, footerValue, icon: Icon, href, tone }) => {

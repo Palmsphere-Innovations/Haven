@@ -93,7 +93,7 @@ Status: Statutory Validated`;
       />
 
       {/* 2. Key KPI Metric Cards */}
-      <StatCardsRow />
+      <StatCardsRow documents={documents} />
 
       {/* 3. Interactive Compliance Grid */}
       <ComplianceMatrix

@@ -114,9 +114,40 @@ export default function PropertiesPage() {
     setTimeout(() => setNotice(null), 3500);
   };
 
+  const handleExportCSV = () => {
+    const headers = ["Property Code", "Title", "Address", "Type", "Rent", "Status", "Occupant", "Compliance"];
+    const rows = propertiesList.map((p) => [
+      `"${p.code}"`,
+      `"${p.title}"`,
+      `"${p.address}"`,
+      `"${p.type} (${p.subType || ""})"`,
+      `"${p.rent}"`,
+      `"${p.isVacant ? "Vacant" : p.ledgerText || "Occupied"}"`,
+      `"${p.occupant || ""}"`,
+      `"${p.complianceText || "Valid"}"`,
+    ]);
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `haven-portfolio-registry-${new Date().toISOString().split("T")[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    setNotice("Portfolio Register (CSV) exported successfully.");
+    setTimeout(() => setNotice(null), 3500);
+  };
+
   return (
     <div className="space-y-6">
-      <PropertiesHeader onAddProperty={() => setIsAddOpen(true)} />
+      <PropertiesHeader
+        totalCount={propertiesList.length}
+        onAddProperty={() => setIsAddOpen(true)}
+        onExportCSV={handleExportCSV}
+      />
 
       {notice && (
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-xs font-medium text-emerald-800 flex items-center gap-2">

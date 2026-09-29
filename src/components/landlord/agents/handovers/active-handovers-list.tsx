@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowRight, Check, Mail, Copy, FileText, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Check, Mail, Copy, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function ActiveHandoversList() {

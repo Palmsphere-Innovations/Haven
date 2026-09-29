@@ -14,7 +14,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  allowedDevOrigins: ["*.run.app"],
+  allowedDevOrigins: [
+    "**.run.app",
+    "*.run.app",
+    "*.europe-west2.run.app",
+    "ais-dev-7ymgys3dkujgf6hrsx72bk-708234144551.europe-west2.run.app",
+    "ais-pre-7ymgys3dkujgf6hrsx72bk-708234144551.europe-west2.run.app",
+  ],
 };
 
 export default nextConfig;

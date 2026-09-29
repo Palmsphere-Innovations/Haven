@@ -11,6 +11,8 @@ import { VendorDirectory } from "@/components/landlord/dashboard/vendor-director
 import { InviteTenantModal } from "@/components/landlord/tenants/modals/invite-tenant-modal";
 import { useLandlordProfile } from "@/hooks/use-landlord-profile";
 import { formatCurrency, formatPercent } from "@/lib/formatters";
+import { propertiesData } from "@/lib/mock/properties";
+import { tenantsData } from "@/lib/mock/tenants";
 
 export default function LandlordDashboardPage() {
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
@@ -32,13 +34,17 @@ export default function LandlordDashboardPage() {
   const handleExportStatement = () => {
     // Generate CSV for landlord financial statement
     const headers = ["Property", "Tenant", "Rent", "Due Date", "Status"];
-    const rows = [
-      ["Flat 4B, 18 Kensington Gardens", "Oliver Davies & Clara Finch", "£2,450.00", "01 Nov 2026", "Paid"],
-      ["8 Camden Mews", "Elena Rostova", "£850.00", "15 Jun 2026", "Overdue 14d"],
-      ["Unit 3A, St. John's Court", "Maya Lin & S. Patel", "£1,650.00", "01 Nov 2026", "Due Soon"],
-      ["12 Richmond Hill Mansions", "Dr. Aris Thorne", "£3,200.00", "01 Nov 2026", "Paid"],
-      ["27 Blenheim Crescent", "Marcus Vance", "£2,100.00", "01 Nov 2026", "Paid"],
-    ];
+    const monthStr = now.toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+    const rows = propertiesData.map((prop) => {
+      const tenant = tenantsData.find((t) => t.propertyId === prop.id || t.property.includes(prop.title));
+      return [
+        `"${prop.title}, ${prop.address}"`,
+        `"${tenant ? tenant.names : prop.occupant || "Vacant"}"`,
+        `"${prop.rent}"`,
+        `"01 ${monthStr}"`,
+        `"${prop.isVacant ? "Vacant" : prop.ledgerText || "Paid"}"`,
+      ];
+    });
     const csvContent =
       "data:text/csv;charset=utf-8," +
       [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");

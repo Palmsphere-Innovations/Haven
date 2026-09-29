@@ -15,7 +15,7 @@ export default function MaintenancePage() {
   return (
     <div className="space-y-8">
       <MaintenanceHeader onLogRequest={() => setRequestOpen(true)} />
-      <MaintenanceStats />
+      <MaintenanceStats tickets={tickets} />
       <MaintenanceTable tickets={tickets} onSelect={setSelected} />
       {requestOpen && <LogRequestModal onClose={() => setRequestOpen(false)} onAdd={(ticket) => setTickets((current) => [ticket, ...current])} />}
       {selected && <AssignContractorDrawer ticket={selected} onClose={() => setSelected(null)} onUpdate={(ticket) => setTickets((current) => current.map((item) => item.id === ticket.id ? ticket : item))} />}

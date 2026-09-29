@@ -175,7 +175,7 @@ export default function LandlordAgentsPage() {
       )}
 
       {/* Modular Section Components */}
-      <AgentMetrics />
+      <AgentMetrics agents={agents} />
       <AgentsTable agents={agents} onRevokeAgent={handleRevokeAgent} />
       <AgentComplianceBanner />
 
