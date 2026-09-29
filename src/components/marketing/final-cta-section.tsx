@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 export const FinalCTASection: React.FC = () => {
   return (

@@ -2,7 +2,7 @@
 
 import React, { ReactNode } from "react";
 import { CreditCard, Wrench, ShieldCheck, FileText } from "lucide-react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 interface VerticalModuleProps {
   icon: ReactNode;

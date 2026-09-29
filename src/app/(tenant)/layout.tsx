@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Sidebar } from "@/components/shared/sidebar";
 import { TopHeader } from "@/components/shared/top-header";
+import { RouteTransition } from "@/components/shared/route-transition";
 import {
   Menu,
   ChevronLeft,
@@ -10,6 +11,7 @@ import {
   Wallet,
   Wrench,
   FolderOpen,
+  FileText,
   Phone,
   Gavel,
   Settings,
@@ -26,6 +28,7 @@ const navItems = [
   { label: "Rent & Payments", href: "/tenant/payments", icon: Wallet },
   { label: "Maintenance", href: "/tenant/maintenance", icon: Wrench },
   { label: "Documents", href: "/tenant/documents", icon: FolderOpen },
+  { label: "Contracts & Receipts", href: "/tenant/contracts", icon: FileText },
   { label: "Contact", href: "/tenant/contact", icon: Phone },
   { label: "Disputes", href: "/tenant/disputes", icon: Gavel },
   { label: "Settings", href: "/tenant/settings", icon: Settings },
@@ -106,7 +109,7 @@ export default function TenantLayout({ children }: TenantLayoutProps) {
           </div>
 
           <main className="flex-1 h-screen min-h-0 overflow-y-auto overflow-x-hidden p-4 sm:p-8 lg:p-10 flex flex-col gap-8">
-            {children}
+            <RouteTransition>{children}</RouteTransition>
           </main>
         </div>
       </div>

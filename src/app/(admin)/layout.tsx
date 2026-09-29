@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { AdminSidebar } from "@/components/admin/sidebar";
 import { TopHeader } from "@/components/shared/top-header";
+import { RouteTransition } from "@/components/shared/route-transition";
 import { Menu, ChevronLeft } from "lucide-react";
 
 export default function AdminLayout({
@@ -17,7 +18,7 @@ export default function AdminLayout({
     <div className="bg-[#F0F2F1] text-[#111827] antialiased min-h-screen flex justify-center items-start">
       {/* Canvas Wrapper */}
       <div className="w-full max-w-[1600px] h-screen max-h-screen bg-white sm:rounded-[32px] border border-black/5 shadow-2xl flex flex-col md:flex-row overflow-hidden relative">
-        
+
         {/* DESKTOP SIDEBAR */}
         <div className="hidden md:block">
           <AdminSidebar
@@ -79,7 +80,7 @@ export default function AdminLayout({
           </div>
 
           <main className="flex-1 h-screen min-h-0 overflow-y-auto overflow-x-hidden p-4 sm:p-8 lg:p-10 flex flex-col gap-8">
-            {children}
+            <RouteTransition>{children}</RouteTransition>
           </main>
         </div>
       </div>

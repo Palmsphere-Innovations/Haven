@@ -4,24 +4,19 @@ import React, { useState } from "react";
 import { Sidebar } from "@/components/shared/sidebar";
 import { agentNavItems } from "@/components/agent/nav-items";
 import { TopHeader } from "@/components/shared/top-header";
+import { RouteTransition } from "@/components/shared/route-transition";
 import { Menu, ChevronLeft } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { agentsData } from "@/lib/mock/agents";
-import { ReactNode } from "react"
-
-
 
 export default function AgentLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
-
 }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-const agent = agentsData[0];
-
+  const agent = agentsData[0];
 
   return (
     <div className="bg-[#F0F2F1] text-[#111827] antialiased min-h-screen flex justify-center items-start">
@@ -83,18 +78,18 @@ const agent = agentsData[0];
             </button>
             <div className="flex-1">
               <TopHeader
-              id={agent.id}
-              name={agent.name}
-              initials={agent.initials}
-              notificationsCount={3}
-              notificationLink="/agent/communication"
-              role="Agent"
+                id={agent.id}
+                name={agent.name}
+                initials={agent.initials}
+                notificationsCount={3}
+                notificationLink="/agent/communication"
+                role="Agent"
               />
             </div>
           </div>
 
           <main className="flex-1 h-screen min-h-0 overflow-y-auto overflow-x-hidden p-4 sm:p-8 lg:p-10 flex flex-col gap-8">
-            {children}
+            <RouteTransition>{children}</RouteTransition>
           </main>
         </div>
       </div>

@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useMemo } from "react"
-// import { PortalShell } from "@/components/shared"
 import { JobQueueSidebar } from "@/components/vendor/jobs/job-queue-sidebar"
 import { JobDossierHeader } from "@/components/vendor/jobs/job-dossier-header"
 import { JobStepperAndActions } from "@/components/vendor/jobs/job-stepper-and-actions"

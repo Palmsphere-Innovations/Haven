@@ -30,7 +30,7 @@ export interface WorkOrder {
   tenant: string;
   contractor: string;
   amount: string;
-  status: 'Quote Approved' | 'Awaiting Sign-off' | 'Dispatched';
+  status: 'Quote Approved' | 'Awaiting Sign-off' | 'Dispatched' | 'Sign-off Requested';
   exceedsCap?: boolean;
   capNotice?: string;
 }

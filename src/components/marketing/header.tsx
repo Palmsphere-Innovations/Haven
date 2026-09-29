@@ -19,11 +19,14 @@ export const Header: React.FC = () => {
           <Link className="hover:text-brand transition-colors py-1" href="/#features">
             Features
           </Link>
-          <Link className="hover:text-brand ansition-colors py-1" href="/#how-it-works">
+          <Link className="hover:text-brand transition-colors py-1" href="/#how-it-works">
             How it works
           </Link>
           <Link className="hover:text-brand transition-colors py-1" href="/#pricing">
             Pricing
+          </Link>
+          <Link className="hover:text-brand transition-colors py-1 text-emerald-800 font-semibold" href="/vendor/join">
+            Contractors
           </Link>
         </nav>
 

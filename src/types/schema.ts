@@ -34,7 +34,7 @@ export interface PaginatedResponse<T> {
 // 2. User & Auth
 // ==========================================
 
-export type UserRole = "landlord" | "agent" | "tenant" | "admin";
+export type UserRole = "landlord" | "agent" | "tenant" | "vendor" | "admin";
 
 export interface UserProfile {
   id: string;

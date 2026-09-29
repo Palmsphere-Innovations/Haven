@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+"use client";
+
+import React, { useState } from "react";
 import {
   CheckCircle2,
-  RefreshCw,
   Hourglass,
   Image as ImageIcon,
   FileText,
@@ -10,51 +11,77 @@ import {
   Lock,
   Paperclip,
   Send,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { DisputeChatMessage } from "@/types/index"
+  AlertCircle,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { DisputeChatMessage, DisputeRecord } from "@/types/index";
 
 interface DisputeDetailWorkspaceProps {
-  chatMessages: DisputeChatMessage[]
-  onSendMessage: (text: string) => void
+  activeDispute?: DisputeRecord;
+  chatMessages: DisputeChatMessage[];
+  onSendMessage: (text: string) => void;
 }
 
 export const DisputeDetailWorkspace: React.FC<DisputeDetailWorkspaceProps> = ({
+  activeDispute,
   chatMessages,
   onSendMessage,
 }) => {
-  const [replyText, setReplyText] = useState("")
+  const [replyText, setReplyText] = useState("");
 
   const handleSend = () => {
-    if (!replyText.trim()) return
-    onSendMessage(replyText.trim())
-    setReplyText("")
-  }
+    if (!replyText.trim()) return;
+    onSendMessage(replyText.trim());
+    setReplyText("");
+  };
+
+  const isResolved = activeDispute?.status === "resolved";
 
   return (
     <div className="flex flex-col gap-6">
       {/* Primary Case Overview & Stepper Card */}
-      <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-sm flex flex-col gap-6">
+      <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-xs flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-stone-100 gap-2">
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono font-bold text-xs text-[#132A20]">CASE #DSP-2024-0982</span>
-              <Badge className="bg-amber-100 text-amber-900 border-amber-200 text-[10px] font-medium">
-                Under Review
+              <span className="font-mono font-bold text-xs text-[#132A20]">
+                CASE #{activeDispute?.reference || "DSP-2024-0982"}
+              </span>
+              <Badge
+                className={`text-[10px] font-semibold ${
+                  isResolved
+                    ? "bg-emerald-100 text-emerald-900 border-emerald-200"
+                    : "bg-amber-100 text-amber-900 border-amber-200"
+                }`}
+              >
+                {activeDispute?.statusLabel || "Under Review"}
               </Badge>
             </div>
-            <h2 className="text-lg font-semibold text-[#132A20] mt-1">
-              En-suite Radiator Remediation &amp; Heating Interruption
+            <h2 className="text-lg font-bold text-stone-900 mt-1">
+              {activeDispute?.title || "En-suite Radiator Remediation & Heating Interruption"}
             </h2>
           </div>
-          <div className="text-right sm:self-auto">
-            <span className="text-[10px] font-semibold text-stone-500 uppercase">
-              Proposed Settlement
+          <div className="text-left sm:text-right">
+            <span className="text-[10px] font-semibold text-stone-500 uppercase tracking-wider block">
+              Remedy Sought
             </span>
-            <div className="text-xl font-bold font-mono text-[#132A20]">£185.00</div>
+            <div className="text-sm font-bold font-mono text-[#132A20] mt-0.5">
+              {activeDispute?.remedy || "Operational notation"}
+            </div>
           </div>
         </div>
+
+        {/* Resolved Outcome Banner if Resolved */}
+        {isResolved && activeDispute?.outcome && (
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 space-y-1">
+            <div className="flex items-center gap-1.5 font-bold text-emerald-800">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <span>Case Settled &amp; Adjudicated ({activeDispute.settledTime || "Resolved"})</span>
+            </div>
+            <p className="leading-relaxed">{activeDispute.outcome}</p>
+          </div>
+        )}
 
         {/* Statutory Timeline Stepper */}
         <div className="flex flex-col gap-2">
@@ -68,194 +95,176 @@ export const DisputeDetailWorkspace: React.FC<DisputeDetailWorkspaceProps> = ({
                 <CheckCircle2 className="w-4 h-4 text-emerald-800" />
                 <span className="font-semibold text-xs">1. Submitted</span>
               </div>
-              <span className="text-[11px] text-stone-500">04 Oct 2024 • 09:15</span>
-              <span className="text-[11px] text-stone-600">Tenant claim logged with 2 exhibits</span>
+              <p className="text-[11px] text-stone-500">{activeDispute?.openedDate || "Logged"}</p>
             </div>
 
             {/* Step 2 */}
             <div className="flex flex-col gap-1 p-3 rounded-xl bg-stone-100 border border-stone-200/60 text-stone-800">
               <div className="flex items-center gap-1.5 text-[#132A20]">
                 <CheckCircle2 className="w-4 h-4 text-emerald-800" />
-                <span className="font-semibold text-xs">2. Acknowledged</span>
+                <span className="font-semibold text-xs">2. Triage</span>
               </div>
-              <span className="text-[11px] text-stone-500">04 Oct 2024 • 11:30</span>
-              <span className="text-[11px] text-stone-600">Eleanor Vance forwarded to Apex</span>
+              <p className="text-[11px] text-stone-500">Evidence Admissible</p>
             </div>
 
-            {/* Step 3 (Current) */}
-            <div className="flex flex-col gap-1 p-3 rounded-xl bg-[#132A20] text-white">
-              <div className="flex items-center gap-1.5 text-emerald-300">
-                <RefreshCw className="w-4 h-4 animate-spin" />
-                <span className="font-semibold text-xs">3. Assessment</span>
+            {/* Step 3 */}
+            <div
+              className={`flex flex-col gap-1 p-3 rounded-xl border ${
+                isResolved
+                  ? "bg-stone-100 border-stone-200/60 text-stone-800"
+                  : "bg-amber-50 border-amber-200 text-amber-900"
+              }`}
+            >
+              <div className="flex items-center gap-1.5 font-semibold text-xs">
+                {isResolved ? (
+                  <CheckCircle2 className="w-4 h-4 text-emerald-800" />
+                ) : (
+                  <Hourglass className="w-4 h-4 text-amber-600 animate-spin" />
+                )}
+                <span>3. Adjudication</span>
               </div>
-              <span className="text-[11px] text-stone-300">08 Oct 2024 • 14:20</span>
-              <span className="text-[11px] text-stone-300">Diagnostics attached &amp; landlord review</span>
+              <p className="text-[11px] text-stone-500">
+                {isResolved ? "Mutual Accord" : "Under Evaluation"}
+              </p>
             </div>
 
             {/* Step 4 */}
-            <div className="flex flex-col gap-1 p-3 rounded-xl bg-stone-50 border border-stone-200/60 text-stone-400">
-              <div className="flex items-center gap-1.5">
-                <Hourglass className="w-4 h-4 text-stone-400" />
-                <span className="font-medium text-xs">4. Resolution</span>
+            <div
+              className={`flex flex-col gap-1 p-3 rounded-xl border ${
+                isResolved
+                  ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                  : "bg-stone-50 border-stone-200/50 text-stone-400"
+              }`}
+            >
+              <div className="flex items-center gap-1.5 font-semibold text-xs">
+                <CheckCircle2
+                  className={`w-4 h-4 ${isResolved ? "text-emerald-700" : "text-stone-300"}`}
+                />
+                <span>4. Settled</span>
               </div>
-              <span className="text-[11px]">Est. 18 Oct 2024</span>
-              <span className="text-[11px]">Agreed adjustment / credit applied</span>
+              <p className="text-[11px] text-stone-500">
+                {isResolved ? "Formal Sign-off" : "Pending Order"}
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Grounds Statement */}
-        <div className="p-4 bg-stone-50 rounded-xl border border-stone-200/60 flex flex-col gap-1.5">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#132A20]">
-              Grounds of Claim
-            </span>
-            <span className="text-[11px] text-stone-500">Landlord &amp; Tenant Act 1985 (Section 11)</span>
-          </div>
-          <p className="text-xs text-stone-800 italic leading-relaxed">
-            &ldquo;Radiator valve failed on 28 Sep causing lack of heating in primary bedroom for 6 days prior to temporary repair. Tenant requesting agreed statutory rent adjustment of £185.00 for space heating outage and electric radiator electricity overhead.&rdquo;
-          </p>
-        </div>
-
-        {/* Submitted Exhibits */}
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-stone-500">
-              Submitted Exhibits &amp; Diagnostics (3)
-            </span>
-            <span className="text-[11px] text-stone-500">All files cryptographically hashed</span>
-          </div>
+        {/* Evidence Exhibits Attached */}
+        <div className="flex flex-col gap-2 pt-2 border-t border-stone-100">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-stone-500">
+            Certified Exhibits on File
+          </span>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition-colors border border-stone-200/60 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-white border border-stone-200 flex items-center justify-center text-[#132A20] shrink-0">
+            <div className="p-3 rounded-xl border border-stone-200/80 bg-stone-50/50 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0">
                 <ImageIcon className="w-4 h-4 text-emerald-800" />
               </div>
-              <div className="flex flex-col min-w-0">
-                <span className="font-semibold text-xs text-[#132A20] truncate">Radiator_Valve_Leak.jpg</span>
-                <span className="text-[10px] text-stone-500">2.4 MB • High Res</span>
+              <div className="min-w-0">
+                <p className="font-semibold text-xs text-[#132A20] truncate">
+                  Exhibit_A_Photographs.jpg
+                </p>
+                <span className="text-[10px] text-stone-400">Timestamped Proof</span>
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition-colors border border-stone-200/60 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-white border border-stone-200 flex items-center justify-center text-[#132A20] shrink-0">
-                <FileText className="w-4 h-4 text-red-700" />
+            <div className="p-3 rounded-xl border border-stone-200/80 bg-stone-50/50 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0">
+                <FileText className="w-4 h-4 text-emerald-800" />
               </div>
-              <div className="flex flex-col min-w-0">
-                <span className="font-semibold text-xs text-[#132A20] truncate">Apex_Heating_JobSheet.pdf</span>
-                <span className="text-[10px] text-stone-500">840 KB • Certified</span>
+              <div className="min-w-0">
+                <p className="font-semibold text-xs text-[#132A20] truncate">
+                  Engineer_JobSheet.pdf
+                </p>
+                <span className="text-[10px] text-stone-400">Certified Diagnostic</span>
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-stone-50 hover:bg-stone-100 transition-colors border border-stone-200/60 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-white border border-stone-200 flex items-center justify-center text-[#132A20] shrink-0">
-                <Table className="w-4 h-4 text-stone-600" />
+            <div className="p-3 rounded-xl border border-stone-200/80 bg-stone-50/50 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0">
+                <Table className="w-4 h-4 text-emerald-800" />
               </div>
-              <div className="flex flex-col min-w-0">
-                <span className="font-semibold text-xs text-[#132A20] truncate">Temperature_Log_Oct.csv</span>
-                <span className="text-[10px] text-stone-500">14 KB • Sensor Dump</span>
+              <div className="min-w-0">
+                <p className="font-semibold text-xs text-[#132A20] truncate">
+                  Tenancy_Schedule_Extract.csv
+                </p>
+                <span className="text-[10px] text-stone-400">Ledger Cross-check</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Formal Mediation Conversation Thread */}
-      <div className="rounded-2xl bg-white border border-stone-200/80 shadow-sm p-6 flex flex-col gap-4">
+      {/* Case Discussion Thread & ADR Messages */}
+      <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-xs flex flex-col gap-4">
         <div className="flex items-center justify-between pb-3 border-b border-stone-100">
           <div className="flex items-center gap-2">
-            <MessageSquare className="w-5 h-5 text-emerald-800" />
-            <h3 className="text-sm font-semibold text-[#132A20]">Mediation Thread &amp; Statutory Notes</h3>
+            <MessageSquare className="w-4 h-4 text-emerald-800" />
+            <h3 className="text-sm font-bold text-stone-900">
+              Formal Case Arbitration Log
+            </h3>
           </div>
-          <span className="text-xs text-stone-500 flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-600" /> Active Channel
+          <span className="inline-flex items-center gap-1 text-[11px] text-emerald-800 font-medium bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+            <Lock className="w-3 h-3" /> Privileged &amp; Confidential
           </span>
         </div>
 
-        <div className="flex flex-col gap-4 p-4 bg-stone-50 rounded-xl border border-stone-200/60">
-          <div className="flex justify-center">
-            <span className="px-3 py-1 rounded-full bg-white text-stone-500 text-[11px] font-medium border border-stone-200/80">
-              Formal Case Initiated • 04 Oct 2024 • Recorded under UK ADR guidelines
-            </span>
-          </div>
-
-          {chatMessages.map((msg) => (
-            <div
-              key={msg.id}
-              className={`flex items-start gap-3 max-w-[85%] ${
-                msg.sender === "tenant" ? "self-end flex-row-reverse ml-auto" : ""
-              }`}
-            >
+        {/* Message Log */}
+        <div className="flex flex-col gap-3 max-h-72 overflow-y-auto pr-1">
+          {chatMessages.map((msg) => {
+            const isTenant = msg.sender === "tenant";
+            return (
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${
-                  msg.sender === "tenant"
-                    ? "bg-[#132A20] text-white"
-                    : "bg-emerald-100 text-emerald-900 border border-emerald-200"
+                key={msg.id}
+                className={`p-3.5 rounded-2xl flex flex-col gap-1 text-xs leading-relaxed ${
+                  isTenant
+                    ? "bg-[#132A20] text-white self-end max-w-[85%] rounded-tr-xs"
+                    : "bg-stone-50 text-stone-800 self-start max-w-[85%] rounded-tl-xs border border-stone-200/60"
                 }`}
               >
-                {msg.senderInitials || (msg.sender === "tenant" ? "OD" : "EV")}
-              </div>
-
-              <div className={`flex flex-col gap-1 ${msg.sender === "tenant" ? "items-end" : ""}`}>
-                <div className="flex items-baseline gap-2 text-xs">
-                  <span className="font-semibold text-[#132A20]">{msg.senderName}</span>
-                  <span className="text-[10px] text-stone-400">{msg.timestamp}</span>
+                <div className="flex items-center justify-between gap-4">
+                  <span
+                    className={`font-bold ${isTenant ? "text-emerald-300" : "text-stone-900"}`}
+                  >
+                    {msg.senderName}
+                  </span>
+                  <span
+                    className={`text-[10px] ${isTenant ? "text-stone-300" : "text-stone-400"}`}
+                  >
+                    {msg.timestamp}
+                  </span>
                 </div>
-                <div
-                  className={`p-3.5 rounded-2xl text-xs leading-relaxed shadow-xs ${
-                    msg.sender === "tenant"
-                      ? "rounded-tr-xs bg-stone-200 text-stone-900"
-                      : "rounded-tl-xs bg-white text-stone-800 border border-stone-200/80"
-                  }`}
-                >
-                  {msg.text}
-                </div>
+                <p className="mt-0.5">{msg.text}</p>
               </div>
-            </div>
-          ))}
-
-          <div className="flex justify-center my-1">
-            <span className="px-3 py-1 rounded-full bg-white text-stone-500 text-[11px] font-medium border border-stone-200/80 flex items-center gap-1">
-              <Lock className="w-3.5 h-3.5 text-emerald-800" />
-              Synchronized with Haven Statutory Mediation Ledger
-            </span>
-          </div>
+            );
+          })}
         </div>
 
         {/* Reply Composer */}
-        <div className="flex flex-col gap-2 pt-1">
-          <div className="relative">
-            <textarea
-              value={replyText}
-              onChange={(e) => setReplyText(e.target.value)}
-              placeholder="Type a formal reply to this dispute..."
-              rows={3}
-              className="w-full p-3 pr-10 rounded-xl bg-stone-50 text-xs text-[#132A20] border border-stone-200/80 focus:outline-none focus:border-[#132A20] focus:bg-white transition-all resize-none"
-            />
-            <button
-              type="button"
-              className="absolute right-3 bottom-3 text-stone-400 hover:text-[#132A20]"
-              title="Attach exhibit"
-            >
-              <Paperclip className="w-4 h-4" />
-            </button>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1 text-[11px] text-stone-500">
-              <Lock className="w-3.5 h-3.5 text-stone-400" />
-              <span>Submissions are final once sent and added to case documentation.</span>
-            </div>
-            <Button
-              type="button"
-              onClick={handleSend}
-              className="h-9 px-4 rounded-xl bg-[#132A20] hover:bg-[#1c3e30] text-white text-xs font-semibold shadow-xs flex items-center gap-1.5"
-            >
-              <span>Send Message</span>
-              <Send className="w-3.5 h-3.5 text-emerald-300" />
-            </Button>
-          </div>
+        <div className="flex items-center gap-2 pt-3 border-t border-stone-100">
+          <input
+            type="text"
+            value={replyText}
+            onChange={(e) => setReplyText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
+            placeholder="Submit formal clarification or response to adjudicator..."
+            className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2 text-xs text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#132A20]/20 focus:bg-white"
+          />
+          <button
+            type="button"
+            onClick={handleSend}
+            disabled={!replyText.trim()}
+            className="px-4 py-2 bg-[#132A20] hover:bg-[#1a382b] text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-40"
+          >
+            <Send className="w-3.5 h-3.5" />
+            <span>Send</span>
+          </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

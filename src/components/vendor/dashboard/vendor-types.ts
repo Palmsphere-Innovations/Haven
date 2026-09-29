@@ -57,4 +57,5 @@ export interface VendorInvoice {
   statusLabel?: string;
   invoiceNumber?: string;
   poNumber?: string;
+  dueDate?: string;
 }

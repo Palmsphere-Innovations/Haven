@@ -18,11 +18,16 @@ export const DisputeLedgerTable: React.FC<DisputeLedgerTableProps> = ({
   onSelectDispute,
 }) => {
   const tabs = [
-    { id: "all", label: "All (3)" },
-    { id: "open", label: "Open (1)" },
-    { id: "under_review", label: "Under Review (1)" },
-    { id: "resolved", label: "Resolved (1)" },
-  ]
+    { id: "all", label: `All (${disputes.length})` },
+    {
+      id: "under_review",
+      label: `Under Review (${disputes.filter((d) => d.status === "under_review").length})`,
+    },
+    {
+      id: "resolved",
+      label: `Resolved (${disputes.filter((d) => d.status === "resolved").length})`,
+    },
+  ];
 
   const getCategoryIcon = (category: DisputeRecord["category"]) => {
     switch (category) {

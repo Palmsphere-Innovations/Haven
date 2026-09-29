@@ -1,3 +1,4 @@
+import * as React from "react"
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
@@ -40,18 +41,54 @@ const buttonVariants = cva(
   }
 )
 
+export interface ButtonProps
+  extends ButtonPrimitive.Props,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
+
+type ChildProps = {
+  className?: string
+  onClick?: React.MouseEventHandler<HTMLElement>
+  [key: string]: unknown
+}
+
 function Button({
   className,
   variant = "default",
   size = "default",
+  asChild = false,
+  children,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonProps) {
+  if (asChild && React.isValidElement(children)) {
+    const child = children as React.ReactElement<ChildProps>
+    const hasClick = Boolean(child.props.onClick || props.onClick)
+    const clonedProps: ChildProps = {
+      ...props,
+      className: cn(buttonVariants({ variant, size, className }), child.props.className),
+    }
+
+    if (hasClick) {
+      clonedProps.onClick = (e: React.MouseEvent<HTMLElement>) => {
+        child.props.onClick?.(e)
+        if (props.onClick) {
+          (props.onClick as unknown as React.MouseEventHandler<HTMLElement>)(e)
+        }
+      }
+    }
+
+    return React.cloneElement(child, clonedProps)
+  }
+
   return (
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    />
+    >
+      {children}
+    </ButtonPrimitive>
   )
 }
 

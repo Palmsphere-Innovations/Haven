@@ -16,7 +16,7 @@ export const signUpSchema = z
     agreeToTerms: z.boolean().refine((value) => value, {
       message: "You must agree to the terms.",
     }),
-    role: z.enum(["landlord", "agent"]),
+    role: z.enum(["landlord", "agent", "vendor", "tenant"]),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],

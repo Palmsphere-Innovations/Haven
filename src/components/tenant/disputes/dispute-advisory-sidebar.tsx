@@ -1,11 +1,13 @@
-import React from "react"
-import { ShieldAlert, ExternalLink, CalendarPlus } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+"use client";
+
+import React from "react";
+import { ShieldAlert, ExternalLink, CalendarPlus, UserCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface DisputeAdvisorySidebarProps {
-  onReadRightsGuide: () => void
-  onScheduleCall: () => void
+  onReadRightsGuide: () => void;
+  onScheduleCall: () => void;
 }
 
 export const DisputeAdvisorySidebar: React.FC<DisputeAdvisorySidebarProps> = ({
@@ -15,10 +17,10 @@ export const DisputeAdvisorySidebar: React.FC<DisputeAdvisorySidebarProps> = ({
   return (
     <div className="flex flex-col gap-6">
       {/* Rights & Next Steps Card */}
-      <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-sm flex flex-col gap-4">
+      <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-xs flex flex-col gap-4">
         <div className="flex items-center gap-2">
           <ShieldAlert className="w-5 h-5 text-emerald-800" />
-          <h3 className="text-sm font-semibold text-[#132A20]">Dispute Rights &amp; Next Steps</h3>
+          <h3 className="text-sm font-bold text-[#132A20]">Dispute Rights &amp; Next Steps</h3>
         </div>
 
         <p className="text-xs text-stone-600 leading-relaxed">
@@ -46,7 +48,7 @@ export const DisputeAdvisorySidebar: React.FC<DisputeAdvisorySidebarProps> = ({
               </Badge>
             </div>
             <span className="text-[11px] text-stone-500">
-              If no mutual consensus is reached by 25 Oct 2024, case auto-escalates to an ombudsman at no cost.
+              If no mutual consensus is reached, case auto-escalates to an independent ombudsman at no cost.
             </span>
           </div>
 
@@ -65,7 +67,7 @@ export const DisputeAdvisorySidebar: React.FC<DisputeAdvisorySidebarProps> = ({
           type="button"
           variant="outline"
           onClick={onReadRightsGuide}
-          className="w-full h-9 rounded-xl text-xs border-stone-300 bg-stone-50 hover:bg-stone-100 text-[#132A20] font-medium"
+          className="w-full h-9 rounded-xl text-xs border-stone-300 bg-stone-50 hover:bg-stone-100 text-[#132A20] font-semibold cursor-pointer"
         >
           <span>Read Tenant Rights Guide</span>
           <ExternalLink className="w-3.5 h-3.5 ml-1 text-stone-400" />
@@ -73,21 +75,21 @@ export const DisputeAdvisorySidebar: React.FC<DisputeAdvisorySidebarProps> = ({
       </div>
 
       {/* Assigned Adjudicator Card */}
-      <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-sm flex flex-col gap-4">
+      <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-xs flex flex-col gap-4">
         <span className="text-[10px] font-semibold uppercase tracking-wider text-stone-500">
           Assigned Case Adjudicator
         </span>
 
         <div className="flex items-center gap-3">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDarDuAzcaNqUUIPHz71eairIijKyFZeaOVuM26s17XgQ01LDhWc7xPWQzCoUWFw62TW5EQPJMkDOM2uaVhlouH6LKUpVcPjfjmS8NbSWs0EnuwYklD0r-SNPONp0cJ0ZEZpwADKIjUDbd8dWJkS9O2uCSY2_Ka8PUrQr6Loq_1NenU7Du2qpFuI3sQrcakCTK2dTCIfvAuD9JRyC63EgB4nMGd61aj0HumM6eKYP3FMmH3y3r2iMkA"
-            alt="Eleanor Vance"
-            className="w-12 h-12 rounded-xl object-cover border border-stone-200 shrink-0"
-          />
+          <div className="w-12 h-12 rounded-2xl bg-[#132A20] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
+            EV
+          </div>
           <div className="flex flex-col min-w-0">
-            <span className="font-semibold text-xs text-[#132A20] truncate">Eleanor Vance, MARLA</span>
+            <span className="font-bold text-xs text-[#132A20] truncate">Eleanor Vance, MARLA</span>
             <span className="text-[11px] text-stone-500 truncate">Prime Heritage Management</span>
-            <span className="text-[10px] text-emerald-800 font-semibold">Authorised Letting Negotiator</span>
+            <span className="text-[10px] text-emerald-800 font-semibold flex items-center gap-1 mt-0.5">
+              <UserCheck className="w-3 h-3" /> Authorised Negotiator
+            </span>
           </div>
         </div>
 
@@ -113,7 +115,7 @@ export const DisputeAdvisorySidebar: React.FC<DisputeAdvisorySidebarProps> = ({
         <Button
           type="button"
           onClick={onScheduleCall}
-          className="w-full h-9 rounded-xl bg-[#132A20] hover:bg-[#1c3e30] text-white text-xs font-semibold shadow-xs flex items-center justify-center gap-2"
+          className="w-full h-9 rounded-xl bg-[#132A20] hover:bg-[#1a382b] text-white text-xs font-semibold shadow-xs flex items-center justify-center gap-2 cursor-pointer"
         >
           <CalendarPlus className="w-4 h-4 text-emerald-300" />
           <span>Schedule Mediation Call</span>
@@ -121,11 +123,11 @@ export const DisputeAdvisorySidebar: React.FC<DisputeAdvisorySidebarProps> = ({
       </div>
 
       {/* Tenancy Property Dossier Card */}
-      <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-sm flex flex-col gap-2">
+      <div className="p-6 rounded-2xl bg-white border border-stone-200/80 shadow-xs flex flex-col gap-2">
         <span className="text-[10px] font-semibold uppercase tracking-wider text-stone-500">
           Associated Tenancy Dossier
         </span>
-        <div className="font-semibold text-xs text-[#132A20]">Flat 4B, 18 Kensington Gardens</div>
+        <div className="font-bold text-xs text-[#132A20]">Flat 4B, 18 Kensington Gardens</div>
         <div className="text-xs text-stone-500">
           Tenancy Reference: <span className="font-mono text-[#132A20] font-semibold">HAV-KG-4B-2024</span>
         </div>
@@ -138,5 +140,5 @@ export const DisputeAdvisorySidebar: React.FC<DisputeAdvisorySidebarProps> = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

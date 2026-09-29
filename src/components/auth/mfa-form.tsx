@@ -5,15 +5,23 @@ import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
+import { resolveUserFromEmail, verifyOtp, ROLE_PORTAL_MAP, type AuthUser } from "@/lib/auth";
+import type { UserRole } from "@/types/schema";
+import { ShieldCheck, KeyRound } from "lucide-react";
 
 export const VerifyIdentityForm: React.FC = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   
-  // Detect if user came from 'signup' or default to 'login'
+  // Detect flow, email, and role from query
   const flow = searchParams.get("flow") || "login";
   const emailParam = searchParams.get("email") || "";
+  const roleParam = searchParams.get("role") as UserRole | null;
+
+  // Resolve user identity
+  const detectedUser: AuthUser = resolveUserFromEmail(emailParam || "robert.smith@domain.co.uk");
+  const activeRole: UserRole = roleParam || detectedUser.role || "landlord";
 
   // Dynamic link destination and label based on flow
   const backLinkHref = flow === "signup" ? "/sign-up" : "/sign-in";
@@ -70,21 +78,33 @@ export const VerifyIdentityForm: React.FC = () => {
     setTimer(30);
   };
 
+  const handleAutofillDemo = () => {
+    setOtp(["8", "4", "9", "2", "0", "1"]);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!/^\d{6}$/.test(otp.join(""))) {
+    const code = otp.join("");
+    if (!/^\d{6}$/.test(code)) {
       setHasError(true);
       window.setTimeout(() => setHasError(false), 450);
       return;
     }
+
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 450));
-    // Direct user to appropriate destination after successful verification
-    if (flow === "signup") {
-      router.push("/dashboard");
-    } else {
-      router.push("/dashboard");
-    }
+
+    const authenticatedUser: AuthUser = {
+      ...detectedUser,
+      role: activeRole,
+      email: emailParam || detectedUser.email,
+    };
+
+    // Commit session to localStorage & notify listeners
+    await verifyOtp({ code }, authenticatedUser);
+
+    // Dynamic destination based on resolved platform role
+    const destination = ROLE_PORTAL_MAP[activeRole] || "/dashboard";
+    router.push(destination);
   };
 
   const formatTimer = (seconds: number): string => {
@@ -101,23 +121,51 @@ export const VerifyIdentityForm: React.FC = () => {
       className="w-full max-w-120 bg-white rounded-[28px] border border-neutral-200/80 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04),0_12px_32px_-6px_rgba(0,0,0,0.06)] px-8 py-10 sm:px-11 sm:py-12"
       data-purpose="verification-card"
     >
+      {/* Role Badge Indicator */}
+      <div className="flex items-center justify-center mb-4">
+        <div className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 capitalize">
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
+          <span>Role Assigned: {activeRole} Portal</span>
+        </div>
+      </div>
+
       {/* Card Heading & Description */}
-      <div className="text-center mb-8">
-        <h1 className="text-[28px] font-bold tracking-tight text-neutral-900 leading-tight">
+      <div className="text-center mb-6">
+        <h1 className="text-[26px] font-bold tracking-tight text-neutral-900 leading-tight">
           Verify your identity
         </h1>
-        <p className="text-sm text-neutral-600 mt-3 leading-relaxed max-w-sm mx-auto">
-          Enter the 6-digit code we sent to{" "}
+        <p className="text-xs text-neutral-600 mt-2 leading-relaxed max-w-sm mx-auto">
+          Enter the 6-digit statutory security code sent to{" "}
           <span className="font-semibold text-neutral-900">
-            {emailParam ? decodeURIComponent(emailParam) : "your email/phone"}
-          </span>{" "}
-          to finish {flow === "signup" ? "setting up your account" : "signing in"}.
+            {emailParam ? decodeURIComponent(emailParam) : "your registered email"}
+          </span>
+          .
         </p>
+      </div>
+
+      {/* Demo helper */}
+      <div className="mb-6 p-2.5 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between text-xs">
+        <span className="text-stone-600 flex items-center gap-1.5">
+          <KeyRound className="w-3.5 h-3.5 text-stone-500" />
+          Demo Code: <strong className="font-mono text-stone-900">849201</strong>
+        </span>
+        <button
+          type="button"
+          onClick={handleAutofillDemo}
+          className="text-[11px] font-semibold text-emerald-800 hover:text-emerald-950 underline cursor-pointer"
+        >
+          Autofill Code
+        </button>
       </div>
 
       {/* Verification Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
-        {hasError && <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-center text-xs text-red-700">Enter the 6-digit verification code.</p>}
+        {hasError && (
+          <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-center text-xs text-red-700">
+            Enter the 6-digit verification code.
+          </p>
+        )}
+
         {/* 6-Digit OTP Inputs */}
         <div className="space-y-3">
           <Label className="block text-xs font-semibold uppercase tracking-wider text-neutral-500 text-center mb-2">
@@ -150,7 +198,7 @@ export const VerifyIdentityForm: React.FC = () => {
 
         {/* Resend Code Prompt & Dynamic Timer */}
         <div className="text-center pt-1" data-purpose="resend-countdown-group">
-          <p className="text-sm text-neutral-600">
+          <p className="text-xs text-neutral-600">
             Didn&apos;t get a code?{" "}
             <button
               type="button"
@@ -165,7 +213,7 @@ export const VerifyIdentityForm: React.FC = () => {
               Resend code
             </button>
           </p>
-          <p className="text-xs text-neutral-400 mt-1">
+          <p className="text-[11px] text-neutral-400 mt-1">
             You can resend in{" "}
             <span className="font-medium text-neutral-500">
               {formatTimer(timer)}
@@ -178,9 +226,16 @@ export const VerifyIdentityForm: React.FC = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full h-12 bg-brand hover:bg-[#0e1f18] text-white font-medium text-base rounded-xl transition duration-150 shadow-sm flex items-center justify-center cursor-pointer"
+            className="w-full h-11 bg-brand hover:bg-[#0e1f18] text-white font-medium text-sm rounded-xl transition duration-150 shadow-sm flex items-center justify-center cursor-pointer"
           >
-            {isSubmitting ? "Verifying..." : "Verify & Continue"}
+            {isSubmitting ? (
+              <span className="flex items-center gap-2">
+                <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Signing in to {activeRole}...
+              </span>
+            ) : (
+              `Authorize & Enter ${activeRole.charAt(0).toUpperCase() + activeRole.slice(1)} Portal`
+            )}
           </Button>
         </div>
 
@@ -188,7 +243,7 @@ export const VerifyIdentityForm: React.FC = () => {
         <div className="text-center pt-2">
           <Link
             href={backLinkHref}
-            className="inline-flex items-center justify-center text-sm font-medium text-brand hover:text-[#0b1712] hover:underline transition-colors"
+            className="inline-flex items-center justify-center text-xs font-medium text-brand hover:text-[#0b1712] hover:underline transition-colors"
           >
             {backLinkLabel}
           </Link>

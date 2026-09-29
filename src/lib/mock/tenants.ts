@@ -170,49 +170,136 @@ export function getTenantById(id: string): TenantRecord | undefined {
 }
 
 
-export type TenancyStageFilter = "all" | "active" | "application" | "invited" | "former"
-
-// export interface TenantRecord {
-//   id: string
-//   name: string
-//   initials: string
-//   email: string
-//   isApplicant?: boolean
-//   propertyTitle: string
-//   landlord: string
-//   mandateTier: "Tier 1: Full Management" | "Tier 2: Maint + Comms" | "Tier 3: Maintenance Only"
-//   tenancyDates: string
-//   rentStatus: string
-//   rentStatusType: "success" | "warning" | "neutral" | "redacted"
-//   stageLabel: string
-//   stageType: "active" | "screening" | "signature"
-//   isFinancialRestricted?: boolean
-// }
+export type TenancyStageFilter = "all" | "active" | "application" | "invited" | "former";
 
 export interface RentPaymentRecord {
-  id: string
-  period: string
-  status: "Paid on Time" | "Pending" | "Overdue"
-  date: string
-  directDebitRef: string
-  amount: string
+  id: string;
+  period: string;
+  status: "Paid on Time" | "Pending" | "Overdue";
+  date: string;
+  directDebitRef: string;
+  amount: string;
 }
 
 export interface MaintenanceTicket {
-  id: string
-  title: string
-  category: string
-  status: "Visit Scheduled" | "In Progress" | "Completed"
-  loggedDate: string
-  contractor: string
-  appointmentWindow?: string
-  resolutionDate?: string
-  reference: string
+  id: string;
+  title: string;
+  category: string;
+  status: "Logged" | "Under Review" | "Visit Scheduled" | "In Progress" | "Completed";
+  loggedDate: string;
+  contractor: string;
+  appointmentWindow?: string;
+  resolutionDate?: string;
+  reference: string;
+  priority?: "Routine" | "Urgent" | "Emergency";
+  description?: string;
+  accessNotes?: string;
+  photos?: string[];
 }
 
 export interface TenancyDocument {
-  id: string
-  title: string
-  metadata: string
-  type: "ast" | "deposit" | "inventory" | "gas" | "epc"
+  id: string;
+  title: string;
+  metadata: string;
+  type: "ast" | "deposit" | "inventory" | "gas" | "epc" | "eicr" | "other";
+  fileSize?: string;
+  dateAdded?: string;
+  status?: string;
+  referenceNumber?: string;
 }
+
+export const INITIAL_TENANT_TICKETS: MaintenanceTicket[] = [
+  {
+    id: "tkt-1",
+    reference: "#TKT-4921",
+    title: "En-suite Radiator Not Heating Evenly",
+    category: "Heating & Radiators",
+    priority: "Urgent",
+    status: "Visit Scheduled",
+    loggedDate: "12 Oct 2024",
+    contractor: "Apex Heating (Gas Safe #48291)",
+    appointmentWindow: "Thu 17 Oct, 10:00 - 12:00 BST",
+    description: "Radiator in the master en-suite bathroom remains stone cold while hallway radiators are hot. Appears to be an airlock or faulty TRV valve.",
+    accessNotes: "Concierge at 18 Kensington Gardens has spare management key if tenant is unavailable.",
+    photos: ["/images/maintenance-radiator.jpg"]
+  },
+  {
+    id: "tkt-2",
+    reference: "#TKT-3108",
+    title: "Intercom Handset Replacement",
+    category: "Security & Access",
+    priority: "Routine",
+    status: "Completed",
+    loggedDate: "14 Aug 2024",
+    contractor: "Kensington SecureComms Ltd",
+    resolutionDate: "16 Aug 2024",
+    description: "Video display panel on entry phone was flickering and audio crackling on buzzer call from gatehouse.",
+    accessNotes: "Tenant was present on site."
+  },
+  {
+    id: "tkt-3",
+    reference: "#TKT-2490",
+    title: "Kitchen Induction Hob Lockout Diagnostic",
+    category: "Appliances",
+    priority: "Routine",
+    status: "Completed",
+    loggedDate: "02 May 2024",
+    contractor: "Miele Authorized Service London",
+    resolutionDate: "04 May 2024",
+    description: "Child safety lock activated automatically and reset sensor error displayed code E-31.",
+    accessNotes: "Service technician attended during business hours."
+  }
+];
+
+export const INITIAL_TENANCY_DOCS: TenancyDocument[] = [
+  {
+    id: "doc-1",
+    title: "Tenancy Agreement (AST)",
+    metadata: "Signed 28 Nov 2023 • Executed",
+    type: "ast",
+    fileSize: "3.2 MB",
+    dateAdded: "28 Nov 2023",
+    status: "Countersigned & Active",
+    referenceNumber: "#AST-2023-4B"
+  },
+  {
+    id: "doc-2",
+    title: "DPS Deposit Certificate",
+    metadata: "£2,826.92 • Custodial Protection",
+    type: "deposit",
+    fileSize: "680 KB",
+    dateAdded: "01 Dec 2023",
+    status: "DPS Verified",
+    referenceNumber: "#DPS-481928"
+  },
+  {
+    id: "doc-3",
+    title: "Check-in Inventory Report",
+    metadata: "142 Timestamped Photos • Condition Dossier",
+    type: "inventory",
+    fileSize: "14.8 MB",
+    dateAdded: "30 Nov 2023",
+    status: "Countersigned",
+    referenceNumber: "#INV-W2-4B"
+  },
+  {
+    id: "doc-4",
+    title: "Gas Safety Certificate (CP12)",
+    metadata: "Valid until Oct 2025 • Apex Heating",
+    type: "gas",
+    fileSize: "410 KB",
+    dateAdded: "15 Oct 2024",
+    status: "Compliant & Valid",
+    referenceNumber: "#CP12-884920"
+  },
+  {
+    id: "doc-5",
+    title: "Energy Performance Certificate (EPC)",
+    metadata: "Rating: Grade C (74) • Exp: Mar 2031",
+    type: "epc",
+    fileSize: "890 KB",
+    dateAdded: "12 Mar 2021",
+    status: "Certified",
+    referenceNumber: "#EPC-8819-2031"
+  }
+];
