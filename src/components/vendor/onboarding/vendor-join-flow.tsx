@@ -133,12 +133,12 @@ export const VendorJoinFlow: React.FC = () => {
           href="/"
           className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 hover:text-stone-900 transition-colors"
         >
-          <span>← Back to Haven Overview</span>
+          <span>← Back</span>
         </Link>
-        <div className="flex items-center gap-2 text-xs text-stone-500 font-mono">
+        {/* <div className="flex items-center gap-2 text-xs text-stone-500 font-mono">
           <ShieldCheck className="w-4 h-4 text-emerald-600" />
           <span>Statutory Trade & Insurance Verification</span>
-        </div>
+        </div> */}
       </div>
 
       {/* Main Container Card */}
@@ -589,7 +589,7 @@ export const VendorJoinFlow: React.FC = () => {
                     <select
                       value={formData.serviceRadius}
                       onChange={(e) => setFormData({ ...formData, serviceRadius: e.target.value })}
-                      className="w-full text-xs rounded-lg border border-stone-300 px-3 py-2 bg-white focus:border-[#132A20]"
+                      className="w-full text-xs rounded-lg border border-stone-300 px-3 py-2 bg-white focus:border-brand"
                     >
                       <option value="5 miles">Up to 5 miles</option>
                       <option value="15 miles">Up to 15 miles (Standard)</option>
@@ -604,7 +604,7 @@ export const VendorJoinFlow: React.FC = () => {
                         type="checkbox"
                         checked={formData.emergencyAvailable}
                         onChange={(e) => setFormData({ ...formData, emergencyAvailable: e.target.checked })}
-                        className="rounded border-stone-300 text-[#132A20] focus:ring-[#132A20]"
+                        className="rounded border-stone-300 text-brand focus:ring-brand"
                       />
                       <span>Available for 24/7 Emergency Out-of-Hours Callouts</span>
                     </label>
@@ -620,7 +620,8 @@ export const VendorJoinFlow: React.FC = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto bg-[#132A20] text-white hover:bg-[#0c1c15] px-8 py-2.5 rounded-xl cursor-pointer shadow-xs font-medium"
+                  size='default'
+                  className="w-full sm:w-auto bg-brand text-white hover:bg-[#0c1c15] px-8 py-5 rounded-xl cursor-pointer shadow-xs font-medium"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
@@ -630,7 +631,7 @@ export const VendorJoinFlow: React.FC = () => {
                   ) : (
                     <span className="flex items-center gap-2">
                       Submit Verification & Register
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-6" />
                     </span>
                   )}
                 </Button>

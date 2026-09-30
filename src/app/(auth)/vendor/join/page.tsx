@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function VendorJoinPage() {
   return (
-    <div className="min-h-screen py-6 sm:py-10 bg-[#FAFAFA]">
+    <div className="min-h-screen py-2 sm:py-10 bg-[#FAFAFA]">
       <VendorJoinFlow />
     </div>
   );

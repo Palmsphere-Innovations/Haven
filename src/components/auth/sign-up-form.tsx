@@ -96,7 +96,7 @@ export const SignUpForm: React.FC = () => {
             Select Platform Role
           </Label>
           <div aria-label="Platform Role" className="grid grid-cols-2 sm:grid-cols-4 gap-2" role="group">
-            {(["landlord", "agent", "vendor", "tenant"] as const).map((role) => (
+            {(["landlord", "agent",] as const).map((role) => (
               <button
                 key={role}
                 type="button"
