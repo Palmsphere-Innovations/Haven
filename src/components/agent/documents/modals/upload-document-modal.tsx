@@ -1,0 +1,18 @@
+"use client";
+
+import { useState, type FormEvent, type DragEvent } from "react";
+import { X, UploadCloud, FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import type { DocumentItem } from "@/components/agent/documents/document-hub";
+
+export function UploadDocumentModal({ onClose, onAdd }: { onClose: () => void; onAdd: (document: DocumentItem) => void }) {
+  const [file, setFile] = useState<File | null>(null);
+  const handleFile = (candidate?: File) => { if (candidate) setFile(candidate); };
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    onAdd({ id: crypto.randomUUID(), name: file?.name ?? String(form.get("title")), size: file ? `${(file.size / 1024 / 1024).toFixed(1)} MB` : "0.1 MB", property: String(form.get("property")), type: String(form.get("type")), uploadDate: "14 Sep 2026", uploadedBy: "Alistair Vance", fileTheme: "blue" });
+    onClose();
+  };
+  return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" role="dialog" aria-modal="true" aria-labelledby="upload-title"><form onSubmit={submit} className="w-full max-w-lg space-y-4 rounded-2xl bg-white p-6 shadow-2xl"><div className="flex items-center justify-between"><h2 id="upload-title" className="text-lg font-semibold text-stone-900">Upload Document</h2><button type="button" aria-label="Close" onClick={onClose}><X className="h-5 w-5 text-stone-500" /></button></div><div className="grid gap-4 sm:grid-cols-2">{[["title", "Document title", "e.g. Gas Safety Certificate"], ["property", "Linked property", ""]].map(([name, label, placeholder]) => <label key={name} className="text-xs font-medium text-stone-600">{label}{name === "property" ? <select name={name} required className="mt-1 h-10 w-full rounded-lg border border-stone-300 px-3 text-sm"><option>8 Camden Mews (CM-08)</option><option>27 Blenheim Crescent (BC-27)</option><option>Flat 4B, 18 Kensington Gdns (KG-4B)</option></select> : <input name={name} placeholder={placeholder} required className="mt-1 h-10 w-full rounded-lg border border-stone-300 px-3 text-sm" />}</label>)}</div><label className="block text-xs font-medium text-stone-600">Document type<select name="type" className="mt-1 h-10 w-full rounded-lg border border-stone-300 px-3 text-sm">{["Gas CP12", "EICR", "EPC", "AST", "Inventory", "Correspondence"].map((type) => <option key={type}>{type}</option>)}</select></label><label className="block text-xs font-medium text-stone-600">Expiry date (if applicable)<input name="expiry" type="date" className="mt-1 h-10 w-full rounded-lg border border-stone-300 px-3 text-sm" /></label><label onDragOver={(event: DragEvent<HTMLLabelElement>) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); handleFile(event.dataTransfer.files[0]); }} className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-stone-300 p-6 text-center hover:bg-stone-50"><UploadCloud className="h-7 w-7 text-stone-400" /><span className="mt-2 text-sm font-medium text-stone-700">{file ? file.name : "Drop a PDF here or click to browse"}</span>{file ? <span className="mt-1 text-xs text-stone-500">{(file.size / 1024 / 1024).toFixed(2)} MB</span> : <span className="mt-1 text-xs text-stone-400">PDF, DOCX up to 10 MB</span>}<input type="file" accept=".pdf,.doc,.docx" className="sr-only" onChange={(event) => handleFile(event.target.files?.[0])} /></label><div className="flex justify-end gap-2"><Button type="button" variant="outline" onClick={onClose}>Cancel</Button><Button type="submit" className="bg-[#132A20] text-white"><FileText className="mr-2 h-4 w-4" />Save Document</Button></div></form></div>;
+}
